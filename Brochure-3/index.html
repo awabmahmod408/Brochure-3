@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flow Park - Sales Presentation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     @font-face {
       font-family: 'Montserrat';
@@ -160,10 +161,10 @@
       70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(0,0,0,0); }
       100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,0,0,0); }
     }
-    .map-container::after, .unit-display-nested::after {
+    .map-container::after, .unit-display-nested::after, .mp-container::after {
       content: '+'; position: absolute; bottom: 25px; right: 25px; width: 50px; height: 50px; background: rgba(0,0,0,0.8); color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 28px; font-weight: 300; pointer-events: none; animation: pulseHint 2s infinite cubic-bezier(0.66, 0, 0, 1); z-index: 10; opacity: 0.7; transition: 0.3s; font-family: sans-serif;
     }
-    .map-container:hover::after, .unit-display-nested:hover::after {
+    .map-container:hover::after, .unit-display-nested:hover::after, .mp-container:hover::after {
       opacity: 1; animation: none; transform: scale(1.1);
     }
 
@@ -190,8 +191,9 @@
     .am-desc p { font-size: 14px; line-height: 1.6; font-weight: 500;}
 
     /* Slide 11: Master Plan */
-    .mp-container { position: relative; width: 100%; height: 70vh; background: rgba(255,255,255,0.4); backdrop-filter: blur(10px); border-radius: 10px; border: 1px solid rgba(0,0,0,0.1); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-    .mp-img { width: 100%; height: 100%; object-fit: contain; }
+    .mp-container { position: relative; width: 100%; height: 70vh; background: rgba(255,255,255,0.4); backdrop-filter: blur(10px); border-radius: 10px; border: 1px solid rgba(0,0,0,0.1); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); cursor: zoom-in; }
+    .mp-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; transform-origin: center; cursor: zoom-in; }
+    .mp-container:hover .mp-img { transform: scale(1.03); }
     .mp-pin { position: absolute; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
     .pin-icon { width: 30px; height: 30px; background: var(--primary); color: #fff; display: flex; justify-content: center; align-items: center; border-radius: 50%; font-weight: 700; box-shadow: 0 4px 10px rgba(0,0,0,0.4); transition: 0.3s; }
     .pin-lbl { margin-top: 10px; background: #000; color: #fff; padding: 5px 15px; border-radius: 4px; font-size: 12px; font-weight: 700; text-transform: uppercase; opacity: 0; transform: translateY(-10px); transition: 0.3s; pointer-events: none; }
@@ -257,16 +259,15 @@
     /* Slide 14: Partners */
     .partners-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-top: 60px; }
     .partner-logo { background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); height: 120px; border-radius: 8px; display: flex; justify-content: center; align-items: center; padding: 20px; border: 1px solid rgba(0,0,0,0.05); }
-    .partner-logo img { max-width: 100%; max-height: 100%; object-fit: contain; filter: grayscale(100%) brightness(0); transition: 0.3s; opacity: 0.6; }
-    .partner-logo:hover img { filter: grayscale(0%) brightness(1); opacity: 1; }
+    .partner-logo img { max-width: 100%; max-height: 100%; object-fit: contain; transition: 0.3s; }
 
     /* Slide 15: Thank You */
     #s15 { text-align: center; }
-    .qr-container { background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); padding: 20px; border-radius: 10px; display: inline-block; margin: 40px 0; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    .qr-container { background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); padding: 20px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin: 40px auto; width: max-content; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
     .qr-container img { width: 200px; height: 200px; display: block; }
-    .social-links { display: flex; justify-content: center; gap: 30px; margin-top: 30px; }
-    .social-link { color: var(--text-main); text-decoration: none; font-size: 16px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; border-bottom: 2px solid transparent; padding-bottom: 5px;}
-    .social-link:hover { color: var(--primary); border-color: var(--primary); }
+    .social-links { display: flex; justify-content: center; align-items: center; gap: 30px; margin-top: 30px; }
+    .social-link { color: var(--text-main); text-decoration: none; font-size: 28px; transition: 0.3s; padding: 10px; border-radius: 50%; display: flex; justify-content: center; align-items: center; width: 60px; height: 60px; background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.05); }
+    .social-link:hover { color: #fff; background: var(--primary); border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
 
     /* -------------------------------------------
        RESPONSIVENESS (TABLET & MOBILE)
@@ -584,23 +585,10 @@
     <div class="slide" id="s11" data-title="Master Plan">
       <div class="container">
         <span class="label">Layout</span>
-        <h2>Interactive Master Plan</h2>
+        <h2>Master Plan</h2>
         <div class="line-dec"></div>
-        <div class="mp-container">
+        <div class="mp-container" onclick="openLightbox(this)">
           <img src="publication-web-resources/image/master_plan.png" alt="Master Plan" class="mp-img">
-          <!-- Interactive pins -->
-          <div class="mp-pin" style="top: 20%; left: 40%;">
-            <div class="pin-icon">1</div><div class="pin-lbl">Smart Gates</div>
-          </div>
-          <div class="mp-pin" style="top: 50%; left: 55%;">
-            <div class="pin-icon">2</div><div class="pin-lbl">Commercial Strip</div>
-          </div>
-          <div class="mp-pin" style="top: 70%; left: 30%;">
-            <div class="pin-icon">3</div><div class="pin-lbl">Clubhouse & Pool</div>
-          </div>
-          <div class="mp-pin" style="top: 40%; left: 70%;">
-            <div class="pin-icon">4</div><div class="pin-lbl">Green River</div>
-          </div>
         </div>
       </div>
     </div>
@@ -683,7 +671,7 @@
         <p class="body-main">We align with industry leaders ensuring uncompromising quality.</p>
         <div class="partners-grid" style="grid-template-columns: repeat(3, 1fr);">
           <div class="partner-logo"><img src="publication-web-resources/image/partners/38.png" alt="Partner 1" style="height: 35px;"></div>
-          <div class="partner-logo"><img src="publication-web-resources/image/partners/Asset 3.png" alt="Partner 2" style="height: 55px;"></div>
+          <div class="partner-logo"><img src="publication-web-resources/image/partners/Asset 3.png" alt="Partner 2" style="height: 35px;"></div>
           <div class="partner-logo"><img src="publication-web-resources/image/partners/Asset 4.png" alt="Partner 3" style="height: 50px;"></div>
         </div>
       </div>
@@ -699,14 +687,17 @@
         
         <div class="qr-container">
           <!-- Placeholder for actual QR code -->
-          <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; border: 2px dashed #ccc; color: #666; font-weight: 700;">Scan for E-Brochure</div>
+          <div style="width: 250px; height: 250px; display: flex; align-items: center; justify-content: center; border: 2px dashed #ccc; color: #666; font-weight: 700; background: rgba(255,255,255,0.8);">Scan for E-Brochure</div>
         </div>
 
         <div class="social-links">
-          <a href="#" class="social-link">Website</a>
-          <a href="#" class="social-link">Instagram</a>
-          <a href="#" class="social-link">Facebook</a>
-          <a href="#" class="social-link">LinkedIn</a>
+          <a href="https://flow-developments.com/" target="_blank" class="social-link" title="Website"><i class="fa-solid fa-globe"></i></a>
+          <a href="https://www.facebook.com/FlowDevelopments" target="_blank" class="social-link" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/flowdevelopments/" target="_blank" class="social-link" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/authwall?trk=gf&trkInfo=AQEEV5CQ5L6DwAAAAZw55WWI2Any2VB-bGhNcumGCQKh6PKwebG8bBfGpdw0hMQe153vNx5FwXhXw2xJH0J2KGR8TYJHJq35qd8U4RO78Uwljub45dyqLai4M5_xSkEWpvXfaQE=&original_referer=&sessionRedirect=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fflow-developments-2743013a0" target="_blank" class="social-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://www.youtube.com/@FlowDevelopments9" target="_blank" class="social-link" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://www.tiktok.com/@flow.developments?lang=en" target="_blank" class="social-link" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://api.whatsapp.com/send/?phone=201034476903&text&type=phone_number&app_absent=0" target="_blank" class="social-link" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
         </div>
       </div>
     </div>
