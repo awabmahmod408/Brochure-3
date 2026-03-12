@@ -1,0 +1,41 @@
+Package Report
+
+-----------------------------------------------------------------------------
+Document:
+Name: Vector Smart Object.ai
+Color Mode: RGB color
+Color Profile: uRGB
+Ruler Units: pixels
+Artboard Dimensions: 4000 px x 2000 px
+Show Images in Outline Mode: OFF
+Highlight Substituted Fonts: OFF
+Highlight Substituted Glyphs: OFF
+Preserve Text Editability
+Simulate Colored Paper: OFF
+
+-----------------------------------------------------------------------------
+Spot Color Objects:
+
+-----------------------------------------------------------------------------
+Missing Fonts:NONE
+
+-----------------------------------------------------------------------------
+Protected Fonts that were not packaged:NONE
+
+-----------------------------------------------------------------------------
+Fonts:
+Montserrat Medium (TrueType)
+Montserrat Bold (TrueType)
+HV Constantine Regular (OTF)
+
+-----------------------------------------------------------------------------
+Embedded Fonts:
+NONE
+
+-----------------------------------------------------------------------------
+Missing Links:
+NONE
+
+-----------------------------------------------------------------------------
+Linked Images:
+NONE

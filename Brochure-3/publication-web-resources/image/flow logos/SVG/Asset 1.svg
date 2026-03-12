@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1317.13 370.61">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: 0em;
+      }
+
+      .cls-2 {
+        font-family: Montserrat-Medium, Montserrat;
+        font-size: 107.16px;
+        font-weight: 500;
+      }
+
+      .cls-3 {
+        fill: #ec1c23;
+      }
+
+      .cls-4 {
+        letter-spacing: 0em;
+      }
+
+      .cls-5 {
+        font-family: Montserrat-Bold, Montserrat;
+        font-size: 225.51px;
+        font-weight: 700;
+      }
+
+      .cls-6 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-7 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-8 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-9 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-10 {
+        letter-spacing: 0em;
+      }
+
+      .cls-11 {
+        letter-spacing: 0em;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <g>
+        <polygon class="cls-3" points="290.45 215.57 290.45 324.21 217.28 324.21 108.64 215.57 290.45 215.57"/>
+        <polygon class="cls-3" points="108.64 142.47 108.64 142.46 0 33.82 290.45 33.82 290.45 142.47 108.64 142.47"/>
+        <rect class="cls-3" y="142.47" width="108.64" height="181.74"/>
+      </g>
+      <text class="cls-5" transform="translate(386.61 191.68)"><tspan x="0" y="0">F</tspan><tspan class="cls-9" x="144.1" y="0">L</tspan><tspan class="cls-6" x="277.6" y="0">O</tspan><tspan x="462.75" y="0">W</tspan></text>
+      <text class="cls-2" transform="translate(393.16 321.1)"><tspan x="0" y="0">D</tspan><tspan class="cls-11" x="88.52" y="0">E</tspan><tspan class="cls-7" x="159.25" y="0">V</tspan><tspan x="233.94" y="0">E</tspan><tspan class="cls-8" x="305.74" y="0">L</tspan><tspan class="cls-4" x="368" y="0">O</tspan><tspan class="cls-11" x="458.02" y="0">P</tspan><tspan x="534.32" y="0">MEN</tspan><tspan class="cls-10" x="795.48" y="0">T</tspan><tspan class="cls-1" x="857.42" y="0">S</tspan></text>
+    </g>
+  </g>
+</svg>

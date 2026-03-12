@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/awabeltarabilly/.claude/projects/c--Users-awabeltarabilly-Downloads-Brochure-3/memory/**)"
+    ]
+  }
+}
