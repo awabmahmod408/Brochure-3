@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Read(//c/Users/awabeltarabilly/.claude/projects/c--Users-awabeltarabilly-Downloads-Brochure-3/memory/**)"
+      "Read(//c/Users/awabeltarabilly/.claude/projects/c--Users-awabeltarabilly-Downloads-Brochure-3/memory/**)",
+      "Bash(dir /b \"c:\\\\Users\\\\awabeltarabilly\\\\Downloads\\\\Brochure-3\\\\Brochure-3\\\\publication-web-resources\\\\image\")"
     ]
   }
 }
