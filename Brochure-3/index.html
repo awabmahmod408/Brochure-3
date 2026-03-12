@@ -154,9 +154,23 @@
     .video-container { width: 100%; padding-top: 45%; position: relative; border-radius: 10px; overflow: hidden; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
     .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
+    /* Zoom Animations & Hints */
+    @keyframes pulseHint {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,0,0,0.4); }
+      70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(0,0,0,0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,0,0,0); }
+    }
+    .map-container::after, .unit-display-nested::after {
+      content: '+'; position: absolute; bottom: 25px; right: 25px; width: 50px; height: 50px; background: rgba(0,0,0,0.8); color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 28px; font-weight: 300; pointer-events: none; animation: pulseHint 2s infinite cubic-bezier(0.66, 0, 0, 1); z-index: 10; opacity: 0.7; transition: 0.3s; font-family: sans-serif;
+    }
+    .map-container:hover::after, .unit-display-nested:hover::after {
+      opacity: 1; animation: none; transform: scale(1.1);
+    }
+
     /* Slide 8: Location */
-    .map-container { position: relative; width: 100%; height: 65vh; background: rgba(255,255,255,0.4); backdrop-filter: blur(10px); border-radius: 10px; border: 1px solid rgba(0,0,0,0.1); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-    .map-img { width: 100%; height: 100%; object-fit: cover; }
+    .map-container { position: relative; width: 100%; height: 65vh; background: rgba(255,255,255,0.4); backdrop-filter: blur(10px); border-radius: 10px; border: 1px solid rgba(0,0,0,0.1); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); cursor: zoom-in; }
+    .map-img { width: 100%; height: 100%; object-fit: contain; cursor: zoom-in; transition: transform 0.4s ease; transform-origin: center; }
+    .map-container:hover .map-img { transform: scale(1.03); }
 
     /* Slide 9: Fact Sheet */
     .facts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px; }
@@ -184,13 +198,35 @@
     .mp-pin:hover .pin-icon { transform: scale(1.2); }
     .mp-pin:hover .pin-lbl { opacity: 1; transform: translateY(0); }
 
-    /* Slide 12: Unit Types */
-    .unit-interactive { display: flex; height: 65vh; border: 1px solid rgba(0,0,0,0.1); border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-    .unit-sidebar { width: 300px; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); display: flex; flex-direction: column; border-right: 1px solid rgba(0,0,0,0.1); }
-    .step-header { padding: 20px; background: rgba(0,0,0,0.05); font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); font-weight: 700; }
-    .unit-btn { padding: 20px; text-align: left; background: transparent; border: none; border-bottom: 1px solid rgba(0,0,0,0.05); color: var(--text-main); font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.3s; display: flex; justify-content: space-between; align-items: center; font-family: 'Montserrat', sans-serif; text-transform: uppercase;}
-    .unit-btn:hover, .unit-btn.active { background: rgba(0,0,0,0.05); border-left: 4px solid var(--primary); color: var(--primary); }
-    .unit-display { flex: 1; padding: 50px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; background: rgba(255,255,255,0.3); backdrop-filter: blur(5px); }
+    /* Slide 12: Unit Types Nested */
+    .unit-system { display: flex; flex-direction: column; height: 65vh; gap: 20px; }
+    .hz-tabs { display: flex; gap: 10px; border-bottom: 2px solid rgba(0,0,0,0.1); padding-bottom: 10px; }
+    .hz-tab { padding: 10px 20px; font-weight: 700; cursor: pointer; border-radius: 8px 8px 0 0; background: rgba(255,255,255,0.4); border: 1px solid rgba(0,0,0,0.05); border-bottom: none; transition: 0.3s; color: var(--text-main); font-family: 'Montserrat', sans-serif; }
+    .hz-tab:hover { background: rgba(255,255,255,0.7); }
+    .hz-tab.active { background: rgba(255,255,255,0.9); border-color: var(--primary); color: var(--primary); }
+    
+    .nested-grid { display: grid; grid-template-columns: 200px 180px 1fr; gap: 20px; flex: 1; min-height: 0; }
+    
+    .vt-tabs { display: flex; flex-direction: column; gap: 10px; background: rgba(255,255,255,0.4); backdrop-filter: blur(10px); padding: 15px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.05); overflow-y: auto;}
+    .vt-tab { padding: 12px 15px; font-weight: 700; font-size: 14px; cursor: pointer; border-radius: 6px; background: rgba(255,255,255,0.5); transition: 0.3s; text-align: left; border: none; font-family: 'Montserrat', sans-serif;}
+    .vt-tab:hover { background: rgba(255,255,255,0.8); }
+    .vt-tab.active { background: var(--primary); color: #fff; }
+    
+    .inner-sidebar { display: flex; flex-direction: column; gap: 10px; background: rgba(255,255,255,0.3); backdrop-filter: blur(10px); padding: 15px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.05); overflow-y: auto;}
+    .inner-btn { padding: 10px; font-size: 12px; font-weight: 700; cursor: pointer; border-radius: 4px; background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.05); transition: 0.3s; text-align: center; font-family: 'Montserrat', sans-serif; color: var(--text-main);}
+    .inner-btn:hover { background: rgba(255,255,255,1); }
+    .inner-btn.active { background: rgba(0,0,0,0.8); color: #fff; border-color: #000; }
+    
+    .unit-display-nested { background: rgba(255,255,255,0.4); backdrop-filter: blur(10px); border-radius: 8px; padding: 10px; border: 1px solid rgba(0,0,0,0.05); display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative; cursor: zoom-in;}
+    .unit-display-nested img { width: 100%; height: 100%; object-fit: contain; transition: opacity 0.3s, transform 0.4s ease; opacity: 0; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.1)); cursor: zoom-in; transform-origin: center; }
+    .unit-display-nested:hover img { transform: scale(1.03); }
+    
+    /* Fullscreen Image Overlay CSS */
+    .lightbox-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.9); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s; cursor: zoom-out; }
+    .lightbox-overlay.active { opacity: 1; pointer-events: auto; }
+    .lightbox-img { max-width: 95vw; max-height: 95vh; object-fit: contain; transform: scale(0.8); transition: transform 0.3s; }
+    .lightbox-overlay.active .lightbox-img { transform: scale(1); }
+    .lightbox-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; font-weight: 700; cursor: pointer; }
     .unit-info { position: absolute; top: 30px; left: 40px; }
     .unit-name { font-size: 32px; font-weight: 700; margin-bottom: 10px; color: #111; text-transform: uppercase;}
     .unit-area { font-size: 20px; font-weight: 700; color: var(--primary); }
@@ -221,7 +257,7 @@
     /* Slide 14: Partners */
     .partners-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-top: 60px; }
     .partner-logo { background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); height: 120px; border-radius: 8px; display: flex; justify-content: center; align-items: center; padding: 20px; border: 1px solid rgba(0,0,0,0.05); }
-    .partner-logo img { max-width: 100%; max-height: 100%; filter: grayscale(100%) brightness(0); transition: 0.3s; opacity: 0.6; }
+    .partner-logo img { max-width: 100%; max-height: 100%; object-fit: contain; filter: grayscale(100%) brightness(0); transition: 0.3s; opacity: 0.6; }
     .partner-logo:hover img { filter: grayscale(0%) brightness(1); opacity: 1; }
 
     /* Slide 15: Thank You */
@@ -400,11 +436,11 @@
         <div class="line-dec"></div>
         <div class="numbers-grid">
           <div class="number-card">
-            <div class="num-val">19</div>
+            <div class="num-val" data-target="19" data-suffix="">0</div>
             <div class="num-label">Years of Experience</div>
           </div>
           <div class="number-card">
-            <div class="num-val">100+</div>
+            <div class="num-val" data-target="100" data-suffix="+">0</div>
             <div class="num-label">Projects Delivered</div>
           </div>
         </div>
@@ -470,7 +506,7 @@
         <span class="label">Connectivity</span>
         <h2>Unmatched Accessibility</h2>
         <div class="line-dec"></div>
-        <div class="map-container">
+        <div class="map-container" onclick="openLightbox(this)">
           <img src="publication-web-resources/image/flow_park_map_sales_kit.png" alt="Map" class="map-img">
         </div>
       </div>
@@ -483,11 +519,11 @@
         <h2>The Grand Scale</h2>
         <div class="line-dec"></div>
         <div class="facts-grid">
-          <div class="fact-card"><div class="fc-val">95,566 <span style="font-size: 20px;">sqm</span></div><div class="fc-lbl">Total Land Area</div></div>
-          <div class="fact-card"><div class="fc-val">920</div><div class="fc-lbl">Total Units</div></div>
-          <div class="fact-card"><div class="fc-val">18%</div><div class="fc-lbl">Built-Up Area</div></div>
-          <div class="fact-card"><div class="fc-val">1.5 <span style="font-size: 20px;">km</span></div><div class="fc-lbl">Facade Length</div></div>
-          <div class="fact-card"><div class="fc-val">35</div><div class="fc-lbl">Buildings</div></div>
+          <div class="fact-card"><div class="fc-val" data-target="95566" data-suffix=" <span style='font-size: 20px;'>sqm</span>">0</div><div class="fc-lbl">Total Land Area</div></div>
+          <div class="fact-card"><div class="fc-val" data-target="920" data-suffix="">0</div><div class="fc-lbl">Total Units</div></div>
+          <div class="fact-card"><div class="fc-val" data-target="18" data-suffix="%">0</div><div class="fc-lbl">Built-Up Area</div></div>
+          <div class="fact-card"><div class="fc-val" data-target="1.5" data-suffix=" <span style='font-size: 20px;'>km</span>" data-decimal="true">0</div><div class="fc-lbl">Facade Length</div></div>
+          <div class="fact-card"><div class="fc-val" data-target="35" data-suffix="">0</div><div class="fc-lbl">Buildings</div></div>
         </div>
       </div>
     </div>
@@ -575,22 +611,14 @@
         <span class="label">Residences</span>
         <h2>Choose Your Space</h2>
         <div class="line-dec"></div>
-        <div class="unit-interactive">
-          <div class="unit-sidebar">
-            <div class="step-header">Select Unit Type</div>
-            <button class="unit-btn active" onclick="loadUnit('1br', this)">Type A (1 Bedroom) <span>&#8594;</span></button>
-            <button class="unit-btn" onclick="loadUnit('2br', this)">Type B (2 Bedrooms) <span>&#8594;</span></button>
-            <button class="unit-btn" onclick="loadUnit('3br', this)">Type C (3 Bedrooms) <span>&#8594;</span></button>
-            <button class="unit-btn" onclick="loadUnit('4br', this)">Type D (4 Bedrooms) <span>&#8594;</span></button>
-            <button class="unit-btn" onclick="loadUnit('gv', this)">Garden Villa <span>&#8594;</span></button>
-            <button class="unit-btn" onclick="loadUnit('sv', this)">Sky View Villa <span>&#8594;</span></button>
-          </div>
-          <div class="unit-display" id="unitDisplay">
-            <div class="unit-info">
-              <div class="unit-name" id="uName">Type A - 1 Bedroom</div>
-              <div class="unit-area" id="uArea">75 sqm</div>
+        <div class="unit-system">
+          <div class="hz-tabs" id="projTabs"></div>
+          <div class="nested-grid">
+            <div class="vt-tabs" id="catTabs"></div>
+            <div class="inner-sidebar" id="imgTabs"></div>
+            <div class="unit-display-nested" onclick="openLightbox()">
+              <img src="" id="nestedImg" alt="Plan">
             </div>
-            <img src="publication-web-resources/image/plans/8.png" id="uImg" class="unit-img" alt="Floor Plan">
           </div>
         </div>
       </div>
@@ -653,12 +681,10 @@
         <h2>Strength in Partnership</h2>
         <div class="line-dec"></div>
         <p class="body-main">We align with industry leaders ensuring uncompromising quality.</p>
-        <div class="partners-grid">
-          <!-- Placeholders for partner logos -->
-          <div class="partner-logo"><h3>Partner 1</h3></div>
-          <div class="partner-logo"><h3>Partner 2</h3></div>
-          <div class="partner-logo"><h3>Partner 3</h3></div>
-          <div class="partner-logo"><h3>Partner 4</h3></div>
+        <div class="partners-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="partner-logo"><img src="publication-web-resources/image/partners/38.png" alt="Partner 1" style="height: 35px;"></div>
+          <div class="partner-logo"><img src="publication-web-resources/image/partners/Asset 3.png" alt="Partner 2" style="height: 55px;"></div>
+          <div class="partner-logo"><img src="publication-web-resources/image/partners/Asset 4.png" alt="Partner 3" style="height: 50px;"></div>
         </div>
       </div>
     </div>
@@ -686,6 +712,12 @@
     </div>
 
   </div> <!-- End Presentation -->
+
+  <!-- Fullscreen Modal -->
+  <div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox()">
+    <div class="lightbox-close">&times;</div>
+    <img src="" class="lightbox-img" id="lightboxImg">
+  </div>
 
   <!-- JavaScript -->
   <script>
@@ -727,6 +759,55 @@
       currIdx = index;
       slides[currIdx].classList.add('active');
       updateControls();
+      
+      // Trigger counting animations on relevant slides
+      const newActiveSlide = slides[currIdx];
+      const ctrls = newActiveSlide.querySelectorAll('.num-val, .fc-val');
+      if(ctrls.length > 0) {
+        ctrls.forEach(animateCounter);
+      }
+    }
+
+    // --- Counter Animation Logic ---
+    function animateCounter(el) {
+      if(el.dataset.animated === "true") return; // Prevent double trigger
+      
+      const targetStr = el.getAttribute('data-target');
+      if(!targetStr) return;
+      
+      el.dataset.animated = "true";
+      const target = parseFloat(targetStr);
+      const isDecimal = el.getAttribute('data-decimal') === 'true';
+      const suffix = el.getAttribute('data-suffix') || '';
+      
+      const duration = 2000; // ms
+      const startTime = performance.now();
+      
+      function updateObj(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing out function
+        const easeOutQuad = 1 - (1 - progress) * (1 - progress);
+        const currentVal = target * easeOutQuad;
+        
+        if (progress < 1) {
+          if(isDecimal) {
+            el.innerHTML = currentVal.toFixed(1) + suffix;
+          } else {
+            el.innerHTML = Math.floor(currentVal).toLocaleString('en-US') + suffix;
+          }
+          requestAnimationFrame(updateObj);
+        } else {
+          // Final value snap
+          if(isDecimal) {
+            el.innerHTML = target.toFixed(1) + suffix;
+          } else {
+            el.innerHTML = target.toLocaleString('en-US') + suffix;
+          }
+        }
+      }
+      requestAnimationFrame(updateObj);
     }
 
     function prevSlide() { goToSlide(currIdx - 1); }
@@ -748,29 +829,146 @@
       if (touchEndX > touchStartX + 50) prevSlide();
     });
 
-    // --- Slide 12: Units Logic ---
-    const unitData = {
-      '1br': { name: 'Type A - 1 Bedroom', area: '75 sqm', img: 'publication-web-resources/image/plans/8.png' },
-      '2br': { name: 'Type B - 2 Bedrooms', area: '120 sqm', img: 'publication-web-resources/image/plans/11.png' },
-      '3br': { name: 'Type C - 3 Bedrooms', area: '137 sqm', img: 'publication-web-resources/image/plans/15.png' },
-      '4br': { name: 'Type D - 4 Bedrooms', area: '197 sqm', img: 'publication-web-resources/image/plans/19.png' },
-      'gv':  { name: 'Garden Villa', area: 'Custom', img: 'publication-web-resources/image/plans/23.png' },
-      'sv':  { name: 'Sky View Villa', area: 'Custom', img: 'publication-web-resources/image/plans/27.png' }
+    // --- Slide 12: Units Logic (Nested Dynamic) ---
+    const unitDataNested = {
+      "TYPE A": {
+        "hero": "publication-web-resources/image/plans/TYPE A/hero.png",
+        "categories": {
+          "Ground Floor": ["slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png"],
+          "Typical Floor": ["slide_007.png", "slide_008.png", "slide_009.png", "slide_010.png"]
+        }
+      },
+      "TYPE B": {
+        "hero": "publication-web-resources/image/plans/TYPE B/hero.png",
+        "categories": {
+          "Ground Floor": ["slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png"],
+          "Typical Floor": ["slide_008.png", "slide_009.png", "slide_010.png", "slide_011.png"]
+        }
+      },
+      "TYPE I": {
+        "hero": "publication-web-resources/image/plans/TYPE I/hero.png",
+        "categories": {
+          "Ground Floor": ["slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png", "slide_008.png", "slide_009.png"],
+          "Typical Floor": ["slide_010.png", "slide_011.png", "slide_012.png", "slide_013.png", "slide_014.png", "slide_015.png", "slide_016.png", "slide_017.png"]
+        }
+      },
+      "TYPE V": {
+        "hero": "publication-web-resources/image/plans/TYPE V/Hero.png",
+        "categories": {
+          "Ground Floor": ["slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png", "slide_013.png", "slide_014.png", "slide_015.png", "slide_016.png", "slide_017.png"],
+          "Garden Villa": ["slide_023.png", "slide_024.png"],
+          "Mid Villa": ["slide_025.png", "slide_026.png"],
+          "SKY Villa": ["slide_027.png"]
+        }
+      }
     };
-    function loadUnit(key, btn) {
-      document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
+
+    let curProject = "TYPE A";
+    let curCategory = null; // null means hero view
+
+    function initUnitSystem() {
+      const projTabs = document.getElementById('projTabs');
+      Object.keys(unitDataNested).forEach(proj => {
+        const btn = document.createElement('div');
+        btn.className = 'hz-tab' + (proj === curProject ? ' active' : '');
+        btn.innerText = proj;
+        btn.onclick = () => selectProject(proj, btn);
+        projTabs.appendChild(btn);
+      });
+      selectProject(curProject, projTabs.firstChild);
+    }
+
+    function selectProject(proj, btn) {
+      if(btn) {
+        document.querySelectorAll('.hz-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      curProject = proj;
+      curCategory = null; // Reset to hero
+      
+      const catTabs = document.getElementById('catTabs');
+      catTabs.innerHTML = '';
+      
+      const cats = unitDataNested[proj].categories;
+      Object.keys(cats).forEach(cat => {
+        if(cats[cat].length === 0) return;
+        const cBtn = document.createElement('button');
+        cBtn.className = 'vt-tab';
+        cBtn.innerText = cat;
+        cBtn.onclick = () => selectCategory(cat, cBtn);
+        catTabs.appendChild(cBtn);
+      });
+
+      // Default load state -> Hero Image
+      const imgTabs = document.getElementById('imgTabs');
+      imgTabs.innerHTML = ''; // Clear image list
+      
+      const overBtn = document.createElement('div');
+      overBtn.className = 'inner-btn active';
+      overBtn.innerText = 'Project Overview';
+      overBtn.onclick = () => {
+        document.querySelectorAll('.vt-tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.inner-btn').forEach(b => b.classList.remove('active'));
+        overBtn.classList.add('active');
+        curCategory = null;
+        loadNestedImage(unitDataNested[proj].hero, proj + ' Overview');
+      };
+      imgTabs.appendChild(overBtn);
+
+      loadNestedImage(unitDataNested[proj].hero, proj + ' Overview');
+    }
+
+    function selectCategory(cat, btn) {
+      document.querySelectorAll('.vt-tab').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      curCategory = cat;
+
+      const imgTabs = document.getElementById('imgTabs');
+      imgTabs.innerHTML = '';
       
-      const imgEl = document.getElementById('uImg');
+      const images = unitDataNested[curProject].categories[cat];
+      images.forEach((img, idx) => {
+        const iBtn = document.createElement('div');
+        iBtn.className = 'inner-btn' + (idx === 0 ? ' active' : '');
+        iBtn.innerText = `Plan Option ${idx + 1}`;
+        const imgPath = `publication-web-resources/image/plans/${curProject}/${cat}/${img}`;
+        iBtn.onclick = () => {
+          document.querySelectorAll('.inner-btn').forEach(b => b.classList.remove('active'));
+          iBtn.classList.add('active');
+          loadNestedImage(imgPath, cat + ' - ' + `Option ${idx + 1}`);
+        };
+        imgTabs.appendChild(iBtn);
+      });
+
+      if(images.length > 0) {
+        imgTabs.firstChild.click();
+      }
+    }
+
+    function loadNestedImage(src, title) {
+      const imgEl = document.getElementById('nestedImg');
+      
       imgEl.style.opacity = 0;
-      
       setTimeout(() => {
-        document.getElementById('uName').innerText = unitData[key].name;
-        document.getElementById('uArea').innerText = unitData[key].area;
-        imgEl.src = unitData[key].img;
+        imgEl.src = src;
         imgEl.style.opacity = 1;
       }, 300);
     }
+
+    // --- Lightbox / Fullscreen Logic ---
+    function openLightbox(el) {
+      const src = el ? (el.tagName === 'IMG' ? el.src : el.querySelector('img').src) : document.getElementById('nestedImg').src;
+      if(!src) return;
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxOverlay').classList.add('active');
+    }
+    
+    function closeLightbox() {
+      document.getElementById('lightboxOverlay').classList.remove('active');
+    }
+
+    // Call init
+    initUnitSystem();
 
     // --- Slide 13: Payment Calculator Logic ---
     const paymentPlans = [
