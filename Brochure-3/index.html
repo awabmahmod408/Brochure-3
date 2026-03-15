@@ -31,6 +31,34 @@
       --red: #ec1c23;
     }
 
+    /* Preloader */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #111111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      transition: opacity 0.5s ease;
+    }
+
+    #preloader.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #preloaderPct {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 72px;
+      font-weight: 700;
+      color: #eb1d23;
+      letter-spacing: 4px;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -350,7 +378,8 @@
 
     #s2 > .container,
     #s3 > .container,
-    #s4 > .container {
+    #s4 > .container,
+    #s7 > .container {
       padding-bottom: 32vh;
     }
 
@@ -460,6 +489,46 @@
       100% {
         transform: translateX(-50%);
       }
+    }
+
+    /* Image slider strip */
+    .img-strip-belt {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 28vh;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .img-strip-inner {
+      display: flex;
+      width: max-content;
+      animation: imgStripScroll 40s linear infinite;
+      gap: 12px;
+    }
+
+    @keyframes imgStripScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(-50% - 6px)); }
+    }
+
+    .img-strip-inner img {
+      height: 28vh;
+      width: auto;
+      display: block;
+      flex-shrink: 0;
+      border-radius: 8px;
+      object-fit: cover;
+      pointer-events: all;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .img-strip-inner img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
     }
 
     /* Slide 1: Cover */
@@ -1094,13 +1163,13 @@
     }
 
     .mp-fac-item:hover {
-      background: rgba(201, 168, 76, 0.08);
-      border-color: rgba(201, 168, 76, 0.22);
+      background: rgba(235, 29, 35, 0.08);
+      border-color: rgba(235, 29, 35, 0.22);
     }
 
     .mp-fac-item.active {
-      background: rgba(201, 168, 76, 0.15);
-      border-color: #C9A84C;
+      background: rgba(235, 29, 35, 0.15);
+      border-color: #eb1d23;
     }
 
     .mp-fac-num {
@@ -1108,7 +1177,7 @@
       min-width: 20px;
       height: 20px;
       border-radius: 50%;
-      background: #C9A84C;
+      background: #eb1d23;
       color: #fff;
       font-size: 9px;
       font-weight: 700;
@@ -1147,7 +1216,7 @@
     }
 
     .mp-info-icon i {
-      color: #C9A84C;
+      color: #eb1d23;
       font-size: 15px;
     }
 
@@ -1174,6 +1243,7 @@
       border: 1px solid rgba(0, 0, 0, 0.06);
       cursor: grab;
       user-select: none;
+      perspective: 1200px;
     }
 
     .mp-viewport:active {
@@ -1185,12 +1255,16 @@
       top: 0;
       left: 0;
       transform-origin: 0 0;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out;
     }
 
     #mp-plan-img {
       display: block;
       pointer-events: none;
       user-select: none;
+      filter: drop-shadow(0 25px 50px rgba(0,0,0,0.35)) drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+      border-radius: 8px;
     }
 
     .mp-zoom-ctrl {
@@ -1224,8 +1298,8 @@
 
     .mp-zoom-btn:hover {
       background: #fff;
-      border-color: #C9A84C;
-      color: #C9A84C;
+      border-color: #eb1d23;
+      color: #eb1d23;
     }
 
     .mp-save-btn {
@@ -1233,14 +1307,14 @@
     }
 
     .mp-save-btn.saved {
-      background: #C9A84C !important;
+      background: #eb1d23 !important;
       color: #fff !important;
-      border-color: #C9A84C !important;
+      border-color: #eb1d23 !important;
     }
 
     .pin.highlighted .dot {
       transform: scale(2.2) !important;
-      box-shadow: 0 0 18px 6px rgba(201, 168, 76, 1) !important;
+      box-shadow: 0 0 18px 6px rgba(235, 29, 35, 1) !important;
     }
 
     /* Master Plan Pins */
@@ -1266,9 +1340,9 @@
     .dot {
       width: 12px;
       height: 12px;
-      background: #C9A84C;
+      background: #eb1d23;
       border-radius: 50%;
-      box-shadow: 0 0 6px 2px rgba(201, 168, 76, 0.5);
+      box-shadow: 0 0 6px 2px rgba(235, 29, 35, 0.5);
       position: relative;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       flex-shrink: 0;
@@ -1282,14 +1356,14 @@
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      background: rgba(201, 168, 76, 0.45);
+      background: rgba(235, 29, 35, 0.45);
       transform: translate(-50%, -50%) scale(1);
       animation: ping 2s ease-out infinite;
     }
 
     .pin:hover .dot {
       transform: scale(1.7);
-      box-shadow: 0 0 14px 5px rgba(201, 168, 76, 0.85);
+      box-shadow: 0 0 14px 5px rgba(235, 29, 35, 0.85);
     }
 
     @keyframes ping {
@@ -1366,12 +1440,12 @@
     .tt-icon {
       width: 32px;
       height: 32px;
-      background: rgba(201, 168, 76, 0.15);
+      background: rgba(235, 29, 35, 0.15);
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #C9A84C;
+      color: #eb1d23;
       font-size: 14px;
       flex-shrink: 0;
     }
@@ -1418,13 +1492,13 @@
     }
 
     .tt-edit-btn {
-      background: rgba(201, 168, 76, 0.1);
-      border: 1px solid rgba(201, 168, 76, 0.35);
-      color: #C9A84C;
+      background: rgba(235, 29, 35, 0.1);
+      border: 1px solid rgba(235, 29, 35, 0.35);
+      color: #eb1d23;
     }
 
     .tt-edit-btn:hover {
-      background: rgba(201, 168, 76, 0.22);
+      background: rgba(235, 29, 35, 0.22);
     }
 
     .tt-add-inst-btn {
@@ -1485,7 +1559,7 @@
     }
 
     .mp-edit-act-btn.confirm {
-      background: #C9A84C;
+      background: #eb1d23;
       color: #fff;
     }
 
@@ -1661,7 +1735,7 @@
     .unit-display-nested img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       transition: opacity 0.3s, transform 0.4s ease;
       opacity: 0;
       filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.1));
@@ -2256,6 +2330,44 @@
 
 <body>
 
+  <!-- Preloader -->
+  <div id="preloader">
+    <div id="preloaderPct">0%</div>
+  </div>
+  <script>
+    (function() {
+      const pctEl = document.getElementById('preloaderPct');
+      const loader = document.getElementById('preloader');
+      let pct = 0;
+      let loaded = false;
+      const maxTime = 3000;
+      const start = Date.now();
+
+      function tick() {
+        const elapsed = Date.now() - start;
+        const timePct = Math.min((elapsed / maxTime) * 100, 100);
+        if (loaded) {
+          pct = 100;
+        } else {
+          pct = Math.min(pct + (100 - pct) * 0.08, timePct, 99);
+        }
+        pctEl.textContent = Math.round(pct) + '%';
+        if (pct >= 100) {
+          pctEl.textContent = '100%';
+          setTimeout(() => { loader.classList.add('hide'); }, 200);
+          setTimeout(() => { loader.remove(); }, 700);
+          return;
+        }
+        requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+
+      window.addEventListener('load', () => { loaded = true; });
+      setTimeout(() => { loaded = true; }, maxTime);
+    })();
+  </script>
+
   <!-- Navigation -->
   <nav class="fixed-nav">
     <div class="nav-logo">
@@ -2426,11 +2538,12 @@
               community-centric amenities to Obour City.</p>
           </div>
           <div style="text-align: right;">
-            <img src="publication-web-resources/image/R01.png" alt="Concept"
-              style="max-width: 100%; border-radius: 10px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+            <img id="s7PreviewImg" src="publication-web-resources/image/R01.png" alt="Concept"
+              style="max-width: 100%; border-radius: 10px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); transition: opacity 0.3s ease;">
           </div>
         </div>
       </div>
+      <div class="img-strip-belt" id="s7Strip"><div class="img-strip-inner"><img src="publication-web-resources/image/slider/Artboard 1.png" alt=""><img src="publication-web-resources/image/slider/Artboard 2.png" alt=""><img src="publication-web-resources/image/slider/Artboard 3.png" alt=""><img src="publication-web-resources/image/slider/Artboard 4.png" alt=""><img src="publication-web-resources/image/slider/Artboard 5.png" alt=""><img src="publication-web-resources/image/slider/Artboard 1.png" alt=""><img src="publication-web-resources/image/slider/Artboard 2.png" alt=""><img src="publication-web-resources/image/slider/Artboard 3.png" alt=""><img src="publication-web-resources/image/slider/Artboard 4.png" alt=""><img src="publication-web-resources/image/slider/Artboard 5.png" alt=""></div></div>
     </div>
 
     <!-- Slide 8: Location -->
@@ -2855,6 +2968,30 @@
 
     function prevSlide() { goToSlide(currIdx - 1); }
     function nextSlide() { goToSlide(currIdx + 1); }
+
+    // Slide 7 strip hover → preview in main image
+    (function() {
+      const preview = document.getElementById('s7PreviewImg');
+      const strip = document.getElementById('s7Strip');
+      if (!preview || !strip) return;
+      const originalSrc = preview.src;
+      strip.querySelectorAll('.img-strip-inner img').forEach(img => {
+        img.addEventListener('mouseenter', () => {
+          preview.style.opacity = '0';
+          setTimeout(() => {
+            preview.src = img.src;
+            preview.style.opacity = '1';
+          }, 150);
+        });
+        img.addEventListener('mouseleave', () => {
+          preview.style.opacity = '0';
+          setTimeout(() => {
+            preview.src = originalSrc;
+            preview.style.opacity = '1';
+          }, 150);
+        });
+      });
+    })();
 
     // Keyboard bindings
     document.addEventListener('keydown', (e) => {
@@ -3283,12 +3420,15 @@
       mpStartEdit(facIdx, f.n_instances - 1);
     }
 
+    // 3D tilt state
+    let mpTiltX = 0, mpTiltY = 0;
+
     // With rotate(90deg) CW and transform-origin:0 0:
     //   viewport pos of image point (ix, iy):  vx = -iy*s + tx,  vy = ix*s + ty
     function mpApplyTransform(animated) {
       const root = document.getElementById('mpTransformRoot');
       root.style.transition = animated ? 'transform 0.45s cubic-bezier(0.4,0,0.2,1)' : 'none';
-      root.style.transform = `translate(${mpPanX}px,${mpPanY}px) scale(${mpZoom}) rotate(${MP_ROT}deg)`;
+      root.style.transform = `translate(${mpPanX}px,${mpPanY}px) scale(${mpZoom}) rotate(${MP_ROT}deg) rotateX(${mpTiltX}deg) rotateY(${mpTiltY}deg)`;
     }
 
     function mpFit() {
@@ -3506,6 +3646,21 @@
         if (!e.target.closest('.pin') && !e.target.closest('.mp-zoom-ctrl')) {
           mpClearSelection();
         }
+      });
+
+      // 3D tilt on mouse move
+      vp.addEventListener('mousemove', e => {
+        const rect = vp.getBoundingClientRect();
+        const cx = (e.clientX - rect.left) / rect.width - 0.5;  // -0.5 to 0.5
+        const cy = (e.clientY - rect.top) / rect.height - 0.5;
+        mpTiltX = -cy * 1.5;
+        mpTiltY = cx * 1.5;
+        mpApplyTransform(false);
+      });
+      vp.addEventListener('mouseleave', () => {
+        mpTiltX = 0;
+        mpTiltY = 0;
+        mpApplyTransform(true);
       });
 
       mpFit();
