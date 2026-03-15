@@ -164,6 +164,17 @@
       transition: 0.3s;
     }
 
+    /* Dark nav for light-background slides */
+    .nav-dark .nav-hotline-svg {
+      filter: brightness(0);
+    }
+    .nav-dark .nav-hotline-url {
+      color: #111;
+    }
+    .nav-dark .hamburger span {
+      background: #111;
+    }
+
     /* Navigation Overlay */
     .nav-overlay {
       position: fixed;
@@ -854,12 +865,40 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     }
 
-    .video-container iframe {
+    .video-container iframe,
+    .video-thumb {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      object-fit: cover;
+    }
+
+    .video-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(235, 29, 35, 0.9);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease, background 0.3s ease;
+      z-index: 2;
+      padding-left: 5px;
+    }
+
+    .video-play-btn:hover {
+      transform: translate(-50%, -50%) scale(1.15);
+      background: #eb1d23;
     }
 
     /* Zoom Animations & Hints */
@@ -2509,9 +2548,11 @@
         <span class="label">Portfolio</span>
         <h2>Our Previous Projects</h2>
         <div class="line-dec"></div>
-        <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/i-TmKSx3uuY?autoplay=0&controls=1&mute=1" frameborder="0"
-            allowfullscreen></iframe>
+        <div class="video-container" id="videoContainer">
+          <img src="publication-web-resources/image/slide 1.jpg" alt="Video Thumbnail" class="video-thumb" id="videoThumb">
+          <button class="video-play-btn" id="videoPlayBtn" aria-label="Play video">
+            <i class="fa-solid fa-play"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -2538,8 +2579,8 @@
               community-centric amenities to Obour City.</p>
           </div>
           <div style="text-align: right;">
-            <img id="s7PreviewImg" src="publication-web-resources/image/R01.png" alt="Concept"
-              style="max-width: 100%; border-radius: 10px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); transition: opacity 0.3s ease;">
+            <img id="s7PreviewImg" src="publication-web-resources/image/slider/Artboard 1.png" alt="Concept"
+              style="max-width: 100%; border-radius: 10px; transition: opacity 0.3s ease;">
           </div>
         </div>
       </div>
@@ -2916,6 +2957,9 @@
       document.getElementById('logoDefault').style.display = useFlowpark ? 'none' : '';
       document.getElementById('logoFlowpark').style.display = useFlowpark ? '' : 'none';
 
+      // Dark nav from slide 6 onward
+      document.querySelector('.fixed-nav').classList.toggle('nav-dark', useFlowpark);
+
       // Trigger counting animations on relevant slides
       const newActiveSlide = slides[currIdx];
       const ctrls = newActiveSlide.querySelectorAll('.num-val, .fc-val');
@@ -2968,6 +3012,19 @@
 
     function prevSlide() { goToSlide(currIdx - 1); }
     function nextSlide() { goToSlide(currIdx + 1); }
+
+    // Video thumbnail → iframe on click
+    document.getElementById('videoPlayBtn').addEventListener('click', function() {
+      const container = document.getElementById('videoContainer');
+      container.querySelector('.video-thumb').remove();
+      this.remove();
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube.com/embed/i-TmKSx3uuY?autoplay=1&controls=1';
+      iframe.frameBorder = '0';
+      iframe.allow = 'autoplay; fullscreen';
+      iframe.allowFullscreen = true;
+      container.appendChild(iframe);
+    });
 
     // Slide 7 strip hover → preview in main image
     (function() {
