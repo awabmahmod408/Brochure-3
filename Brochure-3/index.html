@@ -61,45 +61,46 @@
       height: var(--nav-height);
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      padding: 0 50px;
+      align-items: flex-start;
+      padding: 28px 50px 0;
       z-index: 100;
     }
 
     .nav-logo {
       display: flex;
       align-items: center;
-      filter: brightness(0);
     }
 
     .nav-logo img {
-      height: 35px;
+      height: 65px;
     }
 
     .nav-center {
       display: flex;
       align-items: center;
-      gap: 40px;
+      gap: 30px;
     }
 
     .nav-hotline {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      background: transparent;
-      border: 2px solid var(--primary);
-      padding: 10px 24px;
-      border-radius: 40px;
-      color: var(--text-main);
+      flex-direction: column;
+      align-items: flex-end;
       text-decoration: none;
-      font-weight: 700;
-      font-size: 16px;
       transition: all 0.3s ease;
     }
 
-    .nav-hotline:hover {
-      background: var(--primary);
+    .nav-hotline-svg {
+      height: 32px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-hotline-url {
+      font-size: 10px;
       color: #fff;
+      letter-spacing: 0.5px;
+      margin-top: 3px;
+      font-weight: 400;
     }
 
     .menu-btn {
@@ -126,7 +127,7 @@
     .hamburger span {
       width: 100%;
       height: 2px;
-      background: var(--text-main);
+      background: #fff;
       display: block;
       transition: 0.3s;
     }
@@ -213,6 +214,8 @@
 
     /* Slide Controls */
     .slide-controls {
+      display: none !important;
+      /*remove to show the pagination*/
       position: fixed;
       bottom: 40px;
       right: 50px;
@@ -339,7 +342,7 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      background: url('publication-web-resources/image/hero.jpeg') center/cover;
+      background: url('publication-web-resources/image/slide 1.jpg') center/cover;
       position: relative;
     }
 
@@ -1827,11 +1830,7 @@
         font-size: 14px;
       }
 
-      .menu-btn span:first-child {
-        display: none;
-      }
-
-      /* Hide 'Menu' text on small screens */
+      /* small screen overrides */
 
       h1 {
         font-size: 40px;
@@ -1966,13 +1965,13 @@
       <img src="publication-web-resources/image/flow logos/flow logo.png" alt="Flow Developments">
     </div>
     <div class="nav-center">
+      <a href="tel:17639" class="nav-hotline"><img src="publication-web-resources/image/flow logos/SVG/short number.svg"
+          alt="17639" class="nav-hotline-svg"><span class="nav-hotline-url">flow-developments.com</span></a>
       <div class="menu-btn" onclick="toggleMenu()">
-        <span>Menu</span>
         <div class="hamburger">
           <span></span><span></span><span></span>
         </div>
       </div>
-      <a href="tel:17639" class="nav-hotline">&#9990; 17639</a>
     </div>
   </nav>
 
@@ -1995,17 +1994,6 @@
 
     <!-- Slide 1: Cover -->
     <div class="slide active" id="s1" data-title="Welcome">
-      <div class="container" style="align-items: center;">
-        <div class="cover-logo">
-          <!-- Flow Park SVG Logo -->
-          <img src="publication-web-resources/image/flow logos/SVG/Asset 3.svg" alt="Flow Park">
-        </div>
-        <div class="cover-slogan">Spaces of Harmony</div>
-        <div class="cover-sub">Welcome to Flow Park Residence</div>
-        <!-- Scroll/Click Indicator -->
-        <button class="ctrl-btn" style="margin-top: 50px; border-color: transparent;"
-          onclick="nextSlide()">&#8595;</button>
-      </div>
     </div>
 
     <!-- Slide 2: Our Story -->
