@@ -75,6 +75,10 @@
       height: 65px;
     }
 
+    .nav-logo #logoFlowpark {
+      height: 45.5px;
+    }
+
     .nav-center {
       display: flex;
       align-items: center;
@@ -99,7 +103,7 @@
       font-size: 10px;
       color: #fff;
       letter-spacing: 0.5px;
-      margin-top: 3px;
+      margin-top: 0px;
       font-weight: 400;
     }
 
@@ -290,7 +294,7 @@
       text-transform: uppercase;
       letter-spacing: 4px;
       color: var(--primary);
-      margin-bottom: 20px;
+      margin-bottom: 8px;
       display: block;
       font-weight: 700;
     }
@@ -299,16 +303,16 @@
       font-size: 64px;
       font-weight: 700;
       line-height: 1.1;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       letter-spacing: -1px;
       text-transform: uppercase;
     }
 
     h2 {
-      font-size: 38px;
+      font-size: 42px;
       font-weight: 700;
       line-height: 1.2;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       letter-spacing: -1px;
       text-transform: uppercase;
     }
@@ -334,7 +338,128 @@
       width: 60px;
       height: 3px;
       background: var(--primary);
-      margin-bottom: 40px;
+      margin-bottom: 30px;
+    }
+
+    /* Slide 2 & 3: Dark background */
+    #s2,
+    #s3,
+    #s5 {
+      background: #111111;
+    }
+
+    #s2 > .container,
+    #s3 > .container,
+    #s4 > .container {
+      padding-bottom: 32vh;
+    }
+
+    #s2 h2,
+    #s3 h2,
+    #s5 h2 {
+      color: #eb1d23;
+    }
+
+    #s2 p,
+    #s2 .body-large,
+    #s2 .body-main,
+    #s3 p,
+    #s3 .body-large,
+    #s3 .body-main,
+    #s5 p,
+    #s5 .body-large,
+    #s5 .body-main,
+    #s2 .label,
+    #s3 .label,
+    #s5 .label,
+    #s2 .num-label,
+    #s3 .num-label,
+    #s2,
+    #s3,
+    #s5 {
+      color: #fff;
+    }
+
+    #s3 .number-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    #s2 .line-dec,
+    #s3 .line-dec,
+    #s5 .line-dec {
+      background: #fff;
+    }
+
+    #s3 .num-val {
+      color: #fff;
+    }
+
+    #s3 .card-icon {
+      color: #eb1d23;
+    }
+
+    #s3 .num-desc {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.5;
+      margin-top: 8px;
+      font-weight: 400;
+    }
+
+    .s3-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      max-width: 800px;
+    }
+
+    .s3-stat-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .s3-stat-desc {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    /* Animated strip at bottom of s2 & s3 */
+    .strip-belt {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 20vh;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .strip-belt-inner {
+      display: flex;
+      width: max-content;
+      animation: stripScroll 20s linear infinite;
+    }
+
+    .strip-belt-inner img {
+      height: 20vh;
+      width: auto;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    @keyframes stripScroll {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
     }
 
     /* Slide 1: Cover */
@@ -444,36 +569,209 @@
     }
 
     /* Slide 4: Founders */
+    #s4 {
+      background: #111111;
+    }
+
     .founders-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 50px;
+      gap: 40px;
+      width: 100%;
     }
 
-    .founder-card {
-      background: var(--bg-card);
-      padding: 50px;
-      border-top: 3px solid var(--primary);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    .founder-block {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+    }
+
+    .founder-block.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .founder-info {
+      flex: 1;
+      padding: 20px 30px;
+    }
+
+    .founder-photo {
+      width: 240px;
+      min-width: 240px;
+      overflow: hidden;
+    }
+
+    .founder-photo img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .founder-prefix {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #aaa;
+      margin-bottom: 4px;
     }
 
     .founder-name {
-      font-size: 28px;
+      font-size: 32px;
       font-weight: 700;
-      margin-bottom: 10px;
-      color: var(--primary);
+      color: #fff;
       text-transform: uppercase;
+      margin-bottom: 8px;
+      line-height: 1.1;
     }
 
-    .founder-title {
-      font-size: 14px;
+    .founder-role {
+      font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--text-main);
-      margin-bottom: 30px;
-      display: block;
-      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #999;
+      margin-bottom: 5px;
+    }
+
+    .founder-role strong {
+      color: #fff;
+    }
+
+    .founder-rule {
+      width: 100%;
+      height: 2px;
+      background: #eb1d23;
+      margin-bottom: 14px;
+    }
+
+    .founder-desc {
+      font-size: 12px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.75);
+      font-weight: 400;
+    }
+
+    /* Slide 4 animations */
+    #s4 .founder-block {
+      opacity: 0;
+    }
+
+    #s4.active .founder-block:nth-child(1) {
+      animation: s4SlideLeft 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+    }
+
+    #s4.active .founder-block:nth-child(2) {
+      animation: s4SlideRight 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
+    }
+
+    #s4 .founder-photo {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    #s4.active .founder-block:nth-child(1) .founder-photo {
+      animation: s4PhotoPop 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+    }
+
+    #s4.active .founder-block:nth-child(2) .founder-photo {
+      animation: s4PhotoPop 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.85s forwards;
+    }
+
+    #s4 .founder-name {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    #s4.active .founder-block:nth-child(1) .founder-name {
+      animation: s4FadeUp 0.5s ease 0.8s forwards;
+    }
+
+    #s4.active .founder-block:nth-child(2) .founder-name {
+      animation: s4FadeUp 0.5s ease 1.05s forwards;
+    }
+
+    #s4 .founder-rule {
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+
+    #s4.active .founder-block:nth-child(1) .founder-rule {
+      animation: s4LineGrow 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
+    }
+
+    #s4.active .founder-block:nth-child(2) .founder-rule {
+      animation: s4LineGrow 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.15s forwards;
+    }
+
+    #s4 .founder-desc {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+
+    #s4.active .founder-block:nth-child(1) .founder-desc {
+      animation: s4FadeUp 0.6s ease 1.1s forwards;
+    }
+
+    #s4.active .founder-block:nth-child(2) .founder-desc {
+      animation: s4FadeUp 0.6s ease 1.35s forwards;
+    }
+
+    @keyframes s4SlideLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-80px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes s4SlideRight {
+      from {
+        opacity: 0;
+        transform: translateX(80px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes s4PhotoPop {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes s4FadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes s4LineGrow {
+      from {
+        transform: scaleX(0);
+      }
+
+      to {
+        transform: scaleX(1);
+      }
     }
 
     /* Slide 5: Video */
@@ -1962,7 +2260,8 @@
   <nav class="fixed-nav">
     <div class="nav-logo">
       <!-- Flow Developments Logo -->
-      <img src="publication-web-resources/image/flow logos/flow logo.png" alt="Flow Developments">
+      <img id="logoDefault" src="publication-web-resources/image/flow logos/flow logo.png" alt="Flow Developments">
+      <img id="logoFlowpark" src="publication-web-resources/image/flow logos/flowpark logo.png" alt="Flow Park" style="display:none;">
     </div>
     <div class="nav-center">
       <a href="tel:17639" class="nav-hotline"><img src="publication-web-resources/image/flow logos/SVG/short number.svg"
@@ -2001,20 +2300,23 @@
       <div class="container">
         <div class="split-layout">
           <div>
-            <span class="label">The Journey</span>
-            <h2>Shaping communities,<br>not just buildings.</h2>
-            <div class="line-dec"></div>
+            <h2>For over 19 years,</h2>
+            <p class="body-large" style="font-weight:700; text-transform:uppercase;">We have been actively shaping
+              the<br>real estate landscape in Obour City.</p>
           </div>
           <div>
-            <p class="body-large">For over 19 years, we have been building and developing in Obour City.</p>
-            <p class="body-main">We believe deeply in shaping communities, not merely constructing buildings. We
-              appreciate the intrinsic beauty and vast potential of Obour, carefully selecting the most strategic land
-              plots to engineer meaningful living experiences.</p>
-            <p class="body-main">Our developments are thoughtfully designed to elevate everyday life. Two of the most
-              experienced developers in Obour joined their expertise and vision together. And from that shared vision,
-              Flow was born.</p>
+            <p class="body-main" style="text-align:justify;">Our philosophy has always gone beyond simply constructing
+              buildings; we focus on building communities that enrich everyday life. We carefully select the most
+              strategic locations to ensure accessibility, value, and long-term growth for our clients. Every project we
+              develop is designed to combine functionality, comfort, and lasting quality. With the shared vision of two
+              experienced developers, a new chapter began. From that collaboration, Flow Development was born.</p>
           </div>
         </div>
+      </div>
+      <div class="strip-belt">
+        <div class="strip-belt-inner"><img src="publication-web-resources/image/strip.png" alt=""><img
+            src="publication-web-resources/image/strip.png" alt=""><img src="publication-web-resources/image/strip.png"
+            alt=""><img src="publication-web-resources/image/strip.png" alt=""></div>
       </div>
     </div>
 
@@ -2022,13 +2324,14 @@
     <div class="slide" id="s3" data-title="In Numbers">
       <div class="container">
         <span class="label">About Us</span>
-        <h2>A Legacy Built on Trust</h2>
+        <h2>In Numbers</h2>
         <div class="line-dec"></div>
         <div class="numbers-grid">
           <div class="number-card">
             <div>
-              <div class="num-val" data-target="19" data-suffix="">0</div>
+              <div class="num-val" data-target="19" data-suffix="+">0</div>
               <div class="num-label">Years of Experience</div>
+              <p class="num-desc">Nearly two decades of continuous development and trusted delivery in Obour City</p>
             </div>
             <i class="fa-solid fa-award card-icon"></i>
           </div>
@@ -2036,37 +2339,56 @@
             <div>
               <div class="num-val" data-target="100" data-suffix="+">0</div>
               <div class="num-label">Projects Delivered</div>
+              <p class="num-desc">A diverse portfolio including residential buildings, villas, and commercial
+                developments</p>
             </div>
             <i class="fa-solid fa-city card-icon"></i>
           </div>
         </div>
       </div>
+      <div class="strip-belt">
+        <div class="strip-belt-inner"><img src="publication-web-resources/image/strip.png" alt=""><img
+            src="publication-web-resources/image/strip.png" alt=""><img src="publication-web-resources/image/strip.png"
+            alt=""><img src="publication-web-resources/image/strip.png" alt=""></div>
+      </div>
     </div>
 
     <!-- Slide 4: Founders -->
     <div class="slide" id="s4" data-title="The Founders">
-      <div class="container">
-        <span class="label">Leadership</span>
-        <h2>Visionaries Behind Flow</h2>
-        <div class="line-dec"></div>
+      <div class="container" style="justify-content: center;">
         <div class="founders-grid">
-          <div class="founder-card">
-            <div class="founder-name">Eng. Osama Romany</div>
-            <span class="founder-title">Co-Founder</span>
-            <p class="body-main">With over 19 years of experience and a portfolio exceeding 100 projects, including
-              commercial malls, villas, and residential buildings. His projects have earned strong market trust through
-              high construction quality, strict commitment to deadlines, and a "Client First" philosophy.</p>
+          <div class="founder-block">
+            <div class="founder-info">
+              <div class="founder-prefix">Eng.</div>
+              <div class="founder-name">Osama Romany</div>
+              <div class="founder-role">&middot; Co-Founder of <strong>"Flow Developments"</strong></div>
+              <div class="founder-rule"></div>
+              <p class="founder-desc">With over 19 years of experience and a portfolio exceeding 100 projects, including
+                commercial malls, villas, and residential buildings. His projects have earned strong market trust
+                through high construction quality, strict commitment to deadlines, and a "Client First" philosophy.</p>
+            </div>
+            <div class="founder-photo">
+              <img src="publication-web-resources/image/slide 4/Asset 6.webp" alt="Eng. Osama Romany">
+            </div>
           </div>
-          <div class="founder-card">
-            <div class="founder-name">Eng. Emad Samir</div>
-            <span class="founder-title">Co-Founder</span>
-            <p class="body-main">One of the leading figures in real estate development in East Cairo. He has
-              successfully developed several distinguished residential and commercial projects that achieved rapid sales
-              rates. His experience spans many years of hands-on project management, from site selection to final
-              delivery.</p>
+          <div class="founder-block reverse">
+            <div class="founder-info">
+              <div class="founder-prefix">Mr.</div>
+              <div class="founder-name">Emad Samir</div>
+              <div class="founder-role">&middot; Co-Founder of <strong>"Flow Developments"</strong></div>
+              <div class="founder-rule"></div>
+              <p class="founder-desc">One of the leading figures in real estate development in East Cairo. He has
+                successfully developed several distinguished commercial and residential projects that achieved rapid
+                sales rates and strong client trust through quality execution and commitment. His experience spans many
+                years of hands-on project management, from site selection and execution to final delivery.</p>
+            </div>
+            <div class="founder-photo">
+              <img src="publication-web-resources/image/slide 4/Asset 7.webp" alt="Mr. Emad Samir">
+            </div>
           </div>
         </div>
       </div>
+      <div class="strip-belt"><div class="strip-belt-inner"><img src="publication-web-resources/image/strip.png" alt=""><img src="publication-web-resources/image/strip.png" alt=""><img src="publication-web-resources/image/strip.png" alt=""><img src="publication-web-resources/image/strip.png" alt=""></div></div>
     </div>
 
     <!-- Slide 5: Previous Projects -->
@@ -2083,6 +2405,11 @@
     </div>
 
 
+
+    <!-- Slide 6: Flow Park Cover -->
+    <div class="slide" id="s6" data-title="Flow Park"
+      style="background: url('publication-web-resources/image/flow park cover_.png') center/cover no-repeat #111111;">
+    </div>
 
     <!-- Slide 7: Concept -->
     <div class="slide" id="s7" data-title="Flow Park Concept">
@@ -2468,6 +2795,13 @@
       currIdx = index;
       slides[currIdx].classList.add('active');
       updateControls();
+
+      // Swap logo from slide 6 onward
+      const slideId = slides[currIdx].id;
+      const s6Idx = Array.from(slides).findIndex(s => s.id === 's6');
+      const useFlowpark = currIdx >= s6Idx && s6Idx !== -1;
+      document.getElementById('logoDefault').style.display = useFlowpark ? 'none' : '';
+      document.getElementById('logoFlowpark').style.display = useFlowpark ? '' : 'none';
 
       // Trigger counting animations on relevant slides
       const newActiveSlide = slides[currIdx];
