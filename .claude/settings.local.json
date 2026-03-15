@@ -5,7 +5,8 @@
       "Bash(grep -h \"link.*css\\\\|@import\" index.html publication-web-resources/html/*.html)",
       "Bash(grep -r \"publication.html\" index.html publication-web-resources/script/*.js)",
       "Bash(grep -r \"publication-[0-9]\" index.html publication-web-resources/script/*.js)",
-      "Bash(du -sh publication-web-resources/*)"
+      "Bash(du -sh publication-web-resources/*)",
+      "Bash(ls \"c:\\\\Users\\\\awabeltarabilly\\\\Downloads\\\\Brochure-3\\\\Brochure-3\\\\publication-web-resources\\\\image\\\\master plan\"\" 2>/dev/null || echo \"NOT FOUND \")"
     ]
   },
   "outputStyle": "default",
