@@ -706,61 +706,153 @@
     .mp-img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       object-position: center;
       transition: transform 0.4s ease;
       transform-origin: center;
-      cursor: zoom-in;
     }
 
-    .mp-container:hover .mp-img {
-      transform: scale(1.03);
+    #s11 .mp-container {
+      cursor: default;
+      overflow: visible;
     }
 
-    .mp-pin {
+    #s11 .mp-container::after {
+      display: none;
+    }
+
+    /* Master Plan Pins */
+    #zc {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+    }
+
+    .pin {
       position: absolute;
       display: flex;
       flex-direction: column;
       align-items: center;
+      pointer-events: all;
       cursor: pointer;
+      z-index: 10;
     }
 
-    .pin-icon {
-      width: 30px;
-      height: 30px;
-      background: var(--primary);
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .dot {
+      width: 12px;
+      height: 12px;
+      background: #C9A84C;
       border-radius: 50%;
-      font-weight: 700;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-      transition: 0.3s;
+      box-shadow: 0 0 6px 2px rgba(201, 168, 76, 0.5);
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      flex-shrink: 0;
     }
 
-    .pin-lbl {
-      margin-top: 10px;
-      background: #000;
+    .dot::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: rgba(201, 168, 76, 0.45);
+      transform: translate(-50%, -50%) scale(1);
+      animation: ping 2s ease-out infinite;
+    }
+
+    .pin:hover .dot {
+      transform: scale(1.7);
+      box-shadow: 0 0 14px 5px rgba(201, 168, 76, 0.85);
+    }
+
+    @keyframes ping {
+      0%   { transform: translate(-50%, -50%) scale(1);   opacity: 0.8; }
+      70%  { transform: translate(-50%, -50%) scale(3);   opacity: 0; }
+      100% { transform: translate(-50%, -50%) scale(3);   opacity: 0; }
+    }
+
+    .plabel {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.82);
       color: #fff;
-      padding: 5px 15px;
-      border-radius: 4px;
-      font-size: 12px;
+      font-size: 9px;
       font-weight: 700;
       text-transform: uppercase;
+      white-space: nowrap;
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: 0.6px;
       opacity: 0;
-      transform: translateY(-10px);
-      transition: 0.3s;
+      transition: opacity 0.2s ease;
       pointer-events: none;
     }
 
-    .mp-pin:hover .pin-icon {
-      transform: scale(1.2);
+    .pin:hover .plabel {
+      opacity: 1;
     }
 
-    .mp-pin:hover .pin-lbl {
+    /* Pin tooltip card */
+    .pin-tooltip {
+      position: fixed;
+      z-index: 9999;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      padding: 14px 16px;
+      width: 240px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .pin-tooltip.visible {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    .tt-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tt-icon {
+      width: 32px;
+      height: 32px;
+      background: rgba(201, 168, 76, 0.15);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #C9A84C;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .tt-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      line-height: 1.3;
+    }
+
+    .tt-desc {
+      font-size: 11px;
+      color: #555;
+      line-height: 1.65;
+      font-weight: 500;
     }
 
     /* Slide 12: Unit Types Nested */
@@ -1806,8 +1898,9 @@
         <span class="label">Layout</span>
         <h2>Master Plan</h2>
         <div class="line-dec"></div>
-        <div class="mp-container" onclick="openLightbox(this)">
-          <img src="publication-web-resources/image/master_plan.png" alt="Master Plan" class="mp-img">
+        <div class="mp-container">
+          <img id="mp-plan-img" src="publication-web-resources/image/master plan/plan .png" alt="Master Plan" class="mp-img">
+          <div id="zc"></div>
         </div>
       </div>
     </div>
@@ -2240,6 +2333,110 @@
 
     // Init state
     updateControls();
+
+    // --- Slide 11: Master Plan Interactive Pins ---
+    const facilitiesData = [
+      { title: "Smart Gate (North)", description: "Secure biometric entry at the northern tip. Automated boom barriers, ANPR cameras and visitor management for residents and guests.", icon: "fa-shield-halved", n_instances: 1, n_x_coordinate: 70.8, n_y_coordinate: 6.5 },
+      { title: "Kid's Area", description: "Fully supervised play zone for children of all ages, with modern equipment, splash pads and shaded parent seating.", icon: "fa-child", n_instances: 1, n_x_coordinate: 74.5, n_y_coordinate: 16.0 },
+      { title: "Swimming Pool (North)", description: "Lap and leisure pool in the northern residential cluster. Surrounded by a sun deck and lounge seating areas.", icon: "fa-water-ladder", n_instances: 1, n_x_coordinate: 56.6, n_y_coordinate: 29.6 },
+      { title: "Event Halls & Club House", description: "Multi-purpose event halls for private celebrations and community gatherings, plus a resident lounge and reception.", icon: "fa-champagne-glasses", n_instances: 1, n_x_coordinate: 44.0, n_y_coordinate: 33.0 },
+      { title: "Health Club & Gym", description: "State-of-the-art fitness center with cardio, weights, group exercise studios and a wellness spa area.", icon: "fa-dumbbell", n_instances: 1, n_x_coordinate: 40.0, n_y_coordinate: 39.0 },
+      { title: "Green River", description: "40,000 m² soft-landscaped open park featuring walking trails, cycling paths and lush greenery — the lungs of the compound.", icon: "fa-leaf", n_instances: 1, n_x_coordinate: 78.0, n_y_coordinate: 38.0 },
+      { title: "Electric Vehicle Charging", description: "Dedicated EV charging stations across compound parking areas. Supports Type 2 and CCS standards.", icon: "fa-charging-station", n_instances: 1, n_x_coordinate: 50.5, n_y_coordinate: 44.0 },
+      { title: "Strip Mall / Commercial", description: "Ground-floor retail strip with cafes, pharmacy, grocery, and lifestyle boutiques — all within walking distance.", icon: "fa-store", n_instances: 1, n_x_coordinate: 42.0, n_y_coordinate: 48.0 },
+      { title: "Central Plaza & Fountain", description: "The heart of the compound — an open plaza centered on a decorative fountain with landscaped gardens for evening strolls.", icon: "fa-droplet", n_instances: 1, n_x_coordinate: 49.0, n_y_coordinate: 53.5 },
+      { title: "Medical Center", description: "On-site medical facility with GPs, specialists, emergency first-aid and referral services available 24/7.", icon: "fa-kit-medical", n_instances: 1, n_x_coordinate: 38.0, n_y_coordinate: 58.0 },
+      { title: "Swimming Pools (South)", description: "A cluster of residential pools including adults-only, family and infinity-edge pools in the southern quarter.", icon: "fa-water-ladder", n_instances: 1, n_x_coordinate: 46.4, n_y_coordinate: 55.0 },
+      { title: "Padel Courts", description: "International-standard padel tennis courts with night lighting and seating stands. Bookable via the compound app.", icon: "fa-table-tennis-paddle-ball", n_instances: 1, n_x_coordinate: 38.0, n_y_coordinate: 70.0 },
+      { title: "Standalone Villas", description: "Premium detached villa units at the southern end of the compound with private gardens, maximum privacy and dedicated parking.", icon: "fa-house", n_instances: 1, n_x_coordinate: 23.5, n_y_coordinate: 80.0 },
+      { title: "Club Villa Zone", description: "Exclusive villa cluster with shared amenity courtyard, private pool access and direct green river frontage.", icon: "fa-house-chimney", n_instances: 1, n_x_coordinate: 29.0, n_y_coordinate: 87.5 },
+      { title: "Smart Gate (South)", description: "Southern smart entrance with visitor management, intercom systems and a dedicated service vehicle lane.", icon: "fa-shield-halved", n_instances: 1, n_x_coordinate: 35.0, n_y_coordinate: 92.0 }
+    ];
+
+    // Tooltip element
+    const pinTooltip = document.createElement('div');
+    pinTooltip.className = 'pin-tooltip';
+    pinTooltip.innerHTML = `<div class="tt-header"><div class="tt-icon"><i class="fa-solid fa-location-dot"></i></div><div class="tt-name"></div></div><div class="tt-desc"></div>`;
+    document.body.appendChild(pinTooltip);
+
+    function showPinTooltip(facility, e) {
+      pinTooltip.querySelector('.tt-icon i').className = 'fa-solid ' + (facility.icon || 'fa-location-dot');
+      pinTooltip.querySelector('.tt-name').textContent = facility.title;
+      pinTooltip.querySelector('.tt-desc').textContent = facility.description;
+      pinTooltip.classList.add('visible');
+      movePinTooltip(e);
+    }
+
+    function movePinTooltip(e) {
+      const vw = window.innerWidth, vh = window.innerHeight;
+      const tw = 256, th = 110;
+      let x = e.clientX + 18, y = e.clientY + 18;
+      if (x + tw > vw - 16) x = e.clientX - tw - 18;
+      if (y + th > vh - 16) y = e.clientY - th - 18;
+      pinTooltip.style.left = x + 'px';
+      pinTooltip.style.top  = y + 'px';
+    }
+
+    function hidePinTooltip() {
+      pinTooltip.classList.remove('visible');
+    }
+
+    function getImageRenderRect(img) {
+      const iw = img.offsetWidth, ih = img.offsetHeight;
+      const nw = img.naturalWidth || 1355, nh = img.naturalHeight || 2000;
+      const nAsp = nw / nh, eAsp = iw / ih;
+      let rw, rh, rx, ry;
+      if (nAsp < eAsp) {
+        rh = ih; rw = ih * nAsp;
+        rx = (iw - rw) / 2; ry = 0;
+      } else {
+        rw = iw; rh = iw / nAsp;
+        rx = 0; ry = (ih - rh) / 2;
+      }
+      return { x: rx, y: ry, w: rw, h: rh };
+    }
+
+    function mapFacilityPins(facilities, imageElement, containerElement) {
+      containerElement.innerHTML = '';
+      const rect = getImageRenderRect(imageElement);
+      facilities.forEach(facility => {
+        const xs = Array.isArray(facility.n_x_coordinate) ? facility.n_x_coordinate : [facility.n_x_coordinate];
+        const ys = Array.isArray(facility.n_y_coordinate) ? facility.n_y_coordinate : [facility.n_y_coordinate];
+        for (let i = 0; i < facility.n_instances; i++) {
+          const pin = document.createElement('div');
+          pin.className = 'pin';
+          pin.style.left = (rect.x + xs[i] / 100 * rect.w) + 'px';
+          pin.style.top  = (rect.y + ys[i] / 100 * rect.h) + 'px';
+          pin.style.transform = 'translate(-50%, -50%)';
+          const label = facility.n_instances > 1 ? `${facility.title} ${i + 1}` : facility.title;
+          const dot = document.createElement('div');
+          dot.className = 'dot';
+          const lbl = document.createElement('div');
+          lbl.className = 'plabel';
+          lbl.textContent = label;
+          pin.appendChild(dot);
+          pin.appendChild(lbl);
+          pin.addEventListener('mouseenter', e => showPinTooltip({ ...facility, title: label }, e));
+          pin.addEventListener('mousemove',  e => movePinTooltip(e));
+          pin.addEventListener('mouseleave', hidePinTooltip);
+          containerElement.appendChild(pin);
+        }
+      });
+    }
+
+    const mpPlanImg = document.getElementById('mp-plan-img');
+    const zcContainer = document.getElementById('zc');
+
+    function initMasterPlanPins() {
+      mapFacilityPins(facilitiesData, mpPlanImg, zcContainer);
+    }
+
+    mpPlanImg.addEventListener('load', initMasterPlanPins);
+    if (mpPlanImg.complete && mpPlanImg.naturalWidth > 0) initMasterPlanPins();
+    window.addEventListener('resize', () => {
+      if (mpPlanImg.complete && mpPlanImg.naturalWidth > 0) initMasterPlanPins();
+    });
+
   </script>
 
 </body>

@@ -1,4 +1,13 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(grep -h \"src=\" publication-web-resources/html/*.html)",
+      "Bash(grep -h \"link.*css\\\\|@import\" index.html publication-web-resources/html/*.html)",
+      "Bash(grep -r \"publication.html\" index.html publication-web-resources/script/*.js)",
+      "Bash(grep -r \"publication-[0-9]\" index.html publication-web-resources/script/*.js)",
+      "Bash(du -sh publication-web-resources/*)"
+    ]
+  },
   "outputStyle": "default",
   "spinnerTipsEnabled": false
 }
