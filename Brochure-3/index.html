@@ -1064,12 +1064,8 @@
       transform: scale(1.03);
     }
 
-    #s8 .map-container::after {
-      display: none;
-    }
-
-    #s8 .map-container {
-      cursor: default;
+    #s8 video.map-img {
+      object-position: center top;
     }
 
     /* Slide 9: Fact Sheet */
@@ -1595,6 +1591,60 @@
       color: #555;
       line-height: 1.65;
       font-weight: 500;
+    }
+
+    /* Multi-instance cards */
+    .mp-inst-card {
+      position: fixed;
+      z-index: 9998;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      padding: 12px 14px;
+      width: 220px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
+      pointer-events: all;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .mp-inst-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mp-inst-card .tt-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mp-inst-card .tt-name {
+      font-size: 10px;
+      font-weight: 700;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      line-height: 1.3;
+    }
+
+    .mp-inst-card .tt-desc {
+      font-size: 10px;
+      color: #555;
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    .mp-inst-card .tt-footer {
+      border-top: 1px solid rgba(0, 0, 0, 0.07);
+      padding-top: 7px;
+      display: flex;
+      gap: 5px;
     }
 
     /* Tooltip edit footer */
@@ -2701,8 +2751,9 @@
       <div class="container">
         <span class="label">Connectivity</span>
         <h2>Unmatched Accessibility</h2>
-        <div class="map-container" style="cursor: default;">
-          <video src="publication-web-resources/FlowPark Map Animation.mp4" class="map-img" id="s8Video" autoplay muted loop playsinline style="cursor: default;"></video>
+        <div class="map-container" style="cursor: pointer;" onclick="openVideoLightbox()">
+          <video src="publication-web-resources/FlowPark Map Animation.mp4" class="map-img" id="s8Video" autoplay muted
+            loop playsinline style="cursor: pointer;"></video>
         </div>
       </div>
     </div>
@@ -3006,6 +3057,8 @@
   <div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox()">
     <div class="lightbox-close">&times;</div>
     <img src="" class="lightbox-img" id="lightboxImg">
+    <video src="" class="lightbox-img" id="lightboxVideo" controls style="display:none;"
+      onclick="event.stopPropagation()"></video>
   </div>
 
   <!-- Facility coordinates (editable via map UI) -->
@@ -3161,14 +3214,6 @@
       iframe.allowFullscreen = true;
       container.appendChild(iframe);
     });
-
-    // Slide 8 video: pause on hover, play on leave
-    (function () {
-      const vid = document.getElementById('s8Video');
-      if (!vid) return;
-      vid.parentElement.addEventListener('mouseenter', () => vid.pause());
-      vid.parentElement.addEventListener('mouseleave', () => vid.play());
-    })();
 
     // Slide 7 strip hover → preview in main image
     (function () {
@@ -3344,8 +3389,23 @@
       document.getElementById('lightboxOverlay').classList.add('active');
     }
 
+    function openVideoLightbox() {
+      const lbVid = document.getElementById('lightboxVideo');
+      const lbImg = document.getElementById('lightboxImg');
+      lbImg.style.display = 'none';
+      lbVid.style.display = '';
+      lbVid.src = 'publication-web-resources/FlowPark Map Animation.mp4';
+      lbVid.play();
+      document.getElementById('lightboxOverlay').classList.add('active');
+    }
+
     function closeLightbox() {
       document.getElementById('lightboxOverlay').classList.remove('active');
+      const lbVid = document.getElementById('lightboxVideo');
+      lbVid.pause();
+      lbVid.src = '';
+      lbVid.style.display = 'none';
+      document.getElementById('lightboxImg').style.display = '';
     }
 
     // Call init
@@ -3396,23 +3456,19 @@
     // Init state
     updateControls();
 
-    // --- Slide 11: Master Plan Interactive Map ---
+    // --- Slide 11: Master Plan Interactive Map  & Club House---
     const facilitiesData = [
-      { title: "Smart Gate (North)", description: "Secure biometric entry at the northern tip. Automated boom barriers, ANPR cameras and visitor management for residents and guests.", icon: "fa-shield-halved", n_instances: 1, n_x_coordinate: 0, n_y_coordinate: 0 },
+      { title: "Smart Gate", description: "Secure biometric entry at the northern tip. Automated boom barriers, ANPR cameras and visitor management for residents and guests.", icon: "fa-shield-halved", n_instances: 1, n_x_coordinate: 0, n_y_coordinate: 0 },
       { title: "Kid's Area", description: "Fully supervised play zone for children of all ages, with modern equipment, splash pads and shaded parent seating.", icon: "fa-child", n_instances: 1, n_x_coordinate: 0, n_y_coordinate: 0 },
-      { title: "Swimming Pool (North)", description: "Lap and leisure pool in the northern residential cluster. Surrounded by a sun deck and lounge seating areas.", icon: "fa-water-ladder", n_instances: 1, n_x_coordinate: 0, n_y_coordinate: 0 },
-      { title: "Event Halls & Club House", description: "Multi-purpose event halls for private celebrations and community gatherings, plus a resident lounge and reception.", icon: "fa-champagne-glasses", n_instances: 1, n_x_coordinate: 0, n_y_coordinate: 0 },
+      { title: "Swimming Pool", description: "Lap and leisure pool in the northern residential cluster. Surrounded by a sun deck and lounge seating areas.", icon: "fa-water-ladder", n_instances: 1, n_x_coordinate: 0, n_y_coordinate: 0 },
+      { title: "Event Halls", description: "Multi-purpose event halls for private celebrations and community gatherings, plus a resident lounge and reception.", icon: "fa-champagne-glasses", n_instances: 1, n_x_coordinate: 0, n_y_coordinate: 0 },
       { title: "Health Club & Gym", description: "State-of-the-art fitness center with cardio, weights, group exercise studios and a wellness spa area.", icon: "fa-dumbbell", n_instances: 1, n_x_coordinate: 0, n_y_coordinate: 0 },
       { title: "Green River", description: "40,000 m² soft-landscaped open park featuring walking trails, cycling paths and lush greenery — the lungs of the compound.", icon: "fa-leaf", n_instances: 1, n_x_coordinate: 0, n_y_coordinate: 0 },
       { title: "Electric Vehicle Charging", description: "Dedicated EV charging stations across compound parking areas. Supports Type 2 and CCS standards.", icon: "fa-charging-station", n_instances: 1, n_x_coordinate: 0, n_y_coordinate: 0 },
       { title: "Strip Mall / Commercial", description: "Ground-floor retail strip with cafes, pharmacy, grocery, and lifestyle boutiques — all within walking distance.", icon: "fa-store", n_instances: 1, n_x_coordinate: 0, n_y_coordinate: 0 },
-      { title: "Central Plaza & Fountain", description: "The heart of the compound — an open plaza centered on a decorative fountain with landscaped gardens for evening strolls.", icon: "fa-droplet", n_instances: 1, n_x_coordinate: 0, n_y_coordinate: 0 },
       { title: "Medical Center", description: "On-site medical facility with GPs, specialists, emergency first-aid and referral services available 24/7.", icon: "fa-kit-medical", n_instances: 1, n_x_coordinate: 0, n_y_coordinate: 0 },
-      { title: "Swimming Pools (South)", description: "A cluster of residential pools including adults-only, family and infinity-edge pools in the southern quarter.", icon: "fa-water-ladder", n_instances: 1, n_x_coordinate: 0, n_y_coordinate: 0 },
       { title: "Padel Courts", description: "International-standard padel tennis courts with night lighting and seating stands. Bookable via the compound app.", icon: "fa-table-tennis-paddle-ball", n_instances: 1, n_x_coordinate: 0, n_y_coordinate: 0 },
-      { title: "Standalone Villas", description: "Premium detached villa units at the southern end of the compound with private gardens, maximum privacy and dedicated parking.", icon: "fa-house", n_instances: 1, n_x_coordinate: 0, n_y_coordinate: 0 },
-      { title: "Club Villa Zone", description: "Exclusive villa cluster with shared amenity courtyard, private pool access and direct green river frontage.", icon: "fa-house-chimney", n_instances: 1, n_x_coordinate: 0, n_y_coordinate: 0 },
-      { title: "Smart Gate (South)", description: "Southern smart entrance with visitor management, intercom systems and a dedicated service vehicle lane.", icon: "fa-shield-halved", n_instances: 1, n_x_coordinate: 0, n_y_coordinate: 0 }
+      { title: "Club House", description: "A premium social hub designed for residents to connect, relax, and host gatherings in an elegant setting.", icon: "fa-champagne-glasses", n_instances: 1, n_x_coordinate: 0, n_y_coordinate: 0 }
     ];
 
     // ── Tooltip (hover) ──────────────────────────────────────────────────────
@@ -3436,7 +3492,7 @@
       pinTooltip.style.left = x + 'px';
       pinTooltip.style.top = y + 'px';
     }
-    let mpPinnedFacIdx = -1;
+    let mpPinnedFacIdx = -1, mpPinnedInstIdx = 0;
     function hidePinTooltip() {
       if (mpPinnedFacIdx >= 0) return; // keep visible when a facility is selected
       pinTooltip.classList.remove('visible');
@@ -3669,12 +3725,13 @@
     }
 
     // ── Sidebar ──────────────────────────────────────────────────────────────
-    function mpShowPinnedTooltip(idx) {
+    function mpShowPinnedTooltip(idx, instIdx) {
+      instIdx = instIdx || 0;
       const f = facilitiesData[idx];
       const xs = Array.isArray(f.n_x_coordinate) ? f.n_x_coordinate : [f.n_x_coordinate];
       const ys = Array.isArray(f.n_y_coordinate) ? f.n_y_coordinate : [f.n_y_coordinate];
-      const ix = xs[0] / 100 * MP_NAT_W;
-      const iy = ys[0] / 100 * MP_NAT_H;
+      const ix = xs[instIdx] / 100 * MP_NAT_W;
+      const iy = ys[instIdx] / 100 * MP_NAT_H;
 
       // Pin position in viewport coords (with rotate-90 transform)
       const vp = document.getElementById('mpViewport');
@@ -3683,7 +3740,7 @@
       const vy = ix * mpZoom + mpPanY + vpRect.top;
 
       pinTooltip.querySelector('.tt-icon i').className = 'fa-solid ' + (f.icon || 'fa-location-dot');
-      pinTooltip.querySelector('.tt-name').textContent = f.title;
+      pinTooltip.querySelector('.tt-name').textContent = f.title + (f.n_instances > 1 ? ' #' + (instIdx + 1) : '');
       pinTooltip.querySelector('.tt-desc').textContent = f.description;
 
       const tw = 252, th = 115;
@@ -3697,6 +3754,11 @@
       pinTooltip.style.top = y + 'px';
       pinTooltip.classList.add('visible', 'pinned');
       mpPinnedFacIdx = idx;
+      mpPinnedInstIdx = instIdx;
+    }
+
+    function mpClearInstCards() {
+      document.querySelectorAll('.mp-inst-card').forEach(c => c.remove());
     }
 
     function mpClearSelection() {
@@ -3704,33 +3766,110 @@
       document.querySelectorAll('.pin').forEach(p => p.classList.remove('highlighted'));
       pinTooltip.classList.remove('visible', 'pinned');
       mpPinnedFacIdx = -1;
+      mpClearInstCards();
     }
 
-    function mpSelectFacility(idx) {
+    function mpShowInstCards(idx) {
+      mpClearInstCards();
       const f = facilitiesData[idx];
+      const xs = Array.isArray(f.n_x_coordinate) ? f.n_x_coordinate : [f.n_x_coordinate];
+      const ys = Array.isArray(f.n_y_coordinate) ? f.n_y_coordinate : [f.n_y_coordinate];
+      const vp = document.getElementById('mpViewport');
+      const vpRect = vp.getBoundingClientRect();
 
-      // Highlight list item & pin
+      for (let i = 0; i < f.n_instances; i++) {
+        const ix = xs[i] / 100 * MP_NAT_W;
+        const iy = ys[i] / 100 * MP_NAT_H;
+        const vx = -iy * mpZoom + mpPanX + vpRect.left;
+        const vy = ix * mpZoom + mpPanY + vpRect.top;
+
+        const card = document.createElement('div');
+        card.className = 'mp-inst-card';
+        card.innerHTML = `<div class="tt-header"><div class="tt-icon"><i class="fa-solid ${f.icon || 'fa-location-dot'}"></i></div><div class="tt-name">${f.title}${f.n_instances > 1 ? ' #' + (i + 1) : ''}</div></div><div class="tt-desc">${f.description}</div><div class="tt-footer"><button class="tt-edit-btn" data-fac="${idx}" data-inst="${i}">&#9998; Edit</button><button class="tt-add-inst-btn" data-fac="${idx}">&#43; Add Pin</button></div>`;
+
+        // Position card above pin
+        const cw = 220, ch = 130;
+        const vw = window.innerWidth, vh = window.innerHeight;
+        let x = vx - cw / 2, y = vy - ch - 24;
+        if (x + cw > vw - 12) x = vw - cw - 12;
+        if (x < 12) x = 12;
+        if (y < 12) y = vy + 24;
+        if (y + ch > vh - 12) y = vh - ch - 12;
+
+        card.style.left = x + 'px';
+        card.style.top = y + 'px';
+        document.body.appendChild(card);
+
+        // Wire up edit/add buttons
+        card.querySelector('.tt-edit-btn').addEventListener('click', function () {
+          mpStartEdit(+this.dataset.fac, +this.dataset.inst);
+          mpClearInstCards();
+        });
+        card.querySelector('.tt-add-inst-btn').addEventListener('click', function () {
+          mpAddInstance(+this.dataset.fac);
+          mpClearInstCards();
+        });
+
+        // Stagger the fade-in
+        setTimeout(() => card.classList.add('visible'), 30 * i);
+      }
+    }
+
+    function mpSelectFacility(idx, instIdx) {
+      const f = facilitiesData[idx];
+      const xs = Array.isArray(f.n_x_coordinate) ? f.n_x_coordinate : [f.n_x_coordinate];
+      const ys = Array.isArray(f.n_y_coordinate) ? f.n_y_coordinate : [f.n_y_coordinate];
+
+      // Highlight list item & ALL pins for this facility
       document.querySelectorAll('.mp-fac-item').forEach(el => el.classList.remove('active'));
       const item = document.querySelector(`.mp-fac-item[data-mp-idx="${idx}"]`);
       if (item) item.classList.add('active');
       document.querySelectorAll('.pin').forEach(p => p.classList.remove('highlighted'));
       document.querySelectorAll(`.pin[data-mp-fac="${idx}"]`).forEach(p => p.classList.add('highlighted'));
 
-      // Zoom in to the pin (at least 2×) then show tooltip
-      const xs = Array.isArray(f.n_x_coordinate) ? f.n_x_coordinate : [f.n_x_coordinate];
-      const ys = Array.isArray(f.n_y_coordinate) ? f.n_y_coordinate : [f.n_y_coordinate];
-      const ix = xs[0] / 100 * MP_NAT_W;
-      const iy = ys[0] / 100 * MP_NAT_H;
       const vp = document.getElementById('mpViewport');
-      mpZoom = Math.max(mpZoom, 2.0);
-      mpPanX = vp.offsetWidth / 2 + iy * mpZoom;
-      mpPanY = vp.offsetHeight / 2 - ix * mpZoom;
-      mpApplyTransform(true);
+      const vpW = vp.offsetWidth, vpH = vp.offsetHeight;
 
-      // Show pinned tooltip after the pan animation settles
-      mpPinnedFacIdx = -1; // temporarily unpin so hidePinTooltip can clear
-      pinTooltip.classList.remove('visible');
-      setTimeout(() => mpShowPinnedTooltip(idx), 460);
+      if (f.n_instances > 1) {
+        // Multi-instance: zoom to fit ALL instances with padding
+        const ixArr = xs.map(x => x / 100 * MP_NAT_W);
+        const iyArr = ys.map(y => y / 100 * MP_NAT_H);
+        const ixMin = Math.min(...ixArr), ixMax = Math.max(...ixArr);
+        const iyMin = Math.min(...iyArr), iyMax = Math.max(...iyArr);
+
+        // Rotated 90°: visual width uses iy range, visual height uses ix range
+        const spanW = (iyMax - iyMin) || 200;
+        const spanH = (ixMax - ixMin) || 200;
+        const fitZoom = Math.min(vpW * 0.55 / spanW, vpH * 0.55 / spanH);
+        mpZoom = Math.max(fitZoom, 0.8);
+
+        // Centre on the midpoint of all instances
+        const cix = (ixMin + ixMax) / 2;
+        const ciy = (iyMin + iyMax) / 2;
+        mpPanX = vpW / 2 + ciy * mpZoom;
+        mpPanY = vpH / 2 - cix * mpZoom;
+        mpApplyTransform(true);
+
+        // Show cards on all instances after animation
+        mpPinnedFacIdx = -1;
+        pinTooltip.classList.remove('visible', 'pinned');
+        mpClearInstCards();
+        setTimeout(() => mpShowInstCards(idx), 480);
+      } else {
+        // Single instance: zoom to that pin
+        instIdx = instIdx || 0;
+        const ix = xs[instIdx] / 100 * MP_NAT_W;
+        const iy = ys[instIdx] / 100 * MP_NAT_H;
+        mpZoom = Math.max(mpZoom, 2.0);
+        mpPanX = vpW / 2 + iy * mpZoom;
+        mpPanY = vpH / 2 - ix * mpZoom;
+        mpApplyTransform(true);
+
+        mpPinnedFacIdx = -1;
+        pinTooltip.classList.remove('visible');
+        mpClearInstCards();
+        setTimeout(() => mpShowPinnedTooltip(idx, instIdx), 460);
+      }
     }
 
     function mpBuildSidebars() {
@@ -3769,7 +3908,7 @@
           pin.addEventListener('mouseenter', e => showPinTooltip({ ...facility, title: label }, e));
           pin.addEventListener('mousemove', e => movePinTooltip(e));
           pin.addEventListener('mouseleave', hidePinTooltip);
-          pin.addEventListener('click', () => mpSelectFacility(fIdx));
+          pin.addEventListener('click', ((fi, ii) => () => mpSelectFacility(fi, ii))(fIdx, i));
           zc.appendChild(pin);
         }
       });
@@ -3832,7 +3971,7 @@
 
       // Tooltip + edit bar buttons
       document.getElementById('ttEditBtn').addEventListener('click', () => {
-        if (mpPinnedFacIdx >= 0) mpStartEdit(mpPinnedFacIdx, 0);
+        if (mpPinnedFacIdx >= 0) mpStartEdit(mpPinnedFacIdx, mpPinnedInstIdx);
       });
       document.getElementById('ttAddInstBtn').addEventListener('click', () => {
         if (mpPinnedFacIdx >= 0) mpAddInstance(mpPinnedFacIdx);
