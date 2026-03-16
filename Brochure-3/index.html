@@ -447,9 +447,11 @@
     }
 
     /* Slide 2 & 3: Dark background */
+    #s1b,
     #s2,
     #s3,
-    #s5 {
+    #s5,
+    #s5b {
       background: #111111;
     }
 
@@ -465,8 +467,10 @@
       margin-top: auto;
     }
 
+    #s1b>.container,
     #s2>.container,
     #s3>.container,
+    #s5b>.container,
     #s7>.container {
       padding-bottom: 32vh;
     }
@@ -475,12 +479,17 @@
       padding-bottom: 20vh;
     }
 
+    #s1b h2,
     #s2 h2,
     #s3 h2,
-    #s5 h2 {
+    #s5 h2,
+    #s5b h2 {
       color: #eb1d23;
     }
 
+    #s1b p,
+    #s1b .body-large,
+    #s1b .body-main,
     #s2 p,
     #s2 .body-large,
     #s2 .body-main,
@@ -490,14 +499,21 @@
     #s5 p,
     #s5 .body-large,
     #s5 .body-main,
+    #s5b p,
+    #s5b .body-large,
+    #s5b .body-main,
+    #s1b .label,
     #s2 .label,
     #s3 .label,
     #s5 .label,
+    #s5b .label,
     #s2 .num-label,
     #s3 .num-label,
+    #s1b,
     #s2,
     #s3,
-    #s5 {
+    #s5,
+    #s5b {
       color: #fff;
     }
 
@@ -1114,11 +1130,82 @@
     }
 
     /* Slide 10: Amenities */
+    .am-slider-outer {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .am-slider-wrapper {
+      position: relative;
+      overflow: hidden;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .am-slider-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
     .amenities-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
       gap: 15px;
-      margin-top: 20px;
+      min-width: 100%;
+      flex-shrink: 0;
+    }
+
+    .am-slider-arrow {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease, opacity 0.3s ease;
+    }
+
+    .am-slider-arrow:hover {
+      background: rgba(0, 0, 0, 0.9);
+    }
+
+    .am-slider-arrow:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+
+
+    .am-slider-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .am-slider-dots button {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.3s ease, width 0.3s ease;
+    }
+
+    .am-slider-dots button.active {
+      width: 24px;
+      border-radius: 4px;
+      background: var(--primary);
     }
 
     .am-card {
@@ -2594,21 +2681,41 @@
     <div class="slide active" id="s1" data-title="Welcome">
     </div>
 
+    <!-- Slide 1b: About Flow Developments -->
+    <div class="slide" id="s1b" data-title="About Flow">
+      <div class="container">
+        <div class="split-layout">
+          <div>
+            <span class="label">About Flow Developments</span>
+            <h2>A Partnership<br>Built on Trust.</h2>
+          </div>
+          <div>
+            <p class="body-large" style="font-weight:700; text-transform:uppercase;">Build Spaces of Harmony and a Modern, Nature-Led Community</p>
+            <p class="body-main" style="text-align:justify;">Flow Developments is the union of three reputable names with a longstanding presence in Obour. Together, they bring a shared vision of modern design, reliable quality, and accessible living, creating a residential environment shaped for families and built on decades of collective expertise.</p>
+          </div>
+        </div>
+      </div>
+      <div class="strip-belt">
+        <div class="strip-belt-inner"><img src="publication-web-resources/image/strip.png" alt=""><img
+            src="publication-web-resources/image/strip.png" alt=""><img src="publication-web-resources/image/strip.png"
+            alt=""><img src="publication-web-resources/image/strip.png" alt=""></div>
+      </div>
+    </div>
+
     <!-- Slide 2: Our Story -->
     <div class="slide" id="s2" data-title="Our Story">
       <div class="container">
         <div class="split-layout">
           <div>
-            <h2>For over 19 years,</h2>
-            <p class="body-large" style="font-weight:700; text-transform:uppercase;">We have been actively shaping
-              the<br>real estate landscape in Obour City.</p>
+            <span class="label">Our Story</span>
+            <h2>For over 20 years,</h2>
+            <p class="body-large" style="font-weight:700; text-transform:uppercase;">Shaping the real estate landscape in Obour City and still.</p>
           </div>
           <div>
-            <p class="body-main" style="text-align:justify;">Our philosophy has always gone beyond simply constructing
-              buildings; we focus on building communities that enrich everyday life. We carefully select the most
-              strategic locations to ensure accessibility, value, and long-term growth for our clients. Every project we
-              develop is designed to combine functionality, comfort, and lasting quality. With the shared vision of two
-              experienced developers, a new chapter began. From that collaboration, Flow Development was born.</p>
+            <p class="body-main" style="text-align:justify;">Our philosophy has always gone beyond simply constructing buildings — to developing communities that enrich everyday life. We carefully select the most strategic locations to ensure accessibility, value, and long-term growth.</p>
+            <p class="body-main" style="text-align:justify;">Every project we develop is designed to combine functionality, comfort, and lasting quality.</p>
+            <p class="body-main" style="text-align:justify;">With the shared vision of two experienced developers, a new chapter began. From that collaboration, <strong>FLOW DEVELOPMENTS</strong> was born.</p>
+            <p class="body-large" style="font-weight:700; font-style:italic;">A continuation of experience.<br>A new flow of possibilities.</p>
           </div>
         </div>
       </div>
@@ -2637,12 +2744,12 @@
             <div>
               <div class="num-val" data-target="100" data-suffix="+">0</div>
               <div class="num-label">Projects Delivered</div>
-              <p class="num-desc">A diverse portfolio including residential buildings, villas, and commercial
-                developments</p>
+              <p class="num-desc">A diverse portfolio including residential buildings, villas, and commercial developments</p>
             </div>
             <i class="fa-solid fa-city card-icon"></i>
           </div>
         </div>
+        <p class="body-main" style="text-align:center; margin-top: 30px;">Thousands of residents served — creating spaces where families live, grow, and thrive.</p>
       </div>
       <div class="strip-belt">
         <div class="strip-belt-inner"><img src="publication-web-resources/image/strip.png" alt=""><img
@@ -2661,9 +2768,7 @@
               <div class="founder-name">Osama Romany</div>
               <div class="founder-role">&middot; Co-Founder of <strong>"Flow Developments"</strong></div>
               <div class="founder-rule"></div>
-              <p class="founder-desc">With over 19 years of experience and a portfolio exceeding 100 projects, including
-                commercial malls, villas, and residential buildings. His projects have earned strong market trust
-                through high construction quality, strict commitment to deadlines, and a "Client First" philosophy.</p>
+              <p class="founder-desc">Eng. Osama Romany is the Co-Founder of Flow Development, with over 19 years of experience and a portfolio exceeding 100 projects, including commercial malls, villas, and residential buildings. His projects have earned strong market trust through high construction quality, strict commitment to deadlines, and a "Client First" philosophy.</p>
             </div>
             <div class="founder-photo">
               <img src="publication-web-resources/image/slide 4/Asset 6.webp" alt="Eng. Osama Romany">
@@ -2671,14 +2776,11 @@
           </div>
           <div class="founder-block reverse">
             <div class="founder-info">
-              <div class="founder-prefix">Mr.</div>
+              <div class="founder-prefix">Eng.</div>
               <div class="founder-name">Emad Samir</div>
               <div class="founder-role">&middot; Co-Founder of <strong>"Flow Developments"</strong></div>
               <div class="founder-rule"></div>
-              <p class="founder-desc">One of the leading figures in real estate development in East Cairo. He has
-                successfully developed several distinguished commercial and residential projects that achieved rapid
-                sales rates and strong client trust through quality execution and commitment. His experience spans many
-                years of hands-on project management, from site selection and execution to final delivery.</p>
+              <p class="founder-desc">Eng. Emad Samir is a Co-Founder of Flow Development and one of the leading figures in real estate development in East Cairo. He has successfully developed several distinguished commercial and residential projects that achieved rapid sales rates and strong client trust through quality execution and commitment. His experience spans many years of hands-on project management, from site selection and execution to final delivery.</p>
             </div>
             <div class="founder-photo">
               <img src="publication-web-resources/image/slide 4/Asset 7.webp" alt="Mr. Emad Samir">
@@ -2694,10 +2796,17 @@
     </div>
 
     <!-- Slide 5: Previous Projects -->
-    <div class="slide" id="s5" data-title="Past Success">
+    <div class="slide" id="s5" data-title="Previous Projects">
       <div class="container">
-        <span class="label"></span>
-        <h2>Portfolio</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
+          <div>
+            <span class="label">Previous Projects</span>
+            <h2>A glimpse into our journey of building trusted developments</h2>
+          </div>
+          <div>
+            <p class="body-main" style="margin-bottom: 0;">For nearly two decades, we have shaped a portfolio of successful developments across Obour City. From residential communities to commercial destinations, our projects are built on trust, quality, and a vision for better living.</p>
+          </div>
+        </div>
         <div class="video-container" id="videoContainer">
           <img src="publication-web-resources/image/slide 1.jpg" alt="Video Thumbnail" class="video-thumb"
             id="videoThumb">
@@ -2708,7 +2817,33 @@
       </div>
     </div>
 
-
+    <!-- Slide 5b: Current Projects -->
+    <div class="slide" id="s5b" data-title="Current Projects">
+      <div class="container">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;">
+          <div>
+            <span class="label">Current Projects</span>
+            <h2>Today, Flow Development continues to expand its portfolio</h2>
+            <p class="body-main">With carefully selected developments. Our projects are divided into two main sectors.</p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 30px;">
+            <div>
+              <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 8px; text-transform: uppercase;">Residential Projects</h3>
+              <p class="body-main" style="margin-bottom: 0;">Designed to offer comfortable living environments, modern layouts, and strong long-term value.</p>
+            </div>
+            <div>
+              <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 8px; text-transform: uppercase;">Commercial Projects – Coming Soon</h3>
+              <p class="body-main" style="margin-bottom: 0;">Strategically located commercial developments that aim to support business growth and vibrant community activity.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="strip-belt">
+        <div class="strip-belt-inner"><img src="publication-web-resources/image/strip.png" alt=""><img
+            src="publication-web-resources/image/strip.png" alt=""><img src="publication-web-resources/image/strip.png"
+            alt=""><img src="publication-web-resources/image/strip.png" alt=""></div>
+      </div>
+    </div>
 
     <!-- Slide 6: Flow Park Cover -->
     <div class="slide" id="s6" data-title="Flow Park"
@@ -2720,13 +2855,10 @@
       <div class="container">
         <div class="split-layout">
           <div>
-            <span class="label">The Flagship</span>
-            <h2>Flow Park Residence</h2>
-            <p class="body-large" style="color: var(--primary); font-weight: 700; font-size: 28px;">"Where Life Flows
-              Naturally"</p>
-            <p class="body-main" style="margin-top: 30px;">Flow Park is not just a residential compound; it’s an
-              ecosystem designed for seamless living. Bringing together expansive greenery, smart architecture, and
-              community-centric amenities to Obour City.</p>
+            <span class="label">Flow Park Residence</span>
+            <h2>Aim High. Live Higher</h2>
+            <p class="body-large" style="color: var(--primary); font-weight: 700; font-size: 28px;">A Thoughtfully Planned Residential Community Built on Green Living</p>
+            <p class="body-main" style="margin-top: 30px;">Flow Park blends nature, elevation, and modern planning to create a peaceful residential community designed for balance, comfort, and everyday harmony.</p>
           </div>
           <div style="text-align: right;">
             <img id="s7PreviewImg" src="publication-web-resources/image/slider/Artboard 1.png" alt="Concept"
@@ -2751,8 +2883,15 @@
     <!-- Slide 8: Location -->
     <div class="slide" id="s8" data-title="Location">
       <div class="container">
-        <span class="label">Connectivity</span>
-        <h2>Unmatched Accessibility</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 30px;">
+          <div>
+            <span class="label">Connectivity</span>
+            <h2>Perfectly Connected</h2>
+          </div>
+          <div>
+            <p class="body-main" style="margin-bottom: 0;">With direct routes linking Obour to nearby cities, Flow Park Residence becomes a central destination for families seeking better living without distancing themselves from their hometowns. Its location supports smooth daily movement, easy commutes, and fast access to major road networks.</p>
+          </div>
+        </div>
         <div class="map-container" style="cursor: pointer;" onclick="openVideoLightbox()">
           <video src="publication-web-resources/FlowPark Map Animation.mp4" class="map-img" id="s8Video" autoplay muted
             loop playsinline style="cursor: pointer;"></video>
@@ -2763,8 +2902,9 @@
     <!-- Slide 9: Fact Sheet -->
     <div class="slide" id="s9" data-title="Fact Sheet">
       <div class="container">
-        <span class="label">Project Details</span>
-        <h2>The Grand Scale</h2>
+        <span class="label">Key Facts</span>
+        <h2>Key Facts That Shape Flow Park Residence</h2>
+        <p class="body-main" style="margin-bottom: 30px;">Built across a generous land area, FLOW PARK RESIDENCE features uniform building heights, multiple secure entrances, designated administrative and commercial floors, and thoughtfully distributed blocks that enhance privacy and maximize natural views. Each number tells the story of a compound planned for clarity, convenience, and everyday ease.</p>
         <div class="facts-grid">
           <div class="fact-card">
             <div>
@@ -2776,21 +2916,13 @@
           <div class="fact-card">
             <div>
               <div class="fc-val" data-target="920" data-suffix="">0</div>
-              <div class="fc-lbl">Total Units</div>
+              <div class="fc-lbl">Total Number of Units</div>
             </div>
             <i class="fa-solid fa-building card-icon"></i>
           </div>
           <div class="fact-card">
             <div>
-              <div class="fc-val" data-target="18" data-suffix="%">0</div>
-              <div class="fc-lbl">Built-Up Area</div>
-            </div>
-            <i class="fa-solid fa-chart-area card-icon"></i>
-          </div>
-          <div class="fact-card">
-            <div>
-              <div class="fc-val" data-target="1.5" data-suffix=" <span style='font-size: 20px;'>km</span>"
-                data-decimal="true">0</div>
+              <div class="fc-val" data-target="1500" data-suffix=" <span style='font-size: 20px;'>m²</span>">0</div>
               <div class="fc-lbl">Facade Length</div>
             </div>
             <i class="fa-solid fa-arrows-left-right card-icon"></i>
@@ -2798,9 +2930,16 @@
           <div class="fact-card">
             <div>
               <div class="fc-val" data-target="35" data-suffix="">0</div>
-              <div class="fc-lbl">Buildings</div>
+              <div class="fc-lbl">Number of Buildings</div>
             </div>
             <i class="fa-solid fa-city card-icon"></i>
+          </div>
+          <div class="fact-card">
+            <div>
+              <div class="fc-val" data-target="18" data-suffix="%">0</div>
+              <div class="fc-lbl">Built Up Area</div>
+            </div>
+            <i class="fa-solid fa-chart-area card-icon"></i>
           </div>
         </div>
       </div>
@@ -2811,88 +2950,125 @@
       <div class="container">
         <span class="label">Lifestyle</span>
         <h2>World-Class Amenities</h2>
-        <div class="amenities-grid">
-          <div class="am-card" onclick="this.classList.toggle('active')">
-            <img
-              src="publication-web-resources/image/hellofernando_japanese_luxury_spa_interior_wide_angle_indoor_po_8aa1fdd4-1e2f-4044-bade-28fdcdcbff8e.png"
-              class="am-img">
-            <div class="am-title">Clubhouse</div>
-            <div class="am-desc">
-              <h4>Clubhouse</h4>
-              <p>A premium social hub designed for residents to connect, relax, and host gatherings in an elegant
-                setting.</p>
+        <div class="am-slider-outer">
+          <button class="am-slider-arrow am-prev" id="amPrev" onclick="amSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+          <div class="am-slider-wrapper" id="amSliderWrapper">
+            <div class="am-slider-track" id="amSliderTrack">
+            <!-- Page 1 -->
+            <div class="amenities-grid">
+              <div class="am-card" onclick="this.classList.toggle('active')">
+                <img src="publication-web-resources/image/hellofernando_japanese_luxury_spa_interior_wide_angle_indoor_po_8aa1fdd4-1e2f-4044-bade-28fdcdcbff8e.png" class="am-img">
+                <div class="am-title">Clubhouse</div>
+                <div class="am-desc">
+                  <h4>Aim for a Community You Can Stand Out In</h4>
+                  <p>The clubhouse at Flow Park offers a warm, inviting space where residents can relax, connect, and enjoy shared activities. Thoughtfully designed with indoor and outdoor areas, it brings families together, supports community interaction, and enhances daily living through comfort, convenience, and natural surroundings.</p>
+                </div>
+              </div>
+              <div class="am-card" onclick="this.classList.toggle('active')">
+                <img src="publication-web-resources/image/weibian9417_A_serene_morning_park_scene_dewy_grass_lawn_lush_gr_283c310b-fb64-4a22-967f-672334db6b1a.png" class="am-img">
+                <div class="am-title">Green Spaces &amp; Gardens</div>
+                <div class="am-desc">
+                  <h4>Aim for Greenery Everywhere</h4>
+                  <p>Landscaped areas designed to bring nature to every corner of the community. Flow Park Residence dedicates a significant portion of its land to greenery, ensuring that every home overlooks calming landscapes.</p>
+                </div>
+              </div>
+              <div class="am-card" onclick="this.classList.toggle('active')">
+                <img src="publication-web-resources/image/ewsdymkjv45_There_are_several_children_playing_happily_in_a_hug_d08cfcf5-45f5-483a-99c0-5333f0350883_Topaz_Bloom_2x_scale.png" class="am-img">
+                <div class="am-title">Kids' Play Areas</div>
+                <div class="am-desc">
+                  <h4>Aim for Playing, Safely</h4>
+                  <p>Dedicated spaces for children to explore, learn, and enjoy every day. Safe and thoughtfully designed play zones give children the freedom to grow, socialize, and stay active within the community.</p>
+                </div>
+              </div>
+              <div class="am-card" onclick="this.classList.toggle('active')">
+                <img src="publication-web-resources/image/3a36ba98a704ae012dae2055170fb5da_Topaz_Bloom_2x_scale.png" class="am-img">
+                <div class="am-title">Swimming Pools</div>
+                <div class="am-desc">
+                  <h4>Aim for Refreshing &amp; Relaxing</h4>
+                  <p>Pools designed for leisure, family time, and everyday enjoyment. Surrounded by decks and landscaped zones, they provide a private, calm space for families to relax, cool down, and enjoy moments of peace.</p>
+                </div>
+              </div>
+              <div class="am-card" onclick="this.classList.toggle('active')">
+                <img src="publication-web-resources/image/yassin_httpss.png" class="am-img">
+                <div class="am-title">Gym</div>
+                <div class="am-desc">
+                  <h4>Aim for Staying Active</h4>
+                  <p>A fully equipped gym supporting health, movement, and everyday wellbeing. Residents can maintain a healthy lifestyle with a well-equipped gym designed for all fitness levels.</p>
+                </div>
+              </div>
+              <div class="am-card" onclick="this.classList.toggle('active')">
+                <img src="publication-web-resources/image/zoe_a_beautiful_woman_is_lying_on_her_back_for_a_massage_with_w_d79ff7fb-e45b-435e-992d-fbeeab93d60b.png" class="am-img">
+                <div class="am-title">Health Club</div>
+                <div class="am-desc">
+                  <h4>Aim for Higher Wellbeing</h4>
+                  <p>A lifestyle hub offering comfort, care, and holistic health facilities. The health club provides relaxation and rejuvenation through a range of services planned to support mental and physical balance.</p>
+                </div>
+              </div>
+              <div class="am-card" onclick="this.classList.toggle('active')">
+                <img src="publication-web-resources/image/hsac_cr3_A_wide_scenic_view_of_an_outdoor_running_track_leading_1c07c8b0-0a8f-42e5-b49e-70a136a60832.png" class="am-img">
+                <div class="am-title">Cycling Track</div>
+                <div class="am-desc">
+                  <h4>Aim for Riding Freely</h4>
+                  <p>A dedicated cycling track designed for safety, movement, and family enjoyment. Flow Park Residence offers a spacious cycling route that allows residents to move freely within a safe, vehicle-controlled environment.</p>
+                </div>
+              </div>
+              <div class="am-card" onclick="this.classList.toggle('active')">
+                <img src="publication-web-resources/image/neurobober_A_wide-angle_high-key_photograph_of_a_shopping_mall__16b9b635-070c-4f9d-b9fd-c1820f4fbf10_Topaz_Bloom_2x_scale.png" class="am-img">
+                <div class="am-title">Mall &amp; Commercial Area</div>
+                <div class="am-desc">
+                  <h4>Aim for Having Everything Within Reach</h4>
+                  <p>Shops, cafés, and daily services just steps away from home. Offering essential services, cafés, and retail options, this hub ensures that everyday needs are met without long commutes, saving time and supporting a more relaxed lifestyle.</p>
+                </div>
+              </div>
+            </div>
+            <!-- Page 2 -->
+            <div class="amenities-grid">
+              <div class="am-card" onclick="this.classList.toggle('active')">
+                <img src="publication-web-resources/image/onedaydctw_24250_japanese_minimalist_dental_clinic_treatment_ro_69c5fa91-1d53-4c89-8ad4-8909021b8584.png" class="am-img">
+                <div class="am-title">Medical Center</div>
+                <div class="am-desc">
+                  <h4>Aim for Care Close By</h4>
+                  <p>A nearby medical facility ensuring safety, convenience, and quick support. With a medical center integrated into the community, residents gain peace of mind knowing that professional care is always close.</p>
+                </div>
+              </div>
+              <div class="am-card" onclick="this.classList.toggle('active')">
+                <img src="publication-web-resources/image/yassin_httpss.mj.runlSjs5Ikpf18_A_row_of_modern_electric_vehi_ce2712af-901e-47b3-9b28-c861ac8c2db7_1.png" class="am-img">
+                <div class="am-title">EV Charging Stations</div>
+                <div class="am-desc">
+                  <h4>Future-Ready Mobility Within Your Community</h4>
+                  <p>Electric car charging stations are available within Flow Park to support modern, eco-conscious lifestyles. Conveniently located and easy to access, they reflect the project's commitment to sustainability and future-ready infrastructure.</p>
+                </div>
+              </div>
+              <div class="am-card" onclick="this.classList.toggle('active')">
+                <img src="publication-web-resources/image/dreweu._General_view_pop_group_concert_in_a_stadium_in_the_fore_3ee70339-5fde-4888-a435-0bc56e30246c.png" class="am-img">
+                <div class="am-title">Event Halls</div>
+                <div class="am-desc">
+                  <h4>Spaces Designed for Shared Community Moments</h4>
+                  <p>Flow Park's event halls are thoughtfully designed to host celebrations, gatherings, and community activities in a comfortable, well-equipped environment. Flexible layouts and easy accessibility make them ideal for family occasions and social events.</p>
+                </div>
+              </div>
+              <div class="am-card" onclick="this.classList.toggle('active')">
+                <img src="publication-web-resources/image/0b7458bf6ce02a429cc6956bca9ba242_Topaz_Bloom_2x_scale.png" class="am-img">
+                <div class="am-title">Parking Spaces</div>
+                <div class="am-desc">
+                  <h4>Organized Parking for Everyday Ease</h4>
+                  <p>Dedicated parking spaces are carefully planned across Flow Park to ensure smooth circulation, safety, and daily convenience. With clear access points and organized layouts, residents enjoy stress-free arrivals and departures.</p>
+                </div>
+              </div>
+              <div class="am-card" onclick="this.classList.toggle('active')">
+                <img src="publication-web-resources/image/Generative_Expand_2.png" class="am-img">
+                <div class="am-title">Waste &amp; Recycling</div>
+                <div class="am-desc">
+                  <h4>Smart Systems Supporting Cleaner Sustainable Living</h4>
+                  <p>A modern waste management and recycling system is integrated throughout Flow Park to maintain cleanliness and promote environmental responsibility. The system supports organized collection, reduces visual clutter, and contributes to a healthier living environment.</p>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="am-card" onclick="this.classList.toggle('active')">
-            <img src="publication-web-resources/image/yassin_httpss.png" class="am-img">
-            <div class="am-title">Gymnasium</div>
-            <div class="am-desc">
-              <h4>Gymnasium</h4>
-              <p>Fully equipped fitness center with state-of-the-art machines and dedicated workout zones.</p>
-            </div>
           </div>
-          <div class="am-card" onclick="this.classList.toggle('active')">
-            <img
-              src="publication-web-resources/image/zoe_a_beautiful_woman_is_lying_on_her_back_for_a_massage_with_w_d79ff7fb-e45b-435e-992d-fbeeab93d60b.png"
-              class="am-img">
-            <div class="am-title">Health Spa</div>
-            <div class="am-desc">
-              <h4>Health Spa</h4>
-              <p>An on-site wellness retreat offering rejuvenating spa treatments and relaxation areas.</p>
-            </div>
-          </div>
-          <div class="am-card" onclick="this.classList.toggle('active')">
-            <img
-              src="publication-web-resources/image/hsac_cr3_A_wide_scenic_view_of_an_outdoor_running_track_leading_1c07c8b0-0a8f-42e5-b49e-70a136a60832.png"
-              class="am-img">
-            <div class="am-title">Cycling Track</div>
-            <div class="am-desc">
-              <h4>Cycling Track</h4>
-              <p>Safe and scenic routes integrated with the green landscape for active lifestyle enthusiasts.</p>
-            </div>
-          </div>
-          <!-- More amenities -->
-          <div class="am-card" onclick="this.classList.toggle('active')">
-            <img
-              src="publication-web-resources/image/ewsdymkjv45_There_are_several_children_playing_happily_in_a_hug_d08cfcf5-45f5-483a-99c0-5333f0350883_Topaz_Bloom_2x_scale.png"
-              class="am-img">
-            <div class="am-title">Kids Area</div>
-            <div class="am-desc">
-              <h4>Kids Area</h4>
-              <p>Secure, fun, and interactive play zones designed for children of all ages.</p>
-            </div>
-          </div>
-          <div class="am-card" onclick="this.classList.toggle('active')">
-            <img
-              src="publication-web-resources/image/neurobober_A_wide-angle_high-key_photograph_of_a_shopping_mall__16b9b635-070c-4f9d-b9fd-c1820f4fbf10_Topaz_Bloom_2x_scale.png"
-              class="am-img">
-            <div class="am-title">Commercial Strip</div>
-            <div class="am-desc">
-              <h4>Commercial Strip</h4>
-              <p>Premium retail outlets, cafes, and restaurants conveniently located within the compound.</p>
-            </div>
-          </div>
-          <div class="am-card" onclick="this.classList.toggle('active')">
-            <img
-              src="publication-web-resources/image/dreweu._General_view_pop_group_concert_in_a_stadium_in_the_fore_3ee70339-5fde-4888-a435-0bc56e30246c.png"
-              class="am-img">
-            <div class="am-title">Events Hall</div>
-            <div class="am-desc">
-              <h4>Events Hall</h4>
-              <p>Versatile community spaces designed to host occasions, celebrations, and events.</p>
-            </div>
-          </div>
-          <div class="am-card" onclick="this.classList.toggle('active')">
-            <img
-              src="publication-web-resources/image/yassin_httpss.mj.runlSjs5Ikpf18_A_row_of_modern_electric_vehi_ce2712af-901e-47b3-9b28-c861ac8c2db7_1.png"
-              class="am-img">
-            <div class="am-title">Smart EV Stations</div>
-            <div class="am-desc">
-              <h4>Smart EV Stations</h4>
-              <p>Dedicated charging ports supporting modern electric vehicle infrastructure.</p>
-            </div>
-          </div>
+          <button class="am-slider-arrow am-next" id="amNext" onclick="amSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
+        <div class="am-slider-dots" id="amSliderDots"></div>
       </div>
     </div>
 
@@ -3087,7 +3263,7 @@
     });
 
     // Build Dot Pagination
-    const darkSlideIds = ['s2', 's3', 's4', 's5'];
+    const darkSlideIds = ['s1b', 's2', 's3', 's4', 's5', 's5b'];
     const dotPag = document.getElementById('dotPagination');
     slides.forEach((slide, idx) => {
       const dot = document.createElement('button');
@@ -3390,6 +3566,38 @@
       document.getElementById('lightboxImg').src = src;
       document.getElementById('lightboxOverlay').classList.add('active');
     }
+
+    // Amenities Slider
+    let amPage = 0;
+    const amTrack = document.getElementById('amSliderTrack');
+    const amPages = amTrack.querySelectorAll('.amenities-grid');
+    const amTotalPages = amPages.length;
+    const amDotsContainer = document.getElementById('amSliderDots');
+
+    // Build dots
+    for (let i = 0; i < amTotalPages; i++) {
+      const dot = document.createElement('button');
+      dot.className = i === 0 ? 'active' : '';
+      dot.onclick = () => amGoTo(i);
+      amDotsContainer.appendChild(dot);
+    }
+
+    function amGoTo(page) {
+      amPage = page;
+      amTrack.style.transform = `translateX(-${amPage * 100}%)`;
+      document.getElementById('amPrev').disabled = amPage === 0;
+      document.getElementById('amNext').disabled = amPage === amTotalPages - 1;
+      amDotsContainer.querySelectorAll('button').forEach((d, i) => d.className = i === amPage ? 'active' : '');
+      // Close any open cards
+      amTrack.querySelectorAll('.am-card.active').forEach(c => c.classList.remove('active'));
+    }
+
+    function amSlide(dir) {
+      const next = amPage + dir;
+      if (next >= 0 && next < amTotalPages) amGoTo(next);
+    }
+
+    amGoTo(0);
 
     function openVideoLightbox() {
       const lbVid = document.getElementById('lightboxVideo');
@@ -3694,7 +3902,7 @@
       const vp = document.getElementById('mpViewport');
       const vpW = vp.offsetWidth, vpH = vp.offsetHeight;
       // Rotated 90°: visual width = MP_NAT_H, visual height = MP_NAT_W
-      const s = Math.min(vpW / MP_NAT_H, vpH / MP_NAT_W) * 0.98;
+      const s = Math.min(vpW / MP_NAT_H, vpH / MP_NAT_W) * 0.88;
       mpZoom = s;
       // Centre: x spans [panX - MP_NAT_H*s, panX], y spans [panY, panY + MP_NAT_W*s]
       mpPanX = vpW / 2 + MP_NAT_H * s / 2;
