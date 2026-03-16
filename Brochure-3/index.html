@@ -168,11 +168,19 @@
     .nav-dark .nav-hotline-svg {
       filter: brightness(0);
     }
+
     .nav-dark .nav-hotline-url {
       color: #111;
     }
+
     .nav-dark .hamburger span {
       background: #111;
+    }
+
+    .nav-hidden {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
     }
 
     /* Navigation Overlay */
@@ -443,7 +451,7 @@
       background: #111111;
     }
 
-    #s5 > .container {
+    #s5>.container {
       justify-content: flex-start;
     }
 
@@ -455,13 +463,13 @@
       margin-top: auto;
     }
 
-    #s2 > .container,
-    #s3 > .container,
-    #s7 > .container {
+    #s2>.container,
+    #s3>.container,
+    #s7>.container {
       padding-bottom: 32vh;
     }
 
-    #s4 > .container {
+    #s4>.container {
       padding-bottom: 20vh;
     }
 
@@ -592,8 +600,13 @@
     }
 
     @keyframes imgStripScroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(calc(-50% - 6px)); }
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(calc(-50% - 6px));
+      }
     }
 
     .img-strip-inner img {
@@ -610,7 +623,7 @@
 
     .img-strip-inner img:hover {
       transform: scale(1.05);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     }
 
     /* Slide 1: Cover */
@@ -1047,8 +1060,16 @@
       transform-origin: center;
     }
 
-    .map-container:hover .map-img {
+    .map-container:hover .map-img:not(video) {
       transform: scale(1.03);
+    }
+
+    #s8 .map-container::after {
+      display: none;
+    }
+
+    #s8 .map-container {
+      cursor: default;
     }
 
     /* Slide 9: Fact Sheet */
@@ -1373,7 +1394,7 @@
       display: block;
       pointer-events: none;
       user-select: none;
-      filter: drop-shadow(0 25px 50px rgba(0,0,0,0.35)) drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+      filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.35)) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
       border-radius: 8px;
     }
 
@@ -2445,7 +2466,7 @@
     <div id="preloaderPct">0%</div>
   </div>
   <script>
-    (function() {
+    (function () {
       const pctEl = document.getElementById('preloaderPct');
       const loader = document.getElementById('preloader');
       let pct = 0;
@@ -2483,7 +2504,8 @@
     <div class="nav-logo">
       <!-- Flow Developments Logo -->
       <img id="logoDefault" src="publication-web-resources/image/flow logos/flow logo.png" alt="Flow Developments">
-      <img id="logoFlowpark" src="publication-web-resources/image/flow logos/flowpark logo.png" alt="Flow Park" style="display:none;">
+      <img id="logoFlowpark" src="publication-web-resources/image/flow logos/flowpark logo.png" alt="Flow Park"
+        style="display:none;">
     </div>
     <div class="nav-center">
       <a href="tel:17639" class="nav-hotline"><img src="publication-web-resources/image/flow logos/SVG/short number.svg"
@@ -2550,7 +2572,6 @@
       <div class="container">
         <span class="label">About Us</span>
         <h2>In Numbers</h2>
-        <div class="line-dec"></div>
         <div class="numbers-grid">
           <div class="number-card">
             <div>
@@ -2613,17 +2634,21 @@
           </div>
         </div>
       </div>
-      <div class="strip-belt"><div class="strip-belt-inner"><img src="publication-web-resources/image/strip.png" alt=""><img src="publication-web-resources/image/strip.png" alt=""><img src="publication-web-resources/image/strip.png" alt=""><img src="publication-web-resources/image/strip.png" alt=""></div></div>
+      <div class="strip-belt">
+        <div class="strip-belt-inner"><img src="publication-web-resources/image/strip.png" alt=""><img
+            src="publication-web-resources/image/strip.png" alt=""><img src="publication-web-resources/image/strip.png"
+            alt=""><img src="publication-web-resources/image/strip.png" alt=""></div>
+      </div>
     </div>
 
     <!-- Slide 5: Previous Projects -->
     <div class="slide" id="s5" data-title="Past Success">
       <div class="container">
-        <span class="label">Portfolio</span>
-        <h2>Our Previous Projects</h2>
-        <div class="line-dec"></div>
+        <span class="label"></span>
+        <h2>Portfolio</h2>
         <div class="video-container" id="videoContainer">
-          <img src="publication-web-resources/image/slide 1.jpg" alt="Video Thumbnail" class="video-thumb" id="videoThumb">
+          <img src="publication-web-resources/image/slide 1.jpg" alt="Video Thumbnail" class="video-thumb"
+            id="videoThumb">
           <button class="video-play-btn" id="videoPlayBtn" aria-label="Play video">
             <i class="fa-solid fa-play"></i>
           </button>
@@ -2645,7 +2670,6 @@
           <div>
             <span class="label">The Flagship</span>
             <h2>Flow Park Residence</h2>
-            <div class="line-dec"></div>
             <p class="body-large" style="color: var(--primary); font-weight: 700; font-size: 28px;">"Where Life Flows
               Naturally"</p>
             <p class="body-main" style="margin-top: 30px;">Flow Park is not just a residential compound; it’s an
@@ -2658,7 +2682,18 @@
           </div>
         </div>
       </div>
-      <div class="img-strip-belt" id="s7Strip"><div class="img-strip-inner"><img src="publication-web-resources/image/slider/Artboard 1.png" alt=""><img src="publication-web-resources/image/slider/Artboard 2.png" alt=""><img src="publication-web-resources/image/slider/Artboard 3.png" alt=""><img src="publication-web-resources/image/slider/Artboard 4.png" alt=""><img src="publication-web-resources/image/slider/Artboard 5.png" alt=""><img src="publication-web-resources/image/slider/Artboard 1.png" alt=""><img src="publication-web-resources/image/slider/Artboard 2.png" alt=""><img src="publication-web-resources/image/slider/Artboard 3.png" alt=""><img src="publication-web-resources/image/slider/Artboard 4.png" alt=""><img src="publication-web-resources/image/slider/Artboard 5.png" alt=""></div></div>
+      <div class="img-strip-belt" id="s7Strip">
+        <div class="img-strip-inner"><img src="publication-web-resources/image/slider/Artboard 1.png" alt=""><img
+            src="publication-web-resources/image/slider/Artboard 2.png" alt=""><img
+            src="publication-web-resources/image/slider/Artboard 3.png" alt=""><img
+            src="publication-web-resources/image/slider/Artboard 4.png" alt=""><img
+            src="publication-web-resources/image/slider/Artboard 5.png" alt=""><img
+            src="publication-web-resources/image/slider/Artboard 1.png" alt=""><img
+            src="publication-web-resources/image/slider/Artboard 2.png" alt=""><img
+            src="publication-web-resources/image/slider/Artboard 3.png" alt=""><img
+            src="publication-web-resources/image/slider/Artboard 4.png" alt=""><img
+            src="publication-web-resources/image/slider/Artboard 5.png" alt=""></div>
+      </div>
     </div>
 
     <!-- Slide 8: Location -->
@@ -2666,9 +2701,8 @@
       <div class="container">
         <span class="label">Connectivity</span>
         <h2>Unmatched Accessibility</h2>
-        <div class="line-dec"></div>
-        <div class="map-container" onclick="openLightbox(this)">
-          <img src="publication-web-resources/image/flow_park_map_sales_kit.png" alt="Map" class="map-img">
+        <div class="map-container" style="cursor: default;">
+          <video src="publication-web-resources/FlowPark Map Animation.mp4" class="map-img" id="s8Video" autoplay muted loop playsinline style="cursor: default;"></video>
         </div>
       </div>
     </div>
@@ -2678,7 +2712,6 @@
       <div class="container">
         <span class="label">Project Details</span>
         <h2>The Grand Scale</h2>
-        <div class="line-dec"></div>
         <div class="facts-grid">
           <div class="fact-card">
             <div>
@@ -2725,7 +2758,6 @@
       <div class="container">
         <span class="label">Lifestyle</span>
         <h2>World-Class Amenities</h2>
-        <div class="line-dec"></div>
         <div class="amenities-grid">
           <div class="am-card" onclick="this.classList.toggle('active')">
             <img
@@ -2816,9 +2848,7 @@
       <div class="container">
         <div class="mp-slide">
           <div class="mp-header-row">
-            <span class="label">Layout</span>
             <h2>Master Plan</h2>
-            <div class="line-dec"></div>
           </div>
           <div class="mp-body">
             <!-- Left sidebar: facilities 1–8 -->
@@ -2853,7 +2883,6 @@
       <div class="container">
         <span class="label">Residences</span>
         <h2>Choose Your Space</h2>
-        <div class="line-dec"></div>
         <div class="unit-system">
           <div class="hz-tabs" id="projTabs"></div>
           <div class="nested-grid">
@@ -2872,7 +2901,6 @@
       <div class="container">
         <span class="label">Investment</span>
         <h2>Tailored Payment Plans</h2>
-        <div class="line-dec"></div>
         <div class="calc-container">
           <div class="input-group">
             <label class="input-label">Enter Total Unit Price</label>
@@ -2926,7 +2954,6 @@
       <div class="container">
         <span class="label">Collaborators</span>
         <h2>Strength in Partnership</h2>
-        <div class="line-dec"></div>
         <p class="body-main">We align with industry leaders ensuring uncompromising quality.</p>
         <div class="partners-grid" style="grid-template-columns: repeat(3, 1fr);">
           <div class="partner-logo"><img src="publication-web-resources/image/partners/38.png" alt="Partner 1"
@@ -3005,7 +3032,7 @@
     });
 
     // Build Dot Pagination
-    const darkSlideIds = ['s2','s3','s4','s5'];
+    const darkSlideIds = ['s2', 's3', 's4', 's5'];
     const dotPag = document.getElementById('dotPagination');
     slides.forEach((slide, idx) => {
       const dot = document.createElement('button');
@@ -3062,7 +3089,9 @@
       document.getElementById('logoFlowpark').style.display = useFlowpark ? '' : 'none';
 
       // Dark nav from slide 6 onward
-      document.querySelector('.fixed-nav').classList.toggle('nav-dark', useFlowpark);
+      const nav = document.querySelector('.fixed-nav');
+      nav.classList.toggle('nav-dark', useFlowpark);
+      nav.classList.toggle('nav-hidden', slides[currIdx].id === 's6');
 
       // Update dot pagination
       updateDots();
@@ -3121,7 +3150,7 @@
     function nextSlide() { goToSlide(currIdx + 1); }
 
     // Video thumbnail → iframe on click
-    document.getElementById('videoPlayBtn').addEventListener('click', function() {
+    document.getElementById('videoPlayBtn').addEventListener('click', function () {
       const container = document.getElementById('videoContainer');
       container.querySelector('.video-thumb').remove();
       this.remove();
@@ -3133,8 +3162,16 @@
       container.appendChild(iframe);
     });
 
+    // Slide 8 video: pause on hover, play on leave
+    (function () {
+      const vid = document.getElementById('s8Video');
+      if (!vid) return;
+      vid.parentElement.addEventListener('mouseenter', () => vid.pause());
+      vid.parentElement.addEventListener('mouseleave', () => vid.play());
+    })();
+
     // Slide 7 strip hover → preview in main image
-    (function() {
+    (function () {
       const preview = document.getElementById('s7PreviewImg');
       const strip = document.getElementById('s7Strip');
       if (!preview || !strip) return;
