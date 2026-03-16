@@ -256,6 +256,62 @@
     }
 
     /* Slide Controls */
+    /* Dot Pagination */
+    .dot-pagination {
+      position: fixed;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .dot-pagination .dot-page {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease;
+      border: none;
+      padding: 0;
+    }
+
+    .dot-pagination .dot-page:hover {
+      transform: scale(1.4);
+    }
+
+    .dot-pagination .dot-page.active {
+      transform: scale(1.5);
+    }
+
+    .dot-pagination .dot-page {
+      position: relative;
+    }
+
+    .dot-pagination .dot-page .dot-label {
+      position: absolute;
+      right: calc(100% + 12px);
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .dot-pagination .dot-page:hover .dot-label {
+      opacity: 1;
+    }
+
     .slide-controls {
       display: none !important;
       /*remove to show the pagination*/
@@ -2439,6 +2495,9 @@
     <button class="ctrl-btn" id="nextBtn" onclick="nextSlide()">&#8594;</button>
   </div>
 
+  <!-- Dot Pagination -->
+  <div class="dot-pagination" id="dotPagination"></div>
+
   <!-- Presentation Container -->
   <div class="presentation" id="presentation">
 
@@ -2930,6 +2989,36 @@
       navMenu.appendChild(div);
     });
 
+    // Build Dot Pagination
+    const darkSlideIds = ['s2','s3','s4','s5'];
+    const dotPag = document.getElementById('dotPagination');
+    slides.forEach((slide, idx) => {
+      const dot = document.createElement('button');
+      dot.className = 'dot-page' + (idx === 0 ? ' active' : '');
+      const isDark = darkSlideIds.includes(slide.id);
+      dot.dataset.dark = isDark ? '1' : '0';
+      dot.style.background = isDark ? '#eb1d23' : '#111';
+      if (idx === 0) dot.style.background = '#111';
+      const label = document.createElement('span');
+      label.className = 'dot-label';
+      label.textContent = slide.getAttribute('data-title') || 'Slide ' + (idx + 1);
+      dot.appendChild(label);
+      dot.onclick = () => goToSlide(idx);
+      dotPag.appendChild(dot);
+    });
+
+    function updateDots() {
+      const dots = dotPag.querySelectorAll('.dot-page');
+      const activeSlide = slides[currIdx];
+      const isDark = darkSlideIds.includes(activeSlide.id);
+      dots.forEach((d, i) => {
+        d.classList.toggle('active', i === currIdx);
+        d.style.background = isDark ? 'rgba(235,29,35,' + (i === currIdx ? '1' : '0.4') + ')' : 'rgba(17,17,17,' + (i === currIdx ? '1' : '0.3') + ')';
+        const lbl = d.querySelector('.dot-label');
+        if (lbl) lbl.style.color = isDark ? '#fff' : '#111';
+      });
+    }
+
     // Menu Toggle
     function toggleMenu() {
       const overlay = document.getElementById('navOverlay');
@@ -2959,6 +3048,9 @@
 
       // Dark nav from slide 6 onward
       document.querySelector('.fixed-nav').classList.toggle('nav-dark', useFlowpark);
+
+      // Update dot pagination
+      updateDots();
 
       // Trigger counting animations on relevant slides
       const newActiveSlide = slides[currIdx];
