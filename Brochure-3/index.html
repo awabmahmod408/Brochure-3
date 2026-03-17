@@ -2683,8 +2683,8 @@
         style="display:none;">
     </div>
     <div class="nav-center">
-      <a href="tel:17639" class="nav-hotline"><img src="publication-web-resources/image/flow logos/SVG/short number.svg"
-          alt="17639" class="nav-hotline-svg"><span class="nav-hotline-url">flow-developments.com</span></a>
+      <a href="tel:17639" class="nav-hotline"><img src="publication-web-resources/image/flow logos/SVG/shortnmber with email.png"
+          alt="17639" class="nav-hotline-svg"></a>
       <div class="menu-btn" onclick="toggleMenu()">
         <div class="hamburger">
           <span></span><span></span><span></span>
@@ -3434,6 +3434,13 @@
       const nav = document.querySelector('.fixed-nav');
       nav.classList.toggle('nav-dark', useFlowpark);
       nav.classList.toggle('nav-hidden', slides[currIdx].id === 's6');
+
+      // Hide master plan tooltips/cards when leaving the map slide
+      if (slides[currIdx].id !== 's11') {
+        const tt = document.querySelector('.pin-tooltip');
+        if (tt) tt.classList.remove('visible', 'pinned');
+        document.querySelectorAll('.mp-inst-card').forEach(c => c.remove());
+      }
 
       // Update dot pagination
       updateDots();
