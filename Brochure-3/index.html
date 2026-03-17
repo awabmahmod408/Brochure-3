@@ -2669,8 +2669,13 @@
 
       requestAnimationFrame(tick);
 
-      window.addEventListener('load', () => { loaded = true; });
-      setTimeout(() => { loaded = true; }, maxTime);
+      // Finish loading only when slide 1 background image is loaded
+      const s1Img = new Image();
+      s1Img.onload = () => { loaded = true; };
+      s1Img.onerror = () => { loaded = true; };
+      s1Img.src = 'publication-web-resources/image/slide 1.jpg';
+      // Fallback timeout in case image takes too long
+      setTimeout(() => { loaded = true; }, 10000);
     })();
   </script>
 
