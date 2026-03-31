@@ -622,12 +622,13 @@
       }
 
       100% {
-        transform: translateX(calc(-50% - 6px));
+        transform: translateX(calc(-33.333% - 4px));
       }
     }
 
     .img-strip-inner img {
       height: 28vh;
+      min-width: 20vw;
       width: auto;
       display: block;
       flex-shrink: 0;
@@ -640,8 +641,15 @@
     }
 
     .img-strip-inner img:hover {
-      transform: scale(1.05);
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .img-strip-belt:hover .img-strip-inner {
+      animation-play-state: paused;
+    }
+
+    .img-strip-inner.stopped {
+      animation-play-state: paused !important;
     }
 
     /* Slide 1: Cover */
@@ -1002,8 +1010,13 @@
       transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.2s ease;
     }
 
-    .pillar-card:nth-child(2) { transition-delay: 0.3s; }
-    .pillar-card:nth-child(3) { transition-delay: 0.6s; }
+    .pillar-card:nth-child(2) {
+      transition-delay: 0.3s;
+    }
+
+    .pillar-card:nth-child(3) {
+      transition-delay: 0.6s;
+    }
 
     #s_pillars.slide.active .pillar-card {
       transform: translateY(0);
@@ -1324,6 +1337,131 @@
       font-weight: 400;
       color: rgba(255, 255, 255, 0.9);
       margin: 0;
+    }
+
+    /* Amenities Fullscreen Viewer */
+    .am-fullscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 9998;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .am-fullscreen.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .am-fs-img {
+      width: 65vw;
+      height: 60vh;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: opacity 0.3s ease;
+      margin-top: -60px;
+    }
+
+    .am-fs-content {
+      position: absolute;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      max-width: 600px;
+    }
+
+    .am-fs-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .am-fs-subtitle {
+      font-size: 14px;
+      color: #eb1d23;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .am-fs-desc {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.6;
+    }
+
+    .am-fs-close {
+      position: absolute;
+      top: 25px;
+      right: 35px;
+      color: #fff;
+      font-size: 36px;
+      cursor: pointer;
+      z-index: 2;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      transition: background 0.2s;
+    }
+
+    .am-fs-close:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .am-fs-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #fff;
+      font-size: 28px;
+      cursor: pointer;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      transition: background 0.2s;
+      z-index: 2;
+    }
+
+    .am-fs-nav:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .am-fs-prev {
+      left: 30px;
+    }
+
+    .am-fs-next {
+      right: 30px;
+    }
+
+    .am-fs-counter {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 13px;
+      letter-spacing: 2px;
     }
 
     /* Slide 10b: Master Plan Intro */
@@ -2795,30 +2933,8 @@
     <div class="slide active" id="s1" data-title="Welcome">
     </div>
 
-    <!-- Slide 1b: About Flow Developments -->
-    <div class="slide" id="s1b" data-title="About Flow">
-      <div class="container">
-        <div class="split-layout">
-          <div>
-            <span class="label">About Us</span>
-            <h2>A Partnership<br>Built on Trust.</h2>
-          </div>
-          <div>
-            <p class="body-large" style="font-weight:700; text-transform:uppercase;">Build Spaces of Harmony and a
-              Modern, Nature-Led Community</p>
-            <p class="body-main" style="text-align:justify;">Flow Developments is the union of three reputable names
-              with a longstanding presence in Obour. Together, they bring a shared vision of modern design, reliable
-              quality, and accessible living, creating a residential environment shaped for families and built on
-              decades of collective expertise.</p>
-          </div>
-        </div>
-      </div>
-      <div class="strip-belt">
-        <div class="strip-belt-inner"><img src="publication-web-resources/image/strip.png" alt=""><img
-            src="publication-web-resources/image/strip.png" alt=""><img src="publication-web-resources/image/strip.png"
-            alt=""><img src="publication-web-resources/image/strip.png" alt=""></div>
-      </div>
-    </div>
+    <!-- Slide 1b: About Flow Developments (deleted) -->
+
 
     <!-- Slide 2: Our Story -->
     <div class="slide" id="s2" data-title="Our Story">
@@ -2840,6 +2956,14 @@
               chapter began. From that collaboration, <strong>FLOW DEVELOPMENTS</strong> was born.</p>
             <p class="body-main" style="text-align:justify;">A continuation of experience.<br>A new
               flow of possibilities.</p>
+            <p class="body-main" style="text-align:justify; direction:rtl;">توجهنا دايما.. إزاي نبني مجتمعات مش مجرد
+              مباني
+              بنختار دايما مواقع مدروسة تضمن القيمة الحقيقية و النمو المستمر
+              بنصمم مجتمعات نحقق فيها الراحة، والعملية، وجودة تدوم
+              بخبرة سنين في التطوير داخل مدينة العبور
+              و بإتحاد خبرة أتنين من أقدم المطورين.. برؤية واحدة
+              Flow Developments بدأت
+              أمتداد للخبرة.. وبداية لتجربة مختلفة. "</p>
           </div>
         </div>
       </div>
@@ -3036,6 +3160,11 @@
             src="publication-web-resources/image/slider/Artboard 2.png" alt=""><img
             src="publication-web-resources/image/slider/Artboard 3.png" alt=""><img
             src="publication-web-resources/image/slider/Artboard 4.png" alt=""><img
+            src="publication-web-resources/image/slider/Artboard 5.png" alt=""><img
+            src="publication-web-resources/image/slider/Artboard 1.png" alt=""><img
+            src="publication-web-resources/image/slider/Artboard 2.png" alt=""><img
+            src="publication-web-resources/image/slider/Artboard 3.png" alt=""><img
+            src="publication-web-resources/image/slider/Artboard 4.png" alt=""><img
             src="publication-web-resources/image/slider/Artboard 5.png" alt=""></div>
       </div>
     </div>
@@ -3058,6 +3187,26 @@
         <div class="map-container" style="cursor: pointer;" onclick="openVideoLightbox()">
           <video src="publication-web-resources/FlowPark Map Animation.mp4" class="map-img" id="s8Video" autoplay muted
             loop playsinline style="cursor: pointer;"></video>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 8b: See It From Above -->
+    <div class="slide" id="s8b" data-title="See It From Above">
+      <div class="container">
+        <div style="display: flex; gap: 60px; align-items: center;">
+          <div style="flex: 1;">
+            <h2 style="font-style: italic;">See It From <br>Above</h2>
+            <p class="body-main">At the center of Obour City, where everything connects. Enjoy easy access to major
+              roads, vibrant surroundings, and a location that keeps you close to it all.</p>
+          </div>
+          <div class="video-container" id="videoContainer2" style="flex: 1; padding-top: 56.25%;">
+            <img src="publication-web-resources/image/at the center thumbnil.jpeg" alt="Video Thumbnail"
+              class="video-thumb">
+            <button class="video-play-btn" id="videoPlayBtn2" aria-label="Play video">
+              <i class="fa-solid fa-play"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -3450,6 +3599,20 @@
       onclick="event.stopPropagation()"></video>
   </div>
 
+  <!-- Amenities Fullscreen Viewer -->
+  <div class="am-fullscreen" id="amFullscreen">
+    <div class="am-fs-close" id="amFsClose">&times;</div>
+    <div class="am-fs-nav am-fs-prev" id="amFsPrev"><i class="fa-solid fa-chevron-left"></i></div>
+    <div class="am-fs-nav am-fs-next" id="amFsNext"><i class="fa-solid fa-chevron-right"></i></div>
+    <div class="am-fs-counter" id="amFsCounter"></div>
+    <img src="" class="am-fs-img" id="amFsImg">
+    <div class="am-fs-content">
+      <div class="am-fs-subtitle" id="amFsSubtitle"></div>
+      <div class="am-fs-title" id="amFsTitle"></div>
+      <div class="am-fs-desc" id="amFsDesc"></div>
+    </div>
+  </div>
+
   <!-- Facility coordinates (editable via map UI) -->
   <script src="facilities-coords.js"></script>
   <!-- JavaScript -->
@@ -3611,12 +3774,29 @@
       container.appendChild(iframe);
     });
 
-    // Slide 7 strip hover → preview in main image
+    // Slide 8b: See It From Above video
+    document.getElementById('videoPlayBtn2').addEventListener('click', function () {
+      const container = document.getElementById('videoContainer2');
+      container.querySelector('.video-thumb').remove();
+      this.remove();
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube.com/embed/GZCSit0_X8U?si=3LW8BF80sPu8b1oN&autoplay=1';
+      iframe.frameBorder = '0';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      iframe.allowFullscreen = true;
+      container.appendChild(iframe);
+    });
+
+    // Slide 7 strip: hover → preview + pause, click → stop + lightbox on preview
     (function () {
       const preview = document.getElementById('s7PreviewImg');
       const strip = document.getElementById('s7Strip');
       if (!preview || !strip) return;
       const originalSrc = preview.src;
+      const inner = strip.querySelector('.img-strip-inner');
+      let stripStopped = false;
+
       strip.querySelectorAll('.img-strip-inner img').forEach(img => {
         img.addEventListener('mouseenter', () => {
           preview.style.opacity = '0';
@@ -3626,12 +3806,43 @@
           }, 150);
         });
         img.addEventListener('mouseleave', () => {
+          if (stripStopped) return;
           preview.style.opacity = '0';
           setTimeout(() => {
             preview.src = originalSrc;
             preview.style.opacity = '1';
           }, 150);
         });
+        img.addEventListener('click', (e) => {
+          e.stopPropagation();
+          // Stop slider and lock preview
+          stripStopped = true;
+          inner.classList.add('stopped');
+          preview.style.opacity = '0';
+          setTimeout(() => {
+            preview.src = img.src;
+            preview.style.opacity = '1';
+          }, 150);
+        });
+      });
+
+      // Click on preview image → open lightbox
+      preview.addEventListener('click', () => {
+        openLightbox(preview);
+      });
+      preview.style.cursor = 'pointer';
+
+      // Click elsewhere → resume slider
+      document.addEventListener('click', (e) => {
+        if (!stripStopped) return;
+        if (e.target.closest('.img-strip-belt') || e.target.closest('.lightbox-overlay') || e.target === preview) return;
+        stripStopped = false;
+        inner.classList.remove('stopped');
+        preview.style.opacity = '0';
+        setTimeout(() => {
+          preview.src = originalSrc;
+          preview.style.opacity = '1';
+        }, 150);
       });
     })();
 
@@ -3840,6 +4051,77 @@
 
     amGoTo(0);
 
+    // --- Amenities Fullscreen Viewer ---
+    (function () {
+      const allCards = document.querySelectorAll('#s10 .am-card');
+      const fs = document.getElementById('amFullscreen');
+      const fsImg = document.getElementById('amFsImg');
+      const fsTitle = document.getElementById('amFsTitle');
+      const fsSubtitle = document.getElementById('amFsSubtitle');
+      const fsDesc = document.getElementById('amFsDesc');
+      const fsCounter = document.getElementById('amFsCounter');
+      let amFsIdx = 0;
+
+      // Build data array from DOM
+      const amData = [];
+      allCards.forEach(card => {
+        const img = card.querySelector('.am-img');
+        const title = card.querySelector('.am-title');
+        const desc = card.querySelector('.am-desc');
+        amData.push({
+          src: img ? img.src : '',
+          title: title ? title.textContent : '',
+          subtitle: desc ? (desc.querySelector('h4') ? desc.querySelector('h4').textContent : '') : '',
+          desc: desc ? (desc.querySelector('p') ? desc.querySelector('p').textContent : '') : ''
+        });
+      });
+
+      function showAmFs(idx) {
+        amFsIdx = idx;
+        const d = amData[idx];
+        fsImg.src = d.src;
+        fsTitle.textContent = d.title;
+        fsSubtitle.textContent = d.subtitle;
+        fsDesc.textContent = d.desc;
+        fsCounter.textContent = (idx + 1) + ' / ' + amData.length;
+      }
+
+      function openAmFs(idx) {
+        showAmFs(idx);
+        fs.classList.add('active');
+      }
+
+      function closeAmFs() {
+        fs.classList.remove('active');
+      }
+
+      // Click card → open fullscreen
+      allCards.forEach((card, i) => {
+        card.addEventListener('click', () => openAmFs(i));
+      });
+
+      // Nav buttons
+      document.getElementById('amFsClose').addEventListener('click', closeAmFs);
+      document.getElementById('amFsPrev').addEventListener('click', () => {
+        showAmFs((amFsIdx - 1 + amData.length) % amData.length);
+      });
+      document.getElementById('amFsNext').addEventListener('click', () => {
+        showAmFs((amFsIdx + 1) % amData.length);
+      });
+
+      // Keyboard nav while open
+      document.addEventListener('keydown', (e) => {
+        if (!fs.classList.contains('active')) return;
+        if (e.key === 'ArrowLeft') showAmFs((amFsIdx - 1 + amData.length) % amData.length);
+        if (e.key === 'ArrowRight') showAmFs((amFsIdx + 1) % amData.length);
+        if (e.key === 'Escape') closeAmFs();
+      });
+
+      // Click backdrop to close
+      fs.addEventListener('click', (e) => {
+        if (e.target === fs) closeAmFs();
+      });
+    })();
 
     function openVideoLightbox() {
       const lbVid = document.getElementById('lightboxVideo');
