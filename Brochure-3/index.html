@@ -2582,6 +2582,55 @@
     }
 
     /* -------------------------------------------
+       SHORT VIEWPORT (13" SCREENS / 768px HEIGHT)
+    ------------------------------------------- */
+    @media (max-height: 800px) {
+      /* 1. Shrink nav from 80px to 60px — reclaims 20px globally */
+      :root { --nav-height: 60px; }
+      .fixed-nav { padding-top: 16px; }
+
+      /* 2. Tighten container padding */
+      .container {
+        padding-top: 10px;
+        padding-bottom: 20px;
+      }
+
+      /* 3. Scale down large bottom padding on strip-belt slides */
+      #s1b > .container,
+      #s2 > .container,
+      #s3 > .container,
+      #s5b > .container,
+      #s7 > .container {
+        padding-bottom: 20vh;
+      }
+      #s4 > .container {
+        padding-bottom: 14vh;
+      }
+
+      /* 4. Scale strip belts proportionally */
+      .strip-belt { height: 15vh; }
+      .img-strip-belt { height: 20vh; }
+
+      /* 5. Shrink fixed vh-height elements that dominate short screens */
+      .am-slider-wrapper { height: 50vh; }
+      .unit-system { height: 55vh; }
+      .map-container { height: 55vh; }
+      .mp-body { height: 75%; }
+
+      /* 6. Scale pillar cards */
+      .pillars-heading { padding: 12vh 0px 10vh 0px; }
+      .pillar-card { height: 25vh; }
+
+      /* 7. Slightly reduce heading sizes */
+      h1 { font-size: 52px; }
+      h2 { font-size: 38px; }
+
+      /* 8. Reduce fact card padding (s9) */
+      .fact-card { padding: 20px; }
+      .fc-val { font-size: 32px; }
+    }
+
+    /* -------------------------------------------
        RESPONSIVENESS (TABLET & MOBILE)
     ------------------------------------------- */
     @media (max-width: 1200px) {
@@ -3502,6 +3551,7 @@
         <span class="label">Aim for Spaces That Make Sense — Functional Unit Designs Crafted for Comfort, Light, and
           Everyday Living</span>
         <div class="unit-system">
+          <div class="hz-tabs" id="phaseTabs" style="margin-bottom:8px;"></div>
           <div class="hz-tabs" id="projTabs"></div>
           <div class="nested-grid">
             <div class="vt-tabs" id="catTabs"></div>
@@ -3887,70 +3937,103 @@
     });
 
     // --- Slide 12: Units Logic (Nested Dynamic) ---
-    const unitDataNested = {
-      "TYPE A": {
-        "hero": "publication-web-resources/image/plans/TYPE A/hero.png",
-        "categories": {
-          "Ground Floor": ["slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png"],
-          "Typical Floor": ["slide_007.png", "slide_008.png", "slide_009.png", "slide_010.png"]
+    const unitDataByPhase = {
+      "Phase 1": {
+        "TYPE A": {
+          "hero": "publication-web-resources/image/plans/TYPE A/hero.png",
+          "categories": {
+            "Ground Floor": ["slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png"],
+            "Typical Floor": ["slide_007.png", "slide_008.png", "slide_009.png", "slide_010.png"]
+          }
+        },
+        "TYPE A+": {
+          "hero": "publication-web-resources/image/plans/TYBE A+/hero.png",
+          "folder": "TYBE A+",
+          "categories": {
+            "Ground Floor": ["slide_002.png", "slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png"],
+            "First Floor": ["slide_008.png", "slide_009.png"],
+            "Second Floor": ["slide_010.png", "slide_011.png", "slide_012.png", "slide_013.png", "slide_014.png"],
+            "Typical Floor": ["slide_015.png", "slide_016.png", "slide_017.png", "slide_018.png", "slide_019.png", "slide_020.png"]
+          }
+        },
+        "TYPE B": {
+          "hero": "publication-web-resources/image/plans/TYPE B/hero.png",
+          "categories": {
+            "Ground Floor": ["slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png"],
+            "Typical Floor": ["slide_008.png", "slide_009.png", "slide_010.png", "slide_011.png"]
+          }
+        },
+        "TYPE I": {
+          "hero": "publication-web-resources/image/plans/TYPE I/hero.png",
+          "categories": {
+            "Ground Floor": ["slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png", "slide_008.png", "slide_009.png"],
+            "Typical Floor": ["slide_010.png", "slide_011.png", "slide_012.png", "slide_013.png", "slide_014.png", "slide_015.png", "slide_016.png", "slide_017.png"]
+          }
+        },
+        "TYPE V": {
+          "hero": "publication-web-resources/image/plans/TYPE V/Hero.png",
+          "categories": {
+            "Ground Floor": ["slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png", "slide_013.png", "slide_014.png", "slide_015.png", "slide_016.png", "slide_017.png"],
+            "Typical Floor": ["slide_008.png", "slide_009.png", "slide_010.png", "slide_011.png", "slide_012.png", "slide_018.png", "slide_019.png", "slide_020.png", "slide_021.png", "slide_022.png"],
+            "Garden Villa": ["slide_023.png", "slide_024.png"],
+            "Mid Villa": ["slide_025.png", "slide_026.png"],
+            "SKY Villa": ["slide_027.png"]
+          }
         }
       },
-      "TYPE A+": {
-        "hero": "publication-web-resources/image/plans/TYBE A+/hero.png",
-        "folder": "TYBE A+",
-        "categories": {
-          "Ground Floor": ["slide_002.png", "slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png"],
-          "First Floor": ["slide_008.png", "slide_009.png"],
-          "Second Floor": ["slide_010.png", "slide_011.png", "slide_012.png", "slide_013.png", "slide_014.png"],
-          "Typical Floor": ["slide_015.png", "slide_016.png", "slide_017.png", "slide_018.png", "slide_019.png", "slide_020.png"]
-        }
-      },
-      "TYPE B": {
-        "hero": "publication-web-resources/image/plans/TYPE B/hero.png",
-        "categories": {
-          "Ground Floor": ["slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png"],
-          "Typical Floor": ["slide_008.png", "slide_009.png", "slide_010.png", "slide_011.png"]
-        }
-      },
-      "TYPE I": {
-        "hero": "publication-web-resources/image/plans/TYPE I/hero.png",
-        "categories": {
-          "Ground Floor": ["slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png", "slide_008.png", "slide_009.png"],
-          "Typical Floor": ["slide_010.png", "slide_011.png", "slide_012.png", "slide_013.png", "slide_014.png", "slide_015.png", "slide_016.png", "slide_017.png"]
-        }
-      },
-      "TYPE B PH2": {
-        "hero": "publication-web-resources/image/plans/TYBE B PHASE 2/hero.png",
-        "folder": "TYBE B PHASE 2",
-        "categories": {
-          "Ground Floor": ["slide_001.png", "slide_002.png", "slide_003.png", "slide_004.png"],
-          "Typical Floor": ["slide_007.png", "slide_008.png", "slide_009.png", "slide_010.png"]
-        }
-      },
-      "TYPE L": {
-        "hero": "publication-web-resources/image/plans/TYBE L/hero.png",
-        "folder": "TYBE L",
-        "categories": {
-          "Ground Floor": ["slide_002.png", "slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png", "slide_008.png", "slide_009.png", "slide_010.png", "slide_011.png", "slide_012.png", "slide_013.png", "slide_014.png", "slide_015.png", "slide_016.png"]
-        }
-      },
-      "TYPE V": {
-        "hero": "publication-web-resources/image/plans/TYPE V/Hero.png",
-        "categories": {
-          "Ground Floor": ["slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png", "slide_013.png", "slide_014.png", "slide_015.png", "slide_016.png", "slide_017.png"],
-          "Typical Floor": ["slide_008.png", "slide_009.png", "slide_010.png", "slide_011.png", "slide_012.png", "slide_018.png", "slide_019.png", "slide_020.png", "slide_021.png", "slide_022.png"],
-          "Garden Villa": ["slide_023.png", "slide_024.png"],
-          "Mid Villa": ["slide_025.png", "slide_026.png"],
-          "SKY Villa": ["slide_027.png"]
+      "Phase 2": {
+        "TYPE B PH2": {
+          "hero": "publication-web-resources/image/plans/TYBE B PHASE 2/hero.png",
+          "folder": "TYBE B PHASE 2",
+          "categories": {
+            "Ground Floor": ["slide_001.png", "slide_002.png", "slide_003.png", "slide_004.png"],
+            "Typical Floor": ["slide_007.png", "slide_008.png", "slide_009.png", "slide_010.png"]
+          }
+        },
+        "TYPE L": {
+          "hero": "publication-web-resources/image/plans/TYBE L/hero.png",
+          "folder": "TYBE L",
+          "categories": {
+            "Ground Floor": ["slide_002.png", "slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png", "slide_008.png", "slide_009.png", "slide_010.png", "slide_011.png", "slide_012.png", "slide_013.png", "slide_014.png", "slide_015.png", "slide_016.png"]
+          }
         }
       }
     };
 
+    // Flat reference used by selectProject/selectCategory
+    let unitDataNested = unitDataByPhase["Phase 1"];
+    let curPhase = "Phase 1";
     let curProject = "TYPE A";
     let curCategory = null; // null means hero view
 
     function initUnitSystem() {
+      // Build phase tabs
+      const phaseTabs = document.getElementById('phaseTabs');
+      Object.keys(unitDataByPhase).forEach(phase => {
+        const btn = document.createElement('div');
+        btn.className = 'hz-tab' + (phase === curPhase ? ' active' : '');
+        btn.innerText = phase;
+        btn.onclick = () => selectPhase(phase, btn);
+        phaseTabs.appendChild(btn);
+      });
+
+      // Build project tabs for default phase
+      buildProjectTabs();
+    }
+
+    function selectPhase(phase, btn) {
+      document.querySelectorAll('#phaseTabs .hz-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      curPhase = phase;
+      unitDataNested = unitDataByPhase[phase];
+      curProject = Object.keys(unitDataNested)[0];
+      curCategory = null;
+      buildProjectTabs();
+    }
+
+    function buildProjectTabs() {
       const projTabs = document.getElementById('projTabs');
+      projTabs.innerHTML = '';
       Object.keys(unitDataNested).forEach(proj => {
         const btn = document.createElement('div');
         btn.className = 'hz-tab' + (proj === curProject ? ' active' : '');
@@ -3963,7 +4046,7 @@
 
     function selectProject(proj, btn) {
       if (btn) {
-        document.querySelectorAll('.hz-tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#projTabs .hz-tab').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
       }
       curProject = proj;
