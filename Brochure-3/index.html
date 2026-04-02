@@ -475,6 +475,11 @@
       padding-bottom: 20vh;
     }
 
+    #s8b>.container {
+      max-width: 1600px;
+      padding-top: 5vh;
+    }
+
     #s1b h2,
     #s2 h2,
     #s3 h2,
@@ -559,6 +564,19 @@
       color: rgba(255, 255, 255, 0.7);
       line-height: 1.1;
       font-weight: 400;
+    }
+
+    #s8b h2 {
+      font-size: 48px !important;
+    }
+
+    #s8b p.body-main {
+      color: black;
+      font-size: 18px;
+    }
+
+    #s8b .video-play-btn {
+      background: rgb(231 218 219 / 79%);
     }
 
     /* Animated strip at bottom of s2 & s3 */
@@ -1048,6 +1066,11 @@
       overflow: hidden;
       border: 1px solid rgba(0, 0, 0, 0.1);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    /*s8 video */
+    #s8b #videoContainer2 {
+      border-radius: 0% !important;
     }
 
     .video-container iframe,
@@ -2982,7 +3005,7 @@
         <div class="numbers-grid">
           <div class="number-card">
             <div>
-              <div class="num-val" data-target="19" data-suffix="+">0</div>
+              <div class="num-val" data-target="20" data-suffix="+">0</div>
               <div class="num-label">Years of Experience</div>
               <p class="num-desc">Nearly two decades of continuous development and trusted delivery in Obour City</p>
             </div>
@@ -3194,13 +3217,14 @@
     <!-- Slide 8b: See It From Above -->
     <div class="slide" id="s8b" data-title="See It From Above">
       <div class="container">
-        <div style="display: flex; gap: 60px; align-items: center;">
-          <div style="flex: 1;">
-            <h2 style="font-style: italic;">See It From <br>Above</h2>
+        <div style="display: flex; gap: 60px; align-items: flex-start;">
+          <div style="flex: 0 0 25%; text-align: left;">
+            <h2>See It From Above</h2>
             <p class="body-main">At the center of Obour City, where everything connects. Enjoy easy access to major
               roads, vibrant surroundings, and a location that keeps you close to it all.</p>
           </div>
-          <div class="video-container" id="videoContainer2" style="flex: 1; padding-top: 56.25%;">
+          <div class="video-container" id="videoContainer2"
+            style="flex: 1; aspect-ratio: 16 / 9; padding-top: 0; position: relative;">
             <img src="publication-web-resources/image/at the center thumbnil.jpeg" alt="Video Thumbnail"
               class="video-thumb">
             <button class="video-play-btn" id="videoPlayBtn2" aria-label="Play video">
