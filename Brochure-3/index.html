@@ -2582,12 +2582,46 @@
     }
 
     /* -------------------------------------------
+       SMALL SCREEN ANNOUNCEMENT
+    ------------------------------------------- */
+    #smallScreenMsg {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      z-index: 99999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (max-width: 1024px),
+    (max-height: 600px) {
+      #smallScreenMsg {
+        display: flex;
+      }
+
+      body>*:not(#smallScreenMsg) {
+        display: none !important;
+      }
+    }
+
+    /* -------------------------------------------
        SHORT VIEWPORT (13" SCREENS / 768px HEIGHT)
     ------------------------------------------- */
     @media (max-height: 800px) {
+
       /* 1. Shrink nav from 80px to 60px — reclaims 20px globally */
-      :root { --nav-height: 60px; }
-      .fixed-nav { padding-top: 16px; }
+      :root {
+        --nav-height: 60px;
+      }
+
+      .fixed-nav {
+        padding-top: 16px;
+      }
 
       /* 2. Tighten container padding */
       .container {
@@ -2596,38 +2630,70 @@
       }
 
       /* 3. Scale down large bottom padding on strip-belt slides */
-      #s1b > .container,
-      #s2 > .container,
-      #s3 > .container,
-      #s5b > .container,
-      #s7 > .container {
+      #s1b>.container,
+      #s2>.container,
+      #s3>.container,
+      #s5b>.container,
+      #s7>.container {
         padding-bottom: 20vh;
       }
-      #s4 > .container {
+
+      #s4>.container {
         padding-bottom: 14vh;
       }
 
       /* 4. Scale strip belts proportionally */
-      .strip-belt { height: 15vh; }
-      .img-strip-belt { height: 20vh; }
+      .strip-belt {
+        height: 15vh;
+      }
+
+      .img-strip-belt {
+        height: 20vh;
+      }
 
       /* 5. Shrink fixed vh-height elements that dominate short screens */
-      .am-slider-wrapper { height: 50vh; }
-      .unit-system { height: 55vh; }
-      .map-container { height: 55vh; }
-      .mp-body { height: 75%; }
+      .am-slider-wrapper {
+        height: 50vh;
+      }
+
+      .unit-system {
+        height: 55vh;
+      }
+
+      .map-container {
+        height: 55vh;
+      }
+
+      .mp-body {
+        height: 75%;
+      }
 
       /* 6. Scale pillar cards */
-      .pillars-heading { padding: 12vh 0px 10vh 0px; }
-      .pillar-card { height: 25vh; }
+      .pillars-heading {
+        padding: 12vh 0px 10vh 0px;
+      }
+
+      .pillar-card {
+        height: 25vh;
+      }
 
       /* 7. Slightly reduce heading sizes */
-      h1 { font-size: 52px; }
-      h2 { font-size: 38px; }
+      h1 {
+        font-size: 52px;
+      }
+
+      h2 {
+        font-size: 38px;
+      }
 
       /* 8. Reduce fact card padding (s9) */
-      .fact-card { padding: 20px; }
-      .fc-val { font-size: 32px; }
+      .fact-card {
+        padding: 20px;
+      }
+
+      .fc-val {
+        font-size: 32px;
+      }
     }
 
     /* -------------------------------------------
@@ -2918,6 +2984,14 @@
 
 <body>
 
+  <!-- Small Screen Announcement -->
+  <div id="smallScreenMsg">
+    <img src="publication-web-resources/image/flow logos/flow logo.png" alt="Flow Developments"
+      style="width: 180px; margin-bottom: 40px;">
+    <p style="font-size: 18px; color: #fff; text-align: center; max-width: 400px; line-height: 1.6;">This Presentation
+      is Customized For Desktop Devices and Laptops Only</p>
+  </div>
+
   <!-- Preloader -->
   <div id="preloader">
     <div id="preloaderPct">0%</div>
@@ -3187,7 +3261,8 @@
             <div>
               <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 8px; text-transform: uppercase;">Commercial
                 Projects – Coming Soon</h3>
-              <p class="body-main" style="margin-bottom: 0;">Strategically located commercial developments that aim to
+              <p class="body-main" style="margin-bottom: 0;font-size: 18px !important;">Strategically located commercial
+                developments that aim to
                 support business growth and vibrant community activity.</p>
             </div>
           </div>
@@ -3939,30 +4014,21 @@
     // --- Slide 12: Units Logic (Nested Dynamic) ---
     const unitDataByPhase = {
       "Phase 1": {
-        "TYPE A": {
+        /*"TYPE A": {
           "hero": "publication-web-resources/image/plans/TYPE A/hero.png",
           "categories": {
             "Ground Floor": ["slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png"],
             "Typical Floor": ["slide_007.png", "slide_008.png", "slide_009.png", "slide_010.png"]
           }
-        },
-        "TYPE A+": {
-          "hero": "publication-web-resources/image/plans/TYBE A+/hero.png",
-          "folder": "TYBE A+",
-          "categories": {
-            "Ground Floor": ["slide_002.png", "slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png"],
-            "First Floor": ["slide_008.png", "slide_009.png"],
-            "Second Floor": ["slide_010.png", "slide_011.png", "slide_012.png", "slide_013.png", "slide_014.png"],
-            "Typical Floor": ["slide_015.png", "slide_016.png", "slide_017.png", "slide_018.png", "slide_019.png", "slide_020.png"]
-          }
-        },
+        }*/
         "TYPE B": {
-          "hero": "publication-web-resources/image/plans/TYPE B/hero.png",
+          "hero": "publication-web-resources/image/plans/TYBE B/hero.png",
+          "folder": "TYBE B",
           "categories": {
-            "Ground Floor": ["slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png"],
-            "Typical Floor": ["slide_008.png", "slide_009.png", "slide_010.png", "slide_011.png"]
+            "Ground Floor": ["G01.png", "G02.png", "G03.png", "G04.png"],
+            "Typical Floor": ["T01.png", "T02.png", "T03.png", "T04.png"]
           }
-        },
+        }/*,
         "TYPE I": {
           "hero": "publication-web-resources/image/plans/TYPE I/hero.png",
           "categories": {
@@ -3979,22 +4045,39 @@
             "Mid Villa": ["slide_025.png", "slide_026.png"],
             "SKY Villa": ["slide_027.png"]
           }
-        }
-      },
+        }*/
+      }
+      ,
       "Phase 2": {
-        "TYPE B PH2": {
-          "hero": "publication-web-resources/image/plans/TYBE B PHASE 2/hero.png",
-          "folder": "TYBE B PHASE 2",
+        "TYPE A+": {
+          "hero": "publication-web-resources/image/plans/TYBE A+/hero.png",
+          "folder": "TYBE A+",
           "categories": {
-            "Ground Floor": ["slide_001.png", "slide_002.png", "slide_003.png", "slide_004.png"],
-            "Typical Floor": ["slide_007.png", "slide_008.png", "slide_009.png", "slide_010.png"]
+            "Ground Floor": ["G01,F01.png", "G02.png", "G03,F03.png", "G04,F04,S04.png", "G05.png", "G06,F06.png"],
+            "First Floor": ["F02.png", "F05.png"],
+            "Second Floor": ["S01.png", "S02.png", "S03.png", "S04.png", "S05.png"],
+            "Typical Floor": ["T01.png", "T02.png", "T03.png", "T04.png", "T05.png", "T06.png"]
+          }
+        },
+        "TYPE B": {
+          "hero": "publication-web-resources/image/plans/TYBE B/hero.png",
+          "folder": "TYBE B",
+          "categories": {
+            "Ground Floor": ["G01.png", "G02.png", "G03.png", "G04.png"],
+            "Typical Floor": ["T01.png", "T02.png", "T03.png", "T04.png"]
           }
         },
         "TYPE L": {
           "hero": "publication-web-resources/image/plans/TYBE L/hero.png",
           "folder": "TYBE L",
           "categories": {
-            "Ground Floor": ["slide_002.png", "slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png", "slide_008.png", "slide_009.png", "slide_010.png", "slide_011.png", "slide_012.png", "slide_013.png", "slide_014.png", "slide_015.png", "slide_016.png"]
+            "Ground Floor": ["G01 A.png", "G01 B.png", "G04 B.png", "G05 A.png", "G06 A.png", "G06 B.png", "G09 A.png"],
+            "Ground Villa": ["G02,F02 A.png", "G02,F02 B.png", "G03,F03 A.png", "G03,F03 B.png", "G04,F04 A.png", "G05,F05 B.png", "G07,F07 A.png", "G08,F08 A.png"],
+            "Typical 1st": ["F01 A.png", "F01 B.png", "F04 B.png", "F05 A.png", "F06 A.png", "F06 B.png", "F09 A.png"],
+            "Typical 2nd & 3rd": ["T01 A.png", "T01 B.png", "T02 A.png", "T02 B.png", "T03 A.png", "T03 B.png", "T04 A.png", "T04 B.png", "T05 A.png", "T05 B.png", "T06 A.png", "T06 B.png", "T07 A.png", "T08 A.png", "T09 A.png"],
+            "Typical 4th": ["B01 A.png", "B01 B.png", "B03 A.png", "B03 B.png", "B04 A.png", "B04 B.png", "B05 A.png", "B05 B.png", "B06 A.png", "B06 B.png", "B09 A.png"],
+            "Typical 5th": ["L01 A.png", "L01 B.png", "L03 A.png", "L03 B.png", "L04 A.png", "L04 B.png", "L05 A.png", "L05 B.png", "L06 A.png", "L06 B.png", "L09 A.png"],
+            "Sky Villa": ["4-02A,5-02A.png", "4-02B,5-02B.png", "4-07A,5-07A.png", "4-08A,5-08A.png"]
           }
         }
       }
@@ -4003,7 +4086,7 @@
     // Flat reference used by selectProject/selectCategory
     let unitDataNested = unitDataByPhase["Phase 1"];
     let curPhase = "Phase 1";
-    let curProject = "TYPE A";
+    let curProject = "TYPE B";
     let curCategory = null; // null means hero view
 
     function initUnitSystem() {
@@ -4096,7 +4179,7 @@
       images.forEach((img, idx) => {
         const iBtn = document.createElement('div');
         iBtn.className = 'inner-btn' + (idx === 0 ? ' active' : '');
-        iBtn.innerText = `Plan Option ${idx + 1}`;
+        iBtn.innerText = img.replace(/\.[^.]+$/, '');
         const folder = unitDataNested[curProject].folder || curProject;
         const imgPath = `publication-web-resources/image/plans/${folder}/${cat}/${img}`;
         iBtn.onclick = () => {
