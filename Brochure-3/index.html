@@ -393,7 +393,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 60px;
       align-items: center;
-      height: 100%;
+      height: 75%;
     }
 
     .label {
@@ -2145,7 +2145,7 @@
     .unit-system {
       display: flex;
       flex-direction: column;
-      height: 65vh;
+      /*height: 65vh;*/
       gap: 20px;
     }
 
@@ -3102,15 +3102,21 @@
               chapter began. From that collaboration, <strong>FLOW DEVELOPMENTS</strong> was born.</p>
             <p class="body-main" style="text-align:justify;">A continuation of experience.<br>A new
               flow of possibilities.</p>
-            <p class="body-main" style="text-align:justify; direction:rtl;">توجهنا دايما.. إزاي نبني مجتمعات مش مجرد
-              مباني
-              بنختار دايما مواقع مدروسة تضمن القيمة الحقيقية و النمو المستمر
-              بنصمم مجتمعات نحقق فيها الراحة، والعملية، وجودة تدوم
-              بخبرة سنين في التطوير داخل مدينة العبور
-              و بإتحاد خبرة أتنين من أقدم المطورين.. برؤية واحدة
-              Flow Developments بدأت
-              أمتداد للخبرة.. وبداية لتجربة مختلفة. "</p>
           </div>
+
+        </div>
+        <div>
+          <p class="body-main"
+            style="text-align:center; direction:rtl; padding: 0px 100px; line-height: 20px; font-size: 20px;">توجهنا
+            دايما.. إزاي نبني مجتمعات مش
+            مجرد
+            مباني
+            بنختار دايما مواقع مدروسة تضمن القيمة الحقيقية و النمو المستمر
+            بنصمم مجتمعات نحقق فيها الراحة، والعملية، وجودة تدوم
+            بخبرة سنين في التطوير داخل مدينة العبور
+            و بإتحاد خبرة أتنين من أقدم المطورين.. برؤية واحدة
+            Flow Developments بدأت
+            أمتداد للخبرة.. وبداية لتجربة مختلفة. "</p>
         </div>
       </div>
       <div class="strip-belt">
@@ -3267,7 +3273,18 @@
             </div>
           </div>
         </div>
+        <div>
+          <p class="body-main"
+            style="text-align:center; direction:rtl; padding: 50px 100px; line-height: 20px; font-size: 20px;">
+            توجهنا<br>
+            "
+            مشروعاتنا...
+            مشروعات سكنية مصممة للراحة وقيمة تدوم.
+            ومشروعات تجارية قادمة في مواقع استراتيجية للنمو."
+          </p>
+        </div>
       </div>
+
       <div class="strip-belt">
         <div class="strip-belt-inner"><img src="publication-web-resources/image/strip.png" alt=""><img
             src="publication-web-resources/image/strip.png" alt=""><img src="publication-web-resources/image/strip.png"
@@ -3621,7 +3638,7 @@
 
     <!-- Slide 12: Unit Types -->
     <div class="slide" id="s12" data-title="Unit Types">
-      <div class="container">
+      <div class="container" style="justify-content: start !important;">
         <h2>Unit Types</h2>
         <!--<span class="label">Aim for Spaces That Make Sense — Functional Unit Designs Crafted for Comfort, Light, and
           Everyday Living</span>-->
@@ -3649,8 +3666,8 @@
             <label class="input-label">Enter Total Unit Price</label>
             <div class="price-input-wrapper">
               <span class="currency">EGP</span>
-              <input type="number" id="pPrice" class="price-input" placeholder="e.g. 5,000,000"
-                oninput="calculatePlan()">
+              <input type="text" id="pPrice" class="price-input" placeholder="e.g. 5,000,000"
+                oninput="formatPriceInput(this); calculatePlan()" inputmode="numeric">
             </div>
           </div>
 
@@ -3658,7 +3675,7 @@
           <div class="plans-selector">
             <div class="plan-btn active" onclick="selectPlan(0, this)">
               <div class="plan-title">Plan 1</div>
-              <div class="plan-desc">15% Down | 5 Years</div>
+              <div class="plan-desc">15% Down | 4 Years</div>
             </div>
             <div class="plan-btn" onclick="selectPlan(1, this)">
               <div class="plan-title">Plan 2</div>
@@ -4013,41 +4030,42 @@
 
     // --- Slide 12: Units Logic (Nested Dynamic) ---
     const unitDataByPhase = {
-      "Phase 1": {
-        /*"TYPE A": {
-          "hero": "publication-web-resources/image/plans/TYPE A/hero.png",
-          "categories": {
-            "Ground Floor": ["slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png"],
-            "Typical Floor": ["slide_007.png", "slide_008.png", "slide_009.png", "slide_010.png"]
+      /*
+        "Phase 1": {
+          /*"TYPE A": {
+            "hero": "publication-web-resources/image/plans/TYPE A/hero.png",
+            "categories": {
+              "Ground Floor": ["slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png"],
+              "Typical Floor": ["slide_007.png", "slide_008.png", "slide_009.png", "slide_010.png"]
+            }
           }
-        }*/
-        "TYPE B": {
-          "hero": "publication-web-resources/image/plans/TYBE B/hero.png",
-          "folder": "TYBE B",
-          "categories": {
-            "Ground Floor": ["G01.png", "G02.png", "G03.png", "G04.png"],
-            "Typical Floor": ["T01.png", "T02.png", "T03.png", "T04.png"]
+          "TYPE B": {
+            "hero": "publication-web-resources/image/plans/TYBE B/hero.png",
+            "folder": "TYBE B",
+            "categories": {
+              "Ground Floor": ["G01.png", "G02.png", "G03.png", "G04.png"],
+              "Typical Floor": ["T01.png", "T02.png", "T03.png", "T04.png"]
+            }
+          }/*,
+          "TYPE I": {
+            "hero": "publication-web-resources/image/plans/TYPE I/hero.png",
+            "categories": {
+              "Ground Floor": ["slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png", "slide_008.png", "slide_009.png"],
+              "Typical Floor": ["slide_010.png", "slide_011.png", "slide_012.png", "slide_013.png", "slide_014.png", "slide_015.png", "slide_016.png", "slide_017.png"]
+            }
+          },
+          "TYPE V": {
+            "hero": "publication-web-resources/image/plans/TYPE V/Hero.png",
+            "categories": {
+              "Ground Floor": ["slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png", "slide_013.png", "slide_014.png", "slide_015.png", "slide_016.png", "slide_017.png"],
+              "Typical Floor": ["slide_008.png", "slide_009.png", "slide_010.png", "slide_011.png", "slide_012.png", "slide_018.png", "slide_019.png", "slide_020.png", "slide_021.png", "slide_022.png"],
+              "Garden Villa": ["slide_023.png", "slide_024.png"],
+              "Mid Villa": ["slide_025.png", "slide_026.png"],
+              "SKY Villa": ["slide_027.png"]
+            }
           }
-        }/*,
-        "TYPE I": {
-          "hero": "publication-web-resources/image/plans/TYPE I/hero.png",
-          "categories": {
-            "Ground Floor": ["slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png", "slide_008.png", "slide_009.png"],
-            "Typical Floor": ["slide_010.png", "slide_011.png", "slide_012.png", "slide_013.png", "slide_014.png", "slide_015.png", "slide_016.png", "slide_017.png"]
-          }
-        },
-        "TYPE V": {
-          "hero": "publication-web-resources/image/plans/TYPE V/Hero.png",
-          "categories": {
-            "Ground Floor": ["slide_003.png", "slide_004.png", "slide_005.png", "slide_006.png", "slide_007.png", "slide_013.png", "slide_014.png", "slide_015.png", "slide_016.png", "slide_017.png"],
-            "Typical Floor": ["slide_008.png", "slide_009.png", "slide_010.png", "slide_011.png", "slide_012.png", "slide_018.png", "slide_019.png", "slide_020.png", "slide_021.png", "slide_022.png"],
-            "Garden Villa": ["slide_023.png", "slide_024.png"],
-            "Mid Villa": ["slide_025.png", "slide_026.png"],
-            "SKY Villa": ["slide_027.png"]
-          }
-        }*/
-      }
-      ,
+        }
+        ,*/
       "Phase 2": {
         "TYPE A+": {
           "hero": "publication-web-resources/image/plans/TYBE A+/hero.png",
@@ -4083,8 +4101,8 @@
     };
 
     // Flat reference used by selectProject/selectCategory
-    let unitDataNested = unitDataByPhase["Phase 1"];
-    let curPhase = "Phase 1";
+    let unitDataNested = unitDataByPhase["Phase 2"];
+    let curPhase = "Phase 2";
     let curProject = "TYPE B";
     let curCategory = null; // null means hero view
 
@@ -4336,7 +4354,7 @@
 
     // --- Slide 13: Payment Calculator Logic ---
     const paymentPlans = [
-      { dpPct: 0.15, years: 5 },
+      { dpPct: 0.15, years: 4 },
       { dpPct: 0.20, years: 6 },
       { dpPct: 0.25, years: 7 }
     ];
@@ -4351,8 +4369,17 @@
 
     function fmt(num) { return num.toLocaleString('en-EG', { maximumFractionDigits: 0 }); }
 
+    function formatPriceInput(el) {
+      const raw = el.value.replace(/[^0-9]/g, '');
+      const pos = el.selectionStart;
+      const oldLen = el.value.length;
+      el.value = raw ? Number(raw).toLocaleString('en-US') : '';
+      const newLen = el.value.length;
+      el.setSelectionRange(pos + (newLen - oldLen), pos + (newLen - oldLen));
+    }
+
     function calculatePlan() {
-      const priceRaw = document.getElementById('pPrice').value;
+      const priceRaw = document.getElementById('pPrice').value.replace(/,/g, '');
       const price = parseFloat(priceRaw) || 0;
       const plan = paymentPlans[selectedPlanIdx];
 
