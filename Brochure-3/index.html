@@ -79,6 +79,7 @@
       color: var(--text-main);
       font-family: 'Montserrat', sans-serif;
       overflow: hidden;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -2145,7 +2146,7 @@
     .unit-system {
       display: flex;
       flex-direction: column;
-      /*height: 65vh;*/
+      height: 80vh;
       gap: 20px;
     }
 
@@ -2614,7 +2615,7 @@
     ------------------------------------------- */
     @media (max-height: 800px) {
 
-      /* 1. Shrink nav from 80px to 60px — reclaims 20px globally */
+      /* 1. Shrink nav from 80px to 60px */
       :root {
         --nav-height: 60px;
       }
@@ -2642,7 +2643,7 @@
         padding-bottom: 14vh;
       }
 
-      /* 4. Scale strip belts proportionally */
+      /* 4. Scale strip belts */
       .strip-belt {
         height: 15vh;
       }
@@ -2651,48 +2652,214 @@
         height: 20vh;
       }
 
-      /* 5. Shrink fixed vh-height elements that dominate short screens */
+      /* 5. Global text scaling */
+      h1 {
+        font-size: 46px;
+      }
+
+      h2 {
+        font-size: 34px;
+        margin-bottom: 6px;
+      }
+
+      p.body-large {
+        font-size: 17px;
+        margin-bottom: 12px;
+      }
+
+      p.body-main {
+        font-size: 14px;
+        margin-bottom: 12px;
+      }
+
+      .label {
+        font-size: 22px;
+        margin-bottom: 4px;
+      }
+
+      .line-dec {
+        margin-bottom: 16px;
+      }
+
+      /* 6. Split layout (s2, s5b, s7) */
+      .split-layout {
+        height: 65%;
+      }
+
+      #s7 .body-large {
+        font-size: 22px !important;
+      }
+
+      /* 7. Numbers slide (s3) */
+      .number-card {
+        padding: 30px;
+        gap: 20px;
+      }
+
+      .num-val {
+        font-size: 56px;
+      }
+
+      .card-icon {
+        font-size: 40px;
+      }
+
+      .num-label {
+        font-size: 15px;
+      }
+
+      /* 8. Founders (s4) */
+      .founder-photo {
+        width: 200px;
+        min-width: 200px;
+      }
+
+      .founder-name {
+        font-size: 26px;
+        margin-bottom: 5px;
+      }
+
+      .founder-info {
+        padding: 15px 20px;
+      }
+
+      .founder-desc {
+        font-size: 11px;
+      }
+
+      .founders-grid {
+        gap: 25px;
+      }
+
+      /* 9. Pillar cards (s_pillars) */
+      .pillars-heading {
+        padding: 8vh 0px 6vh 0px;
+      }
+
+      .pillar-card {
+        height: 22vh;
+        padding: 20px 25px 25px;
+      }
+
+      .pillar-card-title {
+        font-size: 22px;
+        margin-bottom: 12px;
+      }
+
+      .pillar-card-desc {
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .pillars-cards {
+        padding-bottom: 3vh;
+      }
+
+      /* 10. See It From Above (s8b) */
+      #s8b>.container {
+        padding-top: 2vh;
+      }
+
+      /* 11. Map (s8) */
+      .map-container {
+        height: 50vh;
+      }
+
+      /* 12. Facts (s9) */
+      .fact-card {
+        padding: 15px;
+        gap: 12px;
+      }
+
+      .fc-val {
+        font-size: 28px;
+      }
+
+      .fc-lbl {
+        font-size: 12px;
+      }
+
+      .facts-grid {
+        gap: 12px;
+        margin-top: 12px;
+      }
+
+      #s9 .body-main {
+        margin-bottom: 15px;
+        font-size: 14px;
+      }
+
+      /* 13. Amenities (s10) */
       .am-slider-wrapper {
         height: 50vh;
       }
 
-      .unit-system {
-        height: 55vh;
+      .amenities-grid {
+        height: 46vh;
       }
 
-      .map-container {
-        height: 55vh;
-      }
-
+      /* 14. Master plan (s11) */
       .mp-body {
         height: 75%;
       }
 
-      /* 6. Scale pillar cards */
-      .pillars-heading {
-        padding: 12vh 0px 10vh 0px;
+      .mp-container {
+        height: 50vh;
       }
 
-      .pillar-card {
-        height: 25vh;
+      .mp-header-row {
+        padding: 5px 50px 5px;
       }
 
-      /* 7. Slightly reduce heading sizes */
-      h1 {
-        font-size: 52px;
+      /* 15. Units (s12) */
+      .unit-system {
+        height: 80vh;
+        gap: 12px;
       }
 
-      h2 {
-        font-size: 38px;
+      .nested-grid {
+        grid-template-columns: 170px 150px 1fr;
+        gap: 12px;
       }
 
-      /* 8. Reduce fact card padding (s9) */
-      .fact-card {
-        padding: 20px;
+      .vt-tab {
+        padding: 8px 12px;
+        font-size: 12px;
       }
 
-      .fc-val {
-        font-size: 32px;
+      .inner-btn {
+        padding: 7px;
+        font-size: 11px;
+      }
+
+      .hz-tab {
+        padding: 7px 15px;
+        font-size: 13px;
+      }
+
+      .hz-tabs {
+        padding-bottom: 6px;
+      }
+
+      /* 16. Payment calculator (s13) */
+      .calc-container {
+        padding: 25px 35px;
+      }
+
+      .plan-btn {
+        padding: 12px;
+      }
+
+      .res-card {
+        padding: 18px;
+      }
+
+      .res-val {
+        font-size: 26px;
+      }
+
+      .price-input {
+        font-size: 30px;
       }
     }
 
