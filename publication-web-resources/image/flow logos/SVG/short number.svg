@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245.97 112.58">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: 0em;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        isolation: isolate;
+      }
+
+      .cls-1, .cls-2, .cls-4 {
+        fill: #fff;
+        font-family: Gilroy-Medium, Gilroy;
+        font-size: 102.53px;
+        font-weight: 500;
+      }
+
+      .cls-2 {
+        letter-spacing: -.04em;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2-2" data-name="Layer 2">
+    <g id="uuid-3e45807f-7882-48af-b1ef-07ce42886ed9" data-name="Layer 2-2">
+      <g id="Layer_1-2" data-name="Layer 1-2">
+        <g class="cls-3">
+          <g class="cls-3">
+            <text class="cls-4" transform="translate(0 87.15)"><tspan x="0" y="0">1</tspan></text>
+            <text class="cls-2" transform="translate(36.5 87.15)"><tspan x="0" y="0">7</tspan></text>
+            <text class="cls-4" transform="translate(82.64 87.15)"><tspan x="0" y="0">6</tspan></text>
+            <text class="cls-1" transform="translate(137.29 87.15)"><tspan x="0" y="0">3</tspan></text>
+            <text class="cls-4" transform="translate(190.81 87.15)"><tspan x="0" y="0">9</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
