@@ -3850,6 +3850,18 @@
               <div class="plan-title">Plan 3</div>
               <div class="plan-desc">25% Down | 7 Years</div>
             </div>
+            <div class="plan-btn" onclick="selectPlan(3, this)">
+              <div class="plan-title">Plan 4</div>
+              <div class="plan-desc">17.5% Down | 5 Years</div>
+            </div>
+            <div class="plan-btn" onclick="selectPlan(4, this)">
+              <div class="plan-title">Cash</div>
+              <div class="plan-desc">25% Discount</div>
+            </div>
+            <div class="plan-btn" onclick="selectPlan(5, this)">
+              <div class="plan-title">Semi Cash</div>
+              <div class="plan-desc">15% Disc. | 50% Down | 3 Years</div>
+            </div>
           </div>
 
           <div class="results-grid">
@@ -4528,9 +4540,12 @@
 
     // --- Slide 13: Payment Calculator Logic ---
     const paymentPlans = [
-      { dpPct: 0.15, years: 4 },
-      { dpPct: 0.20, years: 6 },
-      { dpPct: 0.25, years: 7 }
+      { type: 'installment', dpPct: 0.15, years: 4 },
+      { type: 'installment', dpPct: 0.20, years: 6 },
+      { type: 'installment', dpPct: 0.25, years: 7 },
+      { type: 'installment', dpPct: 0.175, years: 5 },
+      { type: 'cash', discount: 0.25 },
+      { type: 'semi-cash', discount: 0.15, dpPct: 0.50, years: 3 }
     ];
     let selectedPlanIdx = 0;
 
@@ -4552,29 +4567,61 @@
       el.setSelectionRange(pos + (newLen - oldLen), pos + (newLen - oldLen));
     }
 
+    function setResLabels(l1, l2, l3, l4) {
+      const cards = document.querySelectorAll('.results-grid .res-lbl');
+      if (cards.length === 4) {
+        cards[0].innerText = l1;
+        cards[1].innerText = l2;
+        cards[2].innerText = l3;
+        cards[3].innerText = l4;
+      }
+    }
+
     function calculatePlan() {
       const priceRaw = document.getElementById('pPrice').value.replace(/,/g, '');
       const price = parseFloat(priceRaw) || 0;
       const plan = paymentPlans[selectedPlanIdx];
 
-      if (price <= 0) {
-        document.getElementById('rDown').innerText = '0';
-        document.getElementById('rRem').innerText = '0';
-        document.getElementById('rMonth').innerText = '0';
-        document.getElementById('rMaint').innerText = '0';
+      const rDown = document.getElementById('rDown');
+      const rRem = document.getElementById('rRem');
+      const rMonth = document.getElementById('rMonth');
+      const rMaint = document.getElementById('rMaint');
+
+      if (plan.type === 'cash') {
+        setResLabels('Discount (' + (plan.discount * 100) + '%)', 'Amount Saved', 'Total To Pay', 'Maintenance Deposit (8%)');
+        if (price <= 0) { rDown.innerText = rRem.innerText = rMonth.innerText = rMaint.innerText = '0'; return; }
+        const saved = price * plan.discount;
+        const total = price - saved;
+        rDown.innerText = (plan.discount * 100) + '%';
+        rRem.innerText = fmt(saved);
+        rMonth.innerText = fmt(total);
+        rMaint.innerText = fmt(total * 0.08);
         return;
       }
 
+      if (plan.type === 'semi-cash') {
+        setResLabels('Discount (' + (plan.discount * 100) + '%)', 'Down Payment (' + (plan.dpPct * 100) + '%)', 'Quarterly Installment', 'Maintenance Deposit (8%)');
+        if (price <= 0) { rDown.innerText = rRem.innerText = rMonth.innerText = rMaint.innerText = '0'; return; }
+        const discounted = price * (1 - plan.discount);
+        const dp = discounted * plan.dpPct;
+        const rem = discounted - dp;
+        const quarterly = rem / (plan.years * 4);
+        rDown.innerText = fmt(price * plan.discount);
+        rRem.innerText = fmt(dp);
+        rMonth.innerText = fmt(quarterly);
+        rMaint.innerText = fmt(discounted * 0.08);
+        return;
+      }
+
+      setResLabels('Required Down Payment', 'Remaining Balance', 'Quarterly Installment', 'Maintenance Deposit (8%)');
+      if (price <= 0) { rDown.innerText = rRem.innerText = rMonth.innerText = rMaint.innerText = '0'; return; }
       const dp = price * plan.dpPct;
       const rem = price - dp;
-      const quarters = plan.years * 4;
-      const quarterly = rem / quarters;
-      const maint = price * 0.08;
-
-      document.getElementById('rDown').innerText = fmt(dp);
-      document.getElementById('rRem').innerText = fmt(rem);
-      document.getElementById('rMonth').innerText = fmt(quarterly);
-      document.getElementById('rMaint').innerText = fmt(maint);
+      const quarterly = rem / (plan.years * 4);
+      rDown.innerText = fmt(dp);
+      rRem.innerText = fmt(rem);
+      rMonth.innerText = fmt(quarterly);
+      rMaint.innerText = fmt(price * 0.08);
     }
 
     // Init state
