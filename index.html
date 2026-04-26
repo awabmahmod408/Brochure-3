@@ -1011,7 +1011,7 @@
       flex: 1;
       min-height: 0;
       align-items: end;
-      padding-bottom: 5vh;
+      padding-bottom: 7vh;
     }
 
     .pillar-card {
@@ -1260,11 +1260,43 @@
       height: 58vh;
     }
 
+    .am-slider-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-top: 15px;
+    }
+
+    .am-slider-arrow {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      background: transparent;
+      color: var(--primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .am-slider-arrow:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .am-slider-arrow:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
     .am-slider-dots {
       display: flex;
       justify-content: center;
       gap: 8px;
-      margin-top: 15px;
     }
 
     .am-slider-dots button {
@@ -2621,6 +2653,11 @@
         --nav-height: 60px;
       }
 
+      .ar {
+        margin-top: -25px;
+
+      }
+
       .fixed-nav {
         padding-top: 16px;
       }
@@ -2753,7 +2790,8 @@
       }
 
       .pillars-cards {
-        padding-bottom: 3vh;
+        padding-bottom: 7vh;
+        align-items: center;
       }
 
       /* 10. See It From Above (s8b) */
@@ -3270,7 +3308,7 @@
               chapter began. From that collaboration, <strong>FLOW DEVELOPMENTS</strong> was born.</p>
             <p class="body-main" style="text-align:justify;">A continuation of experience.<br>A new
               flow of possibilities.</p>
-            <p class="body-main" style="direction:rtl; padding-top: 50px; line-height: 21px; font-size: 20px;">
+            <p class="body-main ar" style="direction:rtl; padding-top: 50px; line-height: 21px; font-size: 20px;">
               توجهنا
               دايما.. إزاي نبني مجتمعات مش
               مجرد
@@ -3437,7 +3475,7 @@
               <p class="body-main" style="margin-bottom: 0;font-size: 18px !important;">Strategically located commercial
                 developments that aim to
                 support business growth and vibrant community activity.</p>
-              <p class="body-main" style=" direction:rtl; padding-top: 50px; line-height: 25px; font-size: 25px;">
+              <p class="body-main ar" style=" direction:rtl; padding-top: 50px; line-height: 25px; font-size: 25px;">
                 مشروعاتنا...<br>
                 مشروعات سكنية مصممة للراحة وقيمة تدوم.<br>
                 ومشروعات تجارية قادمة في مواقع استراتيجية للنمو.
@@ -3763,7 +3801,11 @@
             </div>
           </div>
         </div>
-        <div class="am-slider-dots" id="amSliderDots"></div>
+        <div class="am-slider-controls">
+          <button class="am-slider-arrow" id="amPrevBtn" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+          <div class="am-slider-dots" id="amSliderDots"></div>
+          <button class="am-slider-arrow" id="amNextBtn" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
       </div>
     </div>
 
@@ -4459,6 +4501,10 @@
       amPage = page;
       amTrack.style.transform = `translateX(-${amPage * 100}%)`;
       amDotsContainer.querySelectorAll('button').forEach((d, i) => d.className = i === amPage ? 'active' : '');
+      const prevBtn = document.getElementById('amPrevBtn');
+      const nextBtn = document.getElementById('amNextBtn');
+      if (prevBtn) prevBtn.disabled = amPage === 0;
+      if (nextBtn) nextBtn.disabled = amPage === amTotalPages - 1;
     }
 
     function amSlide(dir) {
@@ -4466,6 +4512,8 @@
       if (next >= 0 && next < amTotalPages) amGoTo(next);
     }
 
+    document.getElementById('amPrevBtn').addEventListener('click', () => amSlide(-1));
+    document.getElementById('amNextBtn').addEventListener('click', () => amSlide(1));
     amGoTo(0);
 
     // --- Amenities Fullscreen Viewer ---
