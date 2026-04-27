@@ -2183,6 +2183,14 @@
       gap: 20px;
     }
 
+    .cs-placeholder {
+      pointer-events: none;
+      background: rgba(0, 0, 0, 0.04) !important;
+      color: transparent !important;
+      border: 1px dashed rgba(0, 0, 0, 0.15) !important;
+      cursor: default !important;
+    }
+
     .hz-tabs {
       display: flex;
       gap: 10px;
@@ -4349,6 +4357,16 @@
             "Sky Villa": ["4-02A,5-02A.png", "4-02B,5-02B.png", "4-07A,5-07A.png", "4-08A,5-08A.png"]
           }
         }
+      },
+      "Phase 3": {
+        "Coming Soon": {
+          "hero": "publication-web-resources/image/plans/coming soon.jpeg",
+          "folder": "",
+          "__comingSoon": true,
+          "categories": {
+            " ": [" ", " ", " ", " "]
+          }
+        }
       }
     };
 
@@ -4402,10 +4420,31 @@
         btn.classList.add('active');
       }
       curProject = proj;
-      curCategory = null; // Reset to hero
+      curCategory = null;
 
       const catTabs = document.getElementById('catTabs');
+      const imgTabs = document.getElementById('imgTabs');
       catTabs.innerHTML = '';
+      imgTabs.innerHTML = '';
+
+      // Coming-soon project: render empty placeholder boxes, no interactions
+      if (unitDataNested[proj].__comingSoon) {
+        for (let i = 0; i < 4; i++) {
+          const ph = document.createElement('button');
+          ph.className = 'vt-tab cs-placeholder';
+          ph.innerHTML = '&nbsp;';
+          ph.disabled = true;
+          catTabs.appendChild(ph);
+        }
+        for (let i = 0; i < 5; i++) {
+          const ph = document.createElement('div');
+          ph.className = 'inner-btn cs-placeholder';
+          ph.innerHTML = '&nbsp;';
+          imgTabs.appendChild(ph);
+        }
+        loadNestedImage(unitDataNested[proj].hero, proj);
+        return;
+      }
 
       const cats = unitDataNested[proj].categories;
       Object.keys(cats).forEach(cat => {
@@ -4416,10 +4455,6 @@
         cBtn.onclick = () => selectCategory(cat, cBtn);
         catTabs.appendChild(cBtn);
       });
-
-      // Default load state -> Hero Image
-      const imgTabs = document.getElementById('imgTabs');
-      imgTabs.innerHTML = ''; // Clear image list
 
       const overBtn = document.createElement('div');
       overBtn.className = 'inner-btn active';
