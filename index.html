@@ -2635,6 +2635,85 @@
     /* -------------------------------------------
        SMALL SCREEN ANNOUNCEMENT
     ------------------------------------------- */
+    /* Password Gate */
+    #passwordGate {
+      display: flex;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #0a0a0a;
+      z-index: 999999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #pwForm {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    #pwInputWrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+      width: 280px;
+    }
+
+    #pwInput {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 18px;
+      padding: 10px 36px 10px 4px;
+      width: 100%;
+      text-align: center;
+      outline: none;
+      letter-spacing: 3px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    #pwInput::placeholder { color: rgba(255,255,255,0.3); letter-spacing: 1px; }
+
+    #pwToggle {
+      position: absolute;
+      right: 6px;
+      cursor: pointer;
+      color: rgba(255,255,255,0.45);
+      font-size: 16px;
+      transition: color 0.2s;
+      user-select: none;
+    }
+
+    #pwToggle:hover { color: #fff; }
+
+    #pwForm button {
+      background: #eb1d23;
+      color: #fff;
+      border: none;
+      padding: 10px 40px;
+      font-size: 14px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      letter-spacing: 2px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: opacity 0.2s;
+    }
+
+    #pwForm button:hover { opacity: 0.85; }
+
+    #pwError {
+      color: #eb1d23;
+      font-size: 13px;
+      letter-spacing: 1px;
+      height: 18px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
     #smallScreenMsg {
       display: none;
       position: fixed;
@@ -3503,6 +3582,19 @@
     <div id="rotateIcon">&#8635;</div>
     <p style="font-size: 18px; color: #fff; text-align: center; max-width: 360px; line-height: 1.7; margin-top: 16px;">
       Please rotate your device to <strong>Landscape</strong> mode for the best experience</p>
+  </div>
+
+  <!-- Password Gate -->
+  <div id="passwordGate">
+    <img src="publication-web-resources/image/flow logos/flowpark logo.png" alt="Flow Park" style="width:220px; margin-bottom:40px;">
+    <div id="pwForm">
+      <div id="pwInputWrapper">
+        <input type="password" id="pwInput" placeholder="Enter password" autocomplete="off">
+        <span id="pwToggle" onclick="togglePassword()"><i class="fa-regular fa-eye" id="pwEyeIcon"></i></span>
+      </div>
+      <button onclick="checkPassword()">Enter</button>
+      <p id="pwError"></p>
+    </div>
   </div>
 
   <!-- Preloader -->
@@ -5596,6 +5688,44 @@
     if (_mpImg.complete && _mpImg.naturalWidth > 0) mpInit();
     window.addEventListener('resize', () => { if (_mpImg.complete && _mpImg.naturalWidth > 0) mpFit(); });
 
+  </script>
+
+  <!-- Password Gate Logic -->
+  <script>
+    (function () {
+      const gate = document.getElementById('passwordGate');
+      const input = document.getElementById('pwInput');
+      const error = document.getElementById('pwError');
+
+      // Hide everything else until unlocked
+      document.body.style.overflow = 'hidden';
+
+      window.togglePassword = function () {
+        const icon = document.getElementById('pwEyeIcon');
+        if (input.type === 'password') {
+          input.type = 'text';
+          icon.className = 'fa-regular fa-eye-slash';
+        } else {
+          input.type = 'password';
+          icon.className = 'fa-regular fa-eye';
+        }
+      };
+
+      window.checkPassword = function () {
+        if (input.value === 'Pragma@1234') {
+          gate.style.display = 'none';
+        } else {
+          error.textContent = 'Incorrect password';
+          input.value = '';
+          input.focus();
+        }
+      };
+
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') checkPassword();
+        error.textContent = '';
+      });
+    })();
   </script>
 
   <!-- Orientation detection for phones & tablets -->
