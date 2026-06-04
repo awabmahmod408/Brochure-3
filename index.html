@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Flow Park - Sales Presentation</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -241,6 +241,19 @@
       left: 0;
       width: 100%;
       height: 100%;
+      /* Suppress native double-tap zoom, selection magnifier & callout on touch devices */
+      touch-action: manipulation;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    /* Keep editable fields selectable (e.g. payment-plan price input) */
+    .presentation input,
+    .presentation textarea,
+    .presentation select {
+      -webkit-user-select: text;
+      user-select: text;
     }
 
     .slide {
@@ -323,6 +336,44 @@
 
     .dot-pagination .dot-page:hover .dot-label {
       opacity: 1;
+    }
+
+    /* Tablet Arrow Pagination — left side, opposite the slide-title dots */
+    .tablet-nav-arrows {
+      display: none;
+      position: fixed;
+      left: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      flex-direction: column;
+      gap: 14px;
+      z-index: 100;
+    }
+
+    .tablet-nav-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.18);
+      background: rgba(255, 255, 255, 0.72);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+      color: #111;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, opacity 0.2s ease;
+    }
+
+    .tablet-nav-btn:hover {
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .tablet-nav-btn:disabled {
+      opacity: 0.3;
+      cursor: default;
     }
 
     .slide-controls {
@@ -1262,6 +1313,28 @@
       height: 58vh;
     }
 
+    /* Grid variant (slide s10grid): all amenities as wrapping cards, image + title */
+    .am-grid-all {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+      width: 100%;
+      max-height: 70vh;
+      overflow-y: auto;
+      align-content: start;
+      padding: 2px;
+      box-sizing: border-box;
+    }
+
+    .am-grid-all .am-card {
+      aspect-ratio: 4 / 3;
+    }
+
+    /* Grid cards show image + title only; full details live in the popup */
+    .am-grid-all .am-desc {
+      display: none;
+    }
+
     .am-slider-controls {
       display: flex;
       justify-content: center;
@@ -1763,6 +1836,8 @@
       border: 1px solid rgba(0, 0, 0, 0.06);
       cursor: grab;
       user-select: none;
+      /* Custom drag surface: stop the browser scrolling/zooming the page on touch */
+      touch-action: none;
     }
 
     .mp-viewport:active {
@@ -3059,6 +3134,9 @@
       .fixed-nav { padding: 20px 30px 0; }
       :root { --nav-height: 70px; }
 
+      /* Arrow pagination replaces touch/swipe on tablet */
+      .tablet-nav-arrows { display: flex; }
+
       /* Container — flex-start so overflow clips only at bottom, not both sides */
       .container {
         padding: 12px 30px 20px;
@@ -3677,6 +3755,12 @@
   <!-- Dot Pagination -->
   <div class="dot-pagination" id="dotPagination"></div>
 
+  <!-- Tablet Arrow Pagination (left side, opposite the slide-title dots) -->
+  <div class="tablet-nav-arrows" id="tabletNavArrows">
+    <button class="tablet-nav-btn" id="tabletPrevBtn" onclick="prevSlide()" aria-label="Previous slide"><i class="fa-solid fa-chevron-up"></i></button>
+    <button class="tablet-nav-btn" id="tabletNextBtn" onclick="nextSlide()" aria-label="Next slide"><i class="fa-solid fa-chevron-down"></i></button>
+  </div>
+
   <!-- Presentation Container -->
   <div class="presentation" id="presentation">
 
@@ -4215,6 +4299,15 @@
       </div>
     </div>
 
+    <!-- Slide 10 (grid variant): Facilities & Amenities as a card grid + popup preview -->
+    <div class="slide" id="s10grid" data-title="Facilities Grid">
+      <div class="container" style="justify-content: center;">
+        <h2>Facilities &amp; Amenities</h2>
+        <!-- Cards cloned from #s10 via JS (kept in sync, same order) -->
+        <div class="am-grid-all" id="amGridAll"></div>
+      </div>
+    </div>
+
     <!-- Slide 10b: Master Plan Intro -->
     <div class="slide" id="s10b" data-title="Master Plan Intro">
       <div class="container mp-intro-container">
@@ -4490,10 +4583,26 @@
       document.getElementById('currSlide').innerText = (currIdx + 1).toString().padStart(2, '0');
       document.getElementById('prevBtn').disabled = currIdx === 0;
       document.getElementById('nextBtn').disabled = currIdx === totSlides - 1;
+      const tp = document.getElementById('tabletPrevBtn');
+      const tn = document.getElementById('tabletNextBtn');
+      if (tp) tp.disabled = currIdx === 0;
+      if (tn) tn.disabled = currIdx === totSlides - 1;
+    }
+
+    // Stop any playing YouTube video inside a slide (reload paused, no autoplay)
+    function stopVideosIn(slide) {
+      if (!slide) return;
+      slide.querySelectorAll('iframe').forEach(f => {
+        if (f.src && f.src.indexOf('youtube') !== -1) {
+          f.src = f.src.replace('autoplay=1', 'autoplay=0');
+        }
+      });
     }
 
     function goToSlide(index) {
       if (index < 0 || index >= totSlides) return;
+      // Stop any video playing on the slide we're leaving
+      if (index !== currIdx) stopVideosIn(slides[currIdx]);
       slides[currIdx].classList.remove('active');
       currIdx = index;
       slides[currIdx].classList.add('active');
@@ -4516,6 +4625,13 @@
         const tt = document.querySelector('.pin-tooltip');
         if (tt) tt.classList.remove('visible', 'pinned');
         document.querySelectorAll('.mp-inst-card').forEach(c => c.remove());
+      } else if (typeof mpFit === 'function') {
+        // Re-fit the map now that the slide is visible (the initial fit may have
+        // run while the viewport was hidden/0-sized behind the gate or rotate screen)
+        const mpImg = document.getElementById('mp-plan-img');
+        if (mpImg && mpImg.complete && mpImg.naturalWidth > 0) {
+          requestAnimationFrame(() => requestAnimationFrame(mpFit));
+        }
       }
 
       // Update dot pagination
@@ -4669,14 +4785,26 @@
       if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
     });
 
-    // Touch support (swipe)
-    let touchStartX = 0;
-    document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX, { passive: true });
-    document.addEventListener('touchend', e => {
-      const touchEndX = e.changedTouches[0].screenX;
-      if (touchEndX < touchStartX - 50) nextSlide();
-      if (touchEndX > touchStartX + 50) prevSlide();
+    // Touch navigation: edge tap zones (swipe disabled to avoid conflicts with media zoom/drag)
+    document.addEventListener('click', e => {
+      if (!window.matchMedia('(pointer: coarse)').matches) return;
+      if (document.getElementById('navOverlay').classList.contains('active')) return;
+      if (document.getElementById('lightboxOverlay')?.classList.contains('active')) return;
+      const amFs = document.getElementById('amFullscreen');
+      if (amFs && amFs.classList.contains('active')) return;
+      // Only navigate when tapping empty background — never on content/controls/tabs
+      if (!e.target.matches('.presentation, .slide, .container, .mp-slide, .mp-body, .split-layout')) return;
+      const w = window.innerWidth;
+      if (e.clientX < w * 0.12) prevSlide();
+      else if (e.clientX > w * 0.88) nextSlide();
     });
+
+    // Block native page pinch-zoom (Safari ignores user-scalable, so kill its gesture events)
+    ['gesturestart', 'gesturechange', 'gestureend'].forEach(t =>
+      document.addEventListener(t, e => e.preventDefault(), { passive: false }));
+    document.addEventListener('touchmove', e => {
+      if (e.touches.length > 1) e.preventDefault();
+    }, { passive: false });
 
     // --- Slide 12: Units Logic (Nested Dynamic) ---
     const unitDataByPhase = {
@@ -4960,6 +5088,15 @@
     document.getElementById('amNextBtn').addEventListener('click', () => amSlide(1));
     amGoTo(0);
 
+    // Populate the grid-variant slide (s10grid) by cloning the slider's cards,
+    // keeping content and order identical to #s10.
+    const amGridAll = document.getElementById('amGridAll');
+    if (amGridAll) {
+      document.querySelectorAll('#s10 .am-card').forEach(card => {
+        amGridAll.appendChild(card.cloneNode(true));
+      });
+    }
+
     // --- Amenities Fullscreen Viewer ---
     (function () {
       const allCards = document.querySelectorAll('#s10 .am-card');
@@ -5004,9 +5141,10 @@
         fs.classList.remove('active');
       }
 
-      // Click card → open fullscreen
-      allCards.forEach((card, i) => {
-        card.addEventListener('click', () => openAmFs(i));
+      // Click card → open fullscreen (slider slide #s10 and grid duplicate #s10grid).
+      // Grid cards are clones in the same order, so index % length maps to the right item.
+      document.querySelectorAll('#s10 .am-card, #s10grid .am-card').forEach((card, i) => {
+        card.addEventListener('click', () => openAmFs(i % amData.length));
       });
 
       // Nav buttons
@@ -5656,6 +5794,26 @@
         mpApplyTransform(false);
       });
       document.addEventListener('mouseup', () => { mpDragging = false; mpEditPinDrag = false; });
+
+      // Touch drag (single finger) — pan the map on touch screens.
+      // Multi-finger gestures are ignored here so they don't fight pinch handling.
+      vp.addEventListener('touchstart', e => {
+        if (e.touches.length !== 1 || mpEditMode || e.target.closest('.pin')) { mpDragging = false; return; }
+        const t = e.touches[0];
+        mpDragging = true;
+        mpDragSX = t.clientX; mpDragSY = t.clientY;
+        mpDragPX = mpPanX; mpDragPY = mpPanY;
+      }, { passive: true });
+      vp.addEventListener('touchmove', e => {
+        if (!mpDragging || e.touches.length !== 1) return;
+        const t = e.touches[0];
+        mpPanX = mpDragPX + (t.clientX - mpDragSX);
+        mpPanY = mpDragPY + (t.clientY - mpDragSY);
+        mpApplyTransform(false);
+        e.preventDefault(); // keep the page from scrolling/intercepting the drag
+      }, { passive: false });
+      vp.addEventListener('touchend', () => { mpDragging = false; });
+      vp.addEventListener('touchcancel', () => { mpDragging = false; });
 
       document.getElementById('mpZoomInBtn').addEventListener('click', () => mpZoomBy(1.3));
       document.getElementById('mpZoomOutBtn').addEventListener('click', () => mpZoomBy(0.77));
