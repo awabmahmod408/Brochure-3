@@ -1320,7 +1320,7 @@
       gap: 14px;
       width: 100%;
       max-height: 70vh;
-      overflow-y: auto;
+      overflow: hidden;
       align-content: start;
       padding: 2px;
       box-sizing: border-box;
@@ -3125,6 +3125,16 @@
       }
     }
 
+    /* Touch devices (iPads): reserve a 30px gutter on each side of every slide
+       as a safe edge-tap pagination area. Only in-flow content is inset —
+       absolutely-positioned full-bleed backgrounds/strips are unaffected. */
+    @media (pointer: coarse) {
+      .slide {
+        padding-left: 30px;
+        padding-right: 30px;
+      }
+    }
+
     /* -------------------------------------------
        TABLET / iPAD (768px – 1024px)
     ------------------------------------------- */
@@ -4136,14 +4146,11 @@
       </div>
     </div>
 
-    <!-- Slide 10: Amenities -->
-    <div class="slide" id="s10" data-title="Facilities">
-      <div class="container" style="align-items: end;">
+    <!-- Slide 10: Facilities & Amenities (card grid + popup preview) -->
+    <div class="slide" id="s10grid" data-title="Facilities">
+      <div class="container" style="justify-content: center;">
         <h2>Facilities & Amenities</h2>
-        <div class=" am-slider-wrapper" id="amSliderWrapper" style="width: 100%;">
-          <div class="am-slider-track" id="amSliderTrack">
-            <!-- Page 1: 6 cards -->
-            <div class="amenities-grid">
+        <div class="am-grid-all" id="amGridAll">
               <div class="am-card">
                 <img
                   src="publication-web-resources/image/hellofernando_japanese_luxury_spa_interior_wide_angle_indoor_po_8aa1fdd4-1e2f-4044-bade-28fdcdcbff8e.png"
@@ -4208,9 +4215,6 @@
                     relaxed lifestyle.</p>
                 </div>
               </div>
-            </div>
-            <!-- Page 2: 6 cards -->
-            <div class="amenities-grid">
               <div class="am-card">
                 <img
                   src="publication-web-resources/image/dreweu._General_view_pop_group_concert_in_a_stadium_in_the_fore_3ee70339-5fde-4888-a435-0bc56e30246c.png"
@@ -4274,9 +4278,6 @@
                     convenience.</p>
                 </div>
               </div>
-            </div>
-            <!-- Page 3: 1 card -->
-            <div class="amenities-grid">
               <div class="am-card">
                 <img src="publication-web-resources/image/Generative_Expand_2.png" class="am-img">
                 <div class="am-title">Waste &amp; Recycling</div>
@@ -4286,25 +4287,7 @@
                     responsibility.</p>
                 </div>
               </div>
-            </div>
-          </div>
         </div>
-        <div class="am-slider-controls" style="align-self: center;">
-          <button class="am-slider-arrow" id="amPrevBtn" aria-label="Previous"><i
-              class="fa-solid fa-chevron-left"></i></button>
-          <div class="am-slider-dots" id="amSliderDots"></div>
-          <button class="am-slider-arrow" id="amNextBtn" aria-label="Next"><i
-              class="fa-solid fa-chevron-right"></i></button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Slide 10 (grid variant): Facilities & Amenities as a card grid + popup preview -->
-    <div class="slide" id="s10grid" data-title="Facilities Grid">
-      <div class="container" style="justify-content: center;">
-        <h2>Facilities &amp; Amenities</h2>
-        <!-- Cards cloned from #s10 via JS (kept in sync, same order) -->
-        <div class="am-grid-all" id="amGridAll"></div>
       </div>
     </div>
 
@@ -5054,52 +5037,9 @@
       document.getElementById('lightboxOverlay').classList.add('active');
     }
 
-    // Amenities Slider
-    let amPage = 0;
-    const amTrack = document.getElementById('amSliderTrack');
-    const amPages = amTrack.querySelectorAll('.amenities-grid');
-    const amTotalPages = amPages.length;
-    const amDotsContainer = document.getElementById('amSliderDots');
-
-    // Build dots
-    for (let i = 0; i < amTotalPages; i++) {
-      const dot = document.createElement('button');
-      dot.className = i === 0 ? 'active' : '';
-      dot.onclick = () => amGoTo(i);
-      amDotsContainer.appendChild(dot);
-    }
-
-    function amGoTo(page) {
-      amPage = page;
-      amTrack.style.transform = `translateX(-${amPage * 100}%)`;
-      amDotsContainer.querySelectorAll('button').forEach((d, i) => d.className = i === amPage ? 'active' : '');
-      const prevBtn = document.getElementById('amPrevBtn');
-      const nextBtn = document.getElementById('amNextBtn');
-      if (prevBtn) prevBtn.disabled = amPage === 0;
-      if (nextBtn) nextBtn.disabled = amPage === amTotalPages - 1;
-    }
-
-    function amSlide(dir) {
-      const next = amPage + dir;
-      if (next >= 0 && next < amTotalPages) amGoTo(next);
-    }
-
-    document.getElementById('amPrevBtn').addEventListener('click', () => amSlide(-1));
-    document.getElementById('amNextBtn').addEventListener('click', () => amSlide(1));
-    amGoTo(0);
-
-    // Populate the grid-variant slide (s10grid) by cloning the slider's cards,
-    // keeping content and order identical to #s10.
-    const amGridAll = document.getElementById('amGridAll');
-    if (amGridAll) {
-      document.querySelectorAll('#s10 .am-card').forEach(card => {
-        amGridAll.appendChild(card.cloneNode(true));
-      });
-    }
-
     // --- Amenities Fullscreen Viewer ---
     (function () {
-      const allCards = document.querySelectorAll('#s10 .am-card');
+      const allCards = document.querySelectorAll('#s10grid .am-card');
       const fs = document.getElementById('amFullscreen');
       const fsImg = document.getElementById('amFsImg');
       const fsTitle = document.getElementById('amFsTitle');
@@ -5141,10 +5081,9 @@
         fs.classList.remove('active');
       }
 
-      // Click card → open fullscreen (slider slide #s10 and grid duplicate #s10grid).
-      // Grid cards are clones in the same order, so index % length maps to the right item.
-      document.querySelectorAll('#s10 .am-card, #s10grid .am-card').forEach((card, i) => {
-        card.addEventListener('click', () => openAmFs(i % amData.length));
+      // Click card → open fullscreen popup preview
+      allCards.forEach((card, i) => {
+        card.addEventListener('click', () => openAmFs(i));
       });
 
       // Nav buttons
